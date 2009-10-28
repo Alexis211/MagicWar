@@ -1,0 +1,11 @@
+Procedure for installation :
+1. Type "./configure.sh <place>". If place is not specified, MW will be installed to /opt/magicwar
+2. Run "make"
+3. Run "make install" as root
+
+Notes to developpers :
+- When creating a new code file, remember to put it in po/POTFILES.in
+- When modifying something, remember to do a make updatepo
+
+Notes to translators :
+- Remember to do a make updatemo when finished translating

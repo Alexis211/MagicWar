@@ -1,0 +1,153 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-05-21 13:55+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: server/main.cpp:13
+msgid "Hi, this is MagicWar server"
+msgstr ""
+
+#: game/engine/main.cpp:28
+msgid " *** MagicWar 0.1 alpha ***"
+msgstr ""
+
+#: game/engine/main.cpp:29
+msgid "MagicWar is free software, distributed under GNU GPL."
+msgstr ""
+
+#: game/engine/main.cpp:30
+msgid "MagicWar is written by :"
+msgstr ""
+
+#: game/engine/main.cpp:31
+msgid "  Ideas : Bhan666"
+msgstr ""
+
+#: game/engine/main.cpp:32
+msgid "  Code : Alexis211"
+msgstr ""
+
+#: game/engine/main.cpp:33
+msgid "  Graphics : (nobody)"
+msgstr ""
+
+#: game/engine/main.cpp:34
+msgid "  Translation : (translators, insert your names here)"
+msgstr ""
+
+#: game/engine/main.cpp:37
+msgid "Usage : magicwar [OPTIONS]"
+msgstr ""
+
+#: game/engine/main.cpp:38
+msgid "Options :"
+msgstr ""
+
+#: game/engine/main.cpp:39
+msgid "\t--about\t\tprints various informations about program"
+msgstr ""
+
+#: game/engine/main.cpp:40
+msgid "\t--help\t\tprints this help screen"
+msgstr ""
+
+#: game/engine/main.cpp:41
+msgid "\t--iface2d\tuse 2D interface for game (used for developpement)"
+msgstr ""
+
+#: game/engine/main.cpp:42
+msgid "\t--iface3d\tuse 3D interface for game"
+msgstr ""
+
+#: game/engine/main.cpp:43
+msgid "For more options, try editing configuration file : "
+msgstr ""
+
+#: game/engine/main.cpp:54
+msgid "3D interface disabled, reverting to 2D interface."
+msgstr ""
+
+#: game/engine/Game.cpp:19
+msgid "Nature"
+msgstr ""
+
+#: game/engine/Game.cpp:45
+msgid " enters the game"
+msgstr ""
+
+#: game/engine/Game.cpp:107
+msgid "Loading map "
+msgstr ""
+
+#: game/engine/Game.cpp:112
+msgid "Failed to load map "
+msgstr ""
+
+#: game/iface2d/Interface2D.cpp:31
+msgid "Invalid video mode. Reverting to best supported."
+msgstr ""
+
+#: game/iface2d/Interface2D.cpp:37
+msgid "MagicWar 2D interface main window"
+msgstr ""
+
+#: game/iface2d/Interface2D.cpp:45
+msgid "cannot load font (2D interface)"
+msgstr ""
+
+#: game/iface2d/Interface2D.cpp:51
+msgid "Welcome to MagicWar. This is the crappy 2D interface, used for dev."
+msgstr ""
+
+#: game/iface2d/Interface2D.cpp:92
+msgid ""
+"Hai ! Welcome to MagicWar's main menu.\n"
+"\n"
+"Your choices are :\n"
+"L : Local game\n"
+"N : Network game\n"
+"Q or Escape : exit"
+msgstr ""
+
+#: game/iface2d/Interface2D.cpp:116
+msgid "Bye, and thanks for playing MagicWar."
+msgstr ""
+
+#: game/units/Unit.cpp:21
+msgid "Unit Root Class"
+msgstr ""
+
+#: game/units/Unit.cpp:25
+msgid "The class that is the parent of all the different unit classes"
+msgstr ""
+
+#: game/units/MovingUnit.cpp:18
+msgid "Moving Unit"
+msgstr ""
+
+#: game/units/MovingUnit.cpp:22
+msgid "The class handles path and movement"
+msgstr ""
+
+#: game/units/Programmer.cpp:21
+msgid "Programmer"
+msgstr ""
+
+#: game/units/Programmer.cpp:25
+msgid ""
+"A programmer is stupid and useless. It's only purpose of existence is "
+"testing."
+msgstr ""
