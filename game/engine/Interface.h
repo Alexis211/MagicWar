@@ -28,15 +28,7 @@
 
 #include <string>
 
-#include "types.h"
-#include "../units/Unit.h"
-
-enum IfaceAskingFor {
-	NOTHING,
-	POSITION,
-	UNIT,
-	TEXT
-};
+#include <engine/types.h>
 
 class Interface {
 	public:
@@ -44,15 +36,9 @@ class Interface {
 	//Functions for different parts of the game
 	//These functions are called only once, in main.cpp::main().
 	//No constructor needed
-	virtual void splashScreen() {}	//This function also loads all data (graphics, etc.)
-	virtual void mainMenu() {}
-	virtual void credits() {} //This function also destroys interface windows and other stuff
-
-	//Functions that ask something to the user
-	virtual Point2D askForSomewhere() {}
-	virtual bool setPositionOf(Unit* unit) {}
-	virtual std::string askForString(std::string question) {}
-	virtual Unit* askForUnit() {}
+	virtual void splashScreen() = 0;	//This function also loads all data (graphics, etc.)
+	virtual void mainMenu() = 0;
+	virtual void credits() = 0; //This function also destroys interface windows and other stuff
 };
 
 #endif

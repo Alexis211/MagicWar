@@ -32,6 +32,9 @@ class Point2D {
 	float x, y;
 	Point2D() {}
 	Point2D(float xx, float yy) : x(xx), y(yy) {}
+	bool operator==(const Point2D& other) const {
+		return x == other.x and y == other.y;
+	}
 };
 
 class Point2DInt {
@@ -39,6 +42,9 @@ class Point2DInt {
 	int x, y;
 	Point2DInt() {}
 	Point2DInt(int xx, int yy) : x(xx), y(yy) {}
+	bool operator==(const Point2D& other) const {
+		return x == other.x and y == other.y;
+	}
 };
 
 enum PowerType {
@@ -51,7 +57,7 @@ enum PlayerType {
    	COMPUTER	//AI player on this computer
 };
 
-enum Factions {
+enum Faction {
 	NO_FACTION = 0, FORECASTERS = 1, DRUIDS = 2, PRIESTS = 3, MYSTICALS = 4
 };
 
@@ -60,13 +66,6 @@ enum NetworkStatus {
     CONFIGURATION,  //Game is waiting for local user to configure the client
    	WAITING,		//Game is waiting for other players to configure their clients
 	PLAYING			//Game started
-};
-
-enum UnitType {
-	ABSTRACT,	//For abstract classes
-	MOVING,		//For moving units. Not visible on map when players don't have an unit seeing there
-	STATIC,		//For buildings on trees. Visible on map when map revealed to player
-	OTHER		//Don't use this
 };
 
 enum MoveLayer {

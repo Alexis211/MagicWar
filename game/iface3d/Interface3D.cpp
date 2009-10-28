@@ -39,12 +39,3 @@ void Interface3D::mainMenu() {
 
 void Interface3D::credits() {
 }
-
-Point2D Interface3D::askForSomewhere() {
-}
-
-bool Interface3D::setPositionOf(Unit* unit) {
-}
-
-string Interface3D::askForString(string question) {
-}

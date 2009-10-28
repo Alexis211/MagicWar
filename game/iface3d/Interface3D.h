@@ -35,11 +35,6 @@ class Interface3D : public Interface {
 	void splashScreen();
 	void mainMenu();
 	void credits(); //This function also destroys interface windows and other stuff
-
-	//Functions that ask something to the user
-	Point2D askForSomewhere();
-	bool setPositionOf(Unit* unit);
-	std::string askForString(std::string question);
 };
 
 #endif

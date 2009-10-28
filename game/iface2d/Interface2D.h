@@ -41,22 +41,11 @@ class Interface2D : public Interface {
 	sf::RenderWindow m_app;
 	sf::Font m_font;
 
-	IfaceAskingFor m_askingFor;
-	std::string m_stringAnswer, m_stringQuestion;
-	Point2D m_posAnswer;
-	Unit* m_unitAnswer;
-
 	public:
 	Interface2D(int argc, char *argv[]);	//This function also initializes windows
 	void splashScreen();
 	void mainMenu();
 	void credits(); //This function also destroys interface windows and other stuff
-
-	//Functions that ask something to the user
-	Point2D askForSomewhere();
-	bool setPositionOf(Unit* unit);
-	std::string askForString(std::string question);
-	Unit* askForUnit();
 
 	//All the places of the game
 	void localGame();

@@ -51,9 +51,9 @@ string Config::configFile() const {
 #if defined (linux)
 	string ret(getenv("HOME"));
 	ret += "/.config";
-	mkdir(ret.c_str(), 744);
+	mkdir(ret.c_str(), 777);
 	ret += "/magicwar";
-	mkdir(ret.c_str(), 744);
+	mkdir(ret.c_str(), 777);
 	ret += "/main.conf";
 #elif defined (WIN32)
 	string ret("C:/WINDOWS/magicwar.conf");

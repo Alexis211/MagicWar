@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
 	bindtextdomain(PACKAGE, LOCALEDIR);
 	textdomain(PACKAGE);
 
-	Config* config = Config::getInstance();
+	Config* config = Config::get();
 	config->loadConfig();
 
 	//Look for some intresting command lind arguments

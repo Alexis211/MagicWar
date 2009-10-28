@@ -26,7 +26,7 @@ template <typename T> class CSingleton {
 
 
     public:
-	static T *getInstance() {
+	static T *get() {
 		if(m_Singleton == 0) {
 			m_Singleton = new T;
 		}
