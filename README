@@ -9,3 +9,16 @@ Notes to developpers :
 
 Notes to translators :
 - Remember to do a make updatemo when finished translating
+
+Source code files organisation :
+/data			[ game data ]
+/docs			[ game docs ]
+/game			[ game source code ]
+/game/engine	[ game engine source code : everything common to both interfaces ]
+/game/engine/ressources		[ everything for handling game ressources : unit descriptions, ... ]
+/game/engine/game			[ everything specific to one game : present units, players, ... ]
+/game/iface2d	[ game 2D interface specific code ]
+/game/iface3d	[ game 3D interface specific code ]
+/po				[ translation files ]
+/server			[ network game server source code ]
+/utilities		[ various utilities ]

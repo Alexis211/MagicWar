@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alexis211\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-21 13:55+0200\n"
+"POT-Creation-Date: 2009-10-28 19:14+0100\n"
 "PO-Revision-Date: 2009-05-08 18:36+0200\n"
 "Last-Translator:  <alexis211@gmail.com>\n"
 "Language-Team: French\n"
@@ -17,109 +17,91 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: server/main.cpp:13
+#: server/main.cpp:31
 msgid "Hi, this is MagicWar server"
 msgstr "Salut, c'est le serveur MagicWar qui parle"
 
-#: game/engine/main.cpp:28
+#: game/engine/main.cpp:71
 msgid " *** MagicWar 0.1 alpha ***"
 msgstr " *** MagicWar 0.1 alpha ***"
 
-#: game/engine/main.cpp:29
+#: game/engine/main.cpp:72
 msgid "MagicWar is free software, distributed under GNU GPL."
 msgstr "MagicWar est un logiciel libre, distribué sous license GNU GPL."
 
-#: game/engine/main.cpp:30
+#: game/engine/main.cpp:73
 msgid "MagicWar is written by :"
 msgstr "MagicWar a été écrit par :"
 
-#: game/engine/main.cpp:31
+#: game/engine/main.cpp:74
 msgid "  Ideas : Bhan666"
 msgstr "  Idées : Bhan666"
 
-#: game/engine/main.cpp:32
+#: game/engine/main.cpp:75
 msgid "  Code : Alexis211"
 msgstr "  Code : Alexis211"
 
-#: game/engine/main.cpp:33
+#: game/engine/main.cpp:76
 msgid "  Graphics : (nobody)"
 msgstr "  Graphismes : (personne)"
 
-#: game/engine/main.cpp:34
+#: game/engine/main.cpp:77
 msgid "  Translation : (translators, insert your names here)"
 msgstr "  Traduction : traduction française par Alexis211"
 
-#: game/engine/main.cpp:37
+#: game/engine/main.cpp:80
 msgid "Usage : magicwar [OPTIONS]"
 msgstr "Usage : magicwar [OPTIONS]"
 
-#: game/engine/main.cpp:38
+#: game/engine/main.cpp:81
 msgid "Options :"
 msgstr "Options :"
 
-#: game/engine/main.cpp:39
+#: game/engine/main.cpp:82
 msgid "\t--about\t\tprints various informations about program"
 msgstr "\t--about\t\taffiche diverses informations à propos du programme"
 
-#: game/engine/main.cpp:40
+#: game/engine/main.cpp:83
 msgid "\t--help\t\tprints this help screen"
 msgstr "\t--help\t\taffiche cet écran d'aide"
 
-#: game/engine/main.cpp:41
+#: game/engine/main.cpp:84
 msgid "\t--iface2d\tuse 2D interface for game (used for developpement)"
 msgstr ""
 "\t--iface2d\tutiliser l'interface 2D pour le jeu (utilisé pour le "
 "développement)"
 
-#: game/engine/main.cpp:42
+#: game/engine/main.cpp:85
 msgid "\t--iface3d\tuse 3D interface for game"
 msgstr "\t--iface3d\tutiliser l'interface 3D pour le jeu"
 
-#: game/engine/main.cpp:43
+#: game/engine/main.cpp:86
 msgid "For more options, try editing configuration file : "
 msgstr "Pour plus d'options, essayez d'éditer le fichier de configuration : "
 
-#: game/engine/main.cpp:54
+#: game/engine/main.cpp:97
 msgid "3D interface disabled, reverting to 2D interface."
 msgstr ""
 "L'interface 3D est désactivée, utilisation de l'interface 2D à la place."
 
-#: game/engine/Game.cpp:19
-msgid "Nature"
-msgstr "Mère Nature"
-
-#: game/engine/Game.cpp:45
-msgid " enters the game"
-msgstr " entre dans le jeu"
-
-#: game/engine/Game.cpp:107
-msgid "Loading map "
-msgstr "Chargement de la map "
-
-#: game/engine/Game.cpp:112
-msgid "Failed to load map "
-msgstr "Échec du chargement de la map "
-
-#: game/iface2d/Interface2D.cpp:31
+#: game/iface2d/Interface2D.cpp:59
 msgid "Invalid video mode. Reverting to best supported."
 msgstr ""
 "Mode video incorrect. Utilisation du meilleur mode supporté à la place."
 
-#: game/iface2d/Interface2D.cpp:37
+#: game/iface2d/Interface2D.cpp:65
 msgid "MagicWar 2D interface main window"
 msgstr "Fenêtre principale de l'interface 2D de MagicWar"
 
-#: game/iface2d/Interface2D.cpp:45
+#: game/iface2d/Interface2D.cpp:70
 msgid "cannot load font (2D interface)"
 msgstr "impossible de charger la police d'écriture (interface 2D)"
 
-#: game/iface2d/Interface2D.cpp:51
-msgid "Welcome to MagicWar. This is the crappy 2D interface, used for dev."
+#: game/iface2d/Interface2D.cpp:75
+msgid "Welcome to MagicWar. Game engine is currently loading ressources."
 msgstr ""
-"Bienvenue dans MagicWar. Ceci est l'interface moisie utilisée pour le "
-"développement."
 
-#: game/iface2d/Interface2D.cpp:92
+#: game/iface2d/Interface2D.cpp:110
 msgid ""
 "Hai ! Welcome to MagicWar's main menu.\n"
 "\n"
@@ -135,33 +117,57 @@ msgstr ""
 "N : Jeu en réseau\n"
 "Q ou Échap : quitter"
 
-#: game/iface2d/Interface2D.cpp:116
+#: game/iface2d/Interface2D.cpp:134
 msgid "Bye, and thanks for playing MagicWar."
 msgstr "Ciao, et merci de jour à MagicWar."
 
-#: game/units/Unit.cpp:21
-msgid "Unit Root Class"
-msgstr "Classe Racine Unité"
-
-#: game/units/Unit.cpp:25
-msgid "The class that is the parent of all the different unit classes"
-msgstr "La classe qui est le parent de toutes les classes d'unités différentes"
-
-#: game/units/MovingUnit.cpp:18
-msgid "Moving Unit"
-msgstr "Unité mobile"
-
-#: game/units/MovingUnit.cpp:22
-msgid "The class handles path and movement"
-msgstr "La classe intègre la gestion du chemin et du déplacement"
-
-#: game/units/Programmer.cpp:21
-msgid "Programmer"
-msgstr "Programmeur"
-
-#: game/units/Programmer.cpp:25
-msgid ""
-"A programmer is stupid and useless. It's only purpose of existence is "
-"testing."
+#: data/units/apparition:1
+msgid "Apparition"
 msgstr ""
-"Un programmeur est stupide est inutile. Sa seule raison d'être est le test."
+
+#: data/units/apparition:2
+msgid "Base unit for forecasters."
+msgstr "Unité de base pour les devins."
+
+#~ msgid "APPARITION!!!"
+#~ msgstr "Une apparition"
+
+#~ msgid "Nature"
+#~ msgstr "Mère Nature"
+
+#~ msgid " enters the game"
+#~ msgstr " entre dans le jeu"
+
+#~ msgid "Loading map "
+#~ msgstr "Chargement de la map "
+
+#~ msgid "Failed to load map "
+#~ msgstr "Échec du chargement de la map "
+
+#~ msgid "Welcome to MagicWar. This is the crappy 2D interface, used for dev."
+#~ msgstr ""
+#~ "Bienvenue dans MagicWar. Ceci est l'interface moisie utilisée pour le "
+#~ "développement."
+
+#~ msgid "Unit Root Class"
+#~ msgstr "Classe Racine Unité"
+
+#~ msgid "The class that is the parent of all the different unit classes"
+#~ msgstr ""
+#~ "La classe qui est le parent de toutes les classes d'unités différentes"
+
+#~ msgid "Moving Unit"
+#~ msgstr "Unité mobile"
+
+#~ msgid "The class handles path and movement"
+#~ msgstr "La classe intègre la gestion du chemin et du déplacement"
+
+#~ msgid "Programmer"
+#~ msgstr "Programmeur"
+
+#~ msgid ""
+#~ "A programmer is stupid and useless. It's only purpose of existence is "
+#~ "testing."
+#~ msgstr ""
+#~ "Un programmeur est stupide est inutile. Sa seule raison d'être est le "
+#~ "test."

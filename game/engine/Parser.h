@@ -36,22 +36,24 @@ struct ConfEntry {
 	std::string value;
 };
 
-class Config : public CSingleton<Config> {
-	friend class CSingleton<Config>;
-
+class Parser {
 	private:
-	Config();
-	~Config();
-
 	std::vector<ConfEntry> m_entries;
-	bool m_configLoaded;
+
+	std::string m_section;
 
 	ConfEntry& findValue(std::string name);
 
 	public:
-	void loadConfig();
-	bool saveConfig();
-	std::string configFile() const;
+	Parser();
+	~Parser();
+
+	static Parser gameCfg;
+
+	void loadFromFile(std::string filename);
+	bool saveToFile(std::string filename);
+
+	void setSection(std::string name = "");
 
 	int getValueInt(std::string name, int defaultval = 0);
 	float getValueFloat(std::string name, float defaultval = 0);

@@ -46,46 +46,39 @@ sf::Color playerColor[9] =
 		sf::Color(0, 0, 0)};
 
 Interface2D::Interface2D(int argc, char *argv[]) {
-	m_config = Config::get();
-	m_askingFor = NOTHING;
 }
 
 //********************************************************************************************
 //***********************		SPLASH/CREDITS SCREENS && MAIN MENU    ****
 
 void Interface2D::splashScreen() {
-	sf::VideoMode mode(m_config->getValueInt("ScreenWidth", 640),
-	   	m_config->getValueInt("ScreenHeight", 480),
-	   	m_config->getValueInt("ScreenBPP", 32));
+	sf::VideoMode mode(Parser::gameCfg.getValueInt("ScreenWidth", 640),
+	   	Parser::gameCfg.getValueInt("ScreenHeight", 480),
+	   	Parser::gameCfg.getValueInt("ScreenBPP", 32));
 	if (!mode.IsValid()) {
 		cerr << _("Invalid video mode. Reverting to best supported.") << endl;
 		mode = sf::VideoMode::GetMode(0);
-		m_config->setValueInt("ScreenWidth", mode.Width);
-		m_config->setValueInt("ScreenHeight", mode.Height);
-		m_config->setValueInt("ScreenBPP", mode.BitsPerPixel);
+		Parser::gameCfg.setValueInt("ScreenWidth", mode.Width);
+		Parser::gameCfg.setValueInt("ScreenHeight", mode.Height);
+		Parser::gameCfg.setValueInt("ScreenBPP", mode.BitsPerPixel);
 	}
 	m_app.Create(mode, _("MagicWar 2D interface main window"),
-		(m_config->getValueBool("FullScreen", false) ? sf::Style::Fullscreen : sf::Style::Close));
-	m_app.UseVerticalSync(m_config->getValueBool("UseVerticalSync", true));
-
-	sf::Clock clock;
-	clock.Reset();
+		(Parser::gameCfg.getValueBool("FullScreen", false) ? sf::Style::Fullscreen : sf::Style::Close));
+	m_app.UseVerticalSync(Parser::gameCfg.getValueBool("UseVerticalSync", true));
 
 	if (!m_font.LoadFromFile(string(DATAPATH) + "/arial.ttf")) {
 		throw Exception(_("cannot load font (2D interface)"), CRITICAL);
 	}
 
-	while (clock.GetElapsedTime() < 1) {		//Show splash screen for 3 seconds
-		m_app.Clear(sf::Color(0,0,0));
+	m_app.Clear(sf::Color(0,0,0));
 		
-		sf::String text(U_("Welcome to MagicWar. This is the crappy 2D interface, used for dev."), m_font, 16);
+	sf::String text(U_("Welcome to MagicWar. Game engine is currently loading ressources."), m_font, 16);
 
-		text.SetColor(sf::Color(255,255,255));
-		text.Move((m_config->getValueInt("ScreenWidth") / 2) - (text.GetRect().GetWidth() / 2), 100);
-		m_app.Draw(text);
+	text.SetColor(sf::Color(255,255,255));
+	text.Move((Parser::gameCfg.getValueInt("ScreenWidth") / 2) - (text.GetRect().GetWidth() / 2), 100);
+	m_app.Draw(text);
 
-		m_app.Display();
-	}
+	m_app.Display();
 }
 
 void Interface2D::mainMenu() {
@@ -117,7 +110,7 @@ void Interface2D::mainMenu() {
 		sf::String text(U_("Hai ! Welcome to MagicWar's main menu.\n\nYour choices are :\nL : Local game\nN : Network game\nQ or Escape : exit"), m_font, 16);
 
 		text.SetColor(sf::Color(255,255,255));
-		text.Move((m_config->getValueInt("ScreenWidth") / 2) - (text.GetRect().GetWidth() / 2), 100);
+		text.Move((Parser::gameCfg.getValueInt("ScreenWidth") / 2) - (text.GetRect().GetWidth() / 2), 100);
 		m_app.Draw(text);
 
 		m_app.Display();
@@ -141,7 +134,7 @@ void Interface2D::credits() {
 		sf::String text(U_("Bye, and thanks for playing MagicWar."), m_font, 16);
 
 		text.SetColor(sf::Color(255,255,255));
-		text.Move((m_config->getValueInt("ScreenWidth") / 2) - (text.GetRect().GetWidth() / 2), 100);
+		text.Move((Parser::gameCfg.getValueInt("ScreenWidth") / 2) - (text.GetRect().GetWidth() / 2), 100);
 		m_app.Draw(text);
 
 		m_app.Display();
@@ -160,7 +153,7 @@ void Interface2D::networkGame() {
 }
 
 //************************************************************************************
-//*****************************************		GAME MAIN ROUTINES
+//*****************************************		GAME MAIN ROUTINE
 
 void Interface2D::gameMain() {
 

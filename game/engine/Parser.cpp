@@ -24,52 +24,36 @@
  *  	Config is the class that manages game configuration.
  *  	*/
 
-#if defined (linux)
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <cstdlib>
-#elif defined (WIN32)
-#include <direct.h>
-#endif
+
 #include <fstream>
 #include <sstream>
 
-#include "Config.h"
+#include "Parser.h"
+#include "Exception.h"
 
 using namespace std;
 
-Config::Config() {
-	m_configLoaded = false;
+Parser Parser::gameCfg;
+
+Parser::Parser() {
 }
 
-Config::~Config() {
+Parser::~Parser() {
 	//Nothing
 }
 
-string Config::configFile() const {
-	//TO BE ADAPTED ALSO FOR MAC, AND MODIFIED FOR WINDOWS
-#if defined (linux)
-	string ret(getenv("HOME"));
-	ret += "/.config";
-	mkdir(ret.c_str(), 777);
-	ret += "/magicwar";
-	mkdir(ret.c_str(), 777);
-	ret += "/main.conf";
-#elif defined (WIN32)
-	string ret("C:/WINDOWS/magicwar.conf");
-#endif
-	return ret;
-}
-
-void Config::loadConfig() {
+void Parser::loadFromFile(string filename) {
 	m_entries.clear();
-	string filename = configFile();
+	setSection();
 
 	ifstream file(filename.c_str(), ios::in);
 	if (file) {
 		string line;
 		while (getline(file, line)) {
+			if (line == "" or line[0] == '#') continue;
+			if (line[0] == '@') setSection(line.substr(1));
 			ConfEntry temp;
+			temp.name = m_section + ".";
 			bool isvalue = false;
 			for (int i = 0; i < line.length(); i++) {
 				if (!isvalue) {
@@ -85,17 +69,21 @@ void Config::loadConfig() {
 			m_entries.push_back(temp);
 		}
 		file.close();
+	} else {
+		throw Exception(_("Cannot read from file ") + filename, ERROR);
 	}
-	m_configLoaded = true;
 }
 
-bool Config::saveConfig() {
-	string filename = configFile();
-
+bool Parser::saveToFile(string filename) {
+	setSection();
 	ofstream file(filename.c_str(), ios::out);
 	if (file) {
 		for (unsigned int i = 0; i < m_entries.size(); i++) {
-			file << m_entries[i].name << "=" << m_entries[i].value << endl;
+			/*
+			 * if we are not in the root entry, then just skip entry, since we don't need sections in the main
+			 * configuration file, which is the only one we will be using saveToFile for.
+			 */
+			if (m_entries[i].name[0] == '.') file << m_entries[i].name.substr(1) << "=" << m_entries[i].value << endl;
 		}
 
 		file.close();
@@ -105,10 +93,13 @@ bool Config::saveConfig() {
 	}
 }
 
-ConfEntry& Config::findValue(string name) {
-	if (!m_configLoaded) loadConfig();
+void Parser::setSection(string name) {
+	m_section = name;
+}
+
+ConfEntry& Parser::findValue(string name) {
 	for (unsigned int i = 0; i < m_entries.size(); i++) {
-		if (m_entries[i].name == name) {
+		if (m_entries[i].name == m_section + "." + name) {
 			return m_entries[i];
 		}
 	}
@@ -119,7 +110,7 @@ ConfEntry& Config::findValue(string name) {
 	return m_entries.back();
 }
 
-int Config::getValueInt(string name, int defaultval) {
+int Parser::getValueInt(string name, int defaultval) {
 	ConfEntry& e = findValue(name);
 	if (e.value == "#UNSET#") setValueInt(name, defaultval);
 
@@ -129,7 +120,7 @@ int Config::getValueInt(string name, int defaultval) {
 	return ret;
 }
 
-float Config::getValueFloat(string name, float defaultval) {
+float Parser::getValueFloat(string name, float defaultval) {
 	ConfEntry& e = findValue(name);
 	if (e.value == "#UNSET#") setValueFloat(name, defaultval);
 
@@ -139,40 +130,43 @@ float Config::getValueFloat(string name, float defaultval) {
 	return ret;
 }
 
-bool Config::getValueBool(string name, bool defaultval) {
+bool Parser::getValueBool(string name, bool defaultval) {
 	ConfEntry& e = findValue(name);
 	if (e.value == "#UNSET#") setValueBool(name, defaultval);
 
 	return (e.value == "True");
 }
 
-string Config::getValueString(string name, string defaultval) {
+string Parser::getValueString(string name, string defaultval) {
 	ConfEntry& e = findValue(name);
 	if (e.value == "#UNSET#") e.value = defaultval;
+	if (e.value.substr(0, 3) == "_(\"" and e.value.substr(e.value.length() - 2, 2) == "\")") {
+		e.value = _(e.value.substr(3, e.value.length() - 5).c_str());
+	}
 
 	return e.value;
 }
 
-void Config::setValueInt(string name, int value) {
+void Parser::setValueInt(string name, int value) {
 	ConfEntry& e = findValue(name);
 	stringstream v;
 	v << value;
 	e.value = v.str();
 }
 
-void Config::setValueFloat(string name, float value) {
+void Parser::setValueFloat(string name, float value) {
 	ConfEntry& e = findValue(name);
 	stringstream v;
 	v << value;
 	e.value = v.str();
 }
 
-void Config::setValueBool(string name, bool value) {
+void Parser::setValueBool(string name, bool value) {
 	ConfEntry& e = findValue(name);
 	e.value = (value ? "True" : "False");
 }
 
-void Config::setValueString(string name, string value) {
+void Parser::setValueString(string name, string value) {
 	ConfEntry& e = findValue(name);
 	e.value = value;
 }

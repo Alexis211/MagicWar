@@ -1,0 +1,13 @@
+name=_("Apparition")
+description=_("Base unit for forecasters.")
+costgold=10
+costwood=20
+power=10
+maxlife=100
+attackspeed=0.5
+defense=2
+movingspeed=0.5
+radius=0.3
+layer=2
+canfetchgold=10
+canfetchwood=10

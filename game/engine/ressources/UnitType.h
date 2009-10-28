@@ -14,41 +14,33 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- */ 
+ */
 
 /*	MagicWar 0.1 alpha
  *	by Alexis211
  *  ----------------------------
- *  	Interface2D.h
- *  	Header file for Interface2D class
- *  	This class is the one managing 2D interface
+ *  	UnitType.h
+ *  	Header file for unit type class
  *  	*/
-#ifndef DEF_MW_IFACE2D_CLASS
-#define DEF_MW_IFACE2D_CLASS
+#ifndef DEF_MW_UNITTYPE
+#define DEF_MW_UNITTYPE
 
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
+#include <map>
+#include <string>
+#include "Amelioration.h"
 
-#include <engine/Exception.h>
-#include <engine/Interface.h>
-#include <engine/Parser.h>
+struct UnitType {
+	std::string m_name;
+	std::string m_description;
+	std::vector<UnitType*> m_canBuild;
+	std::vector<UnitType*> m_canProduce;
+	unit_c m_characteristics;
+	std::map<std::string, Amelioration> m_ameliorations;
 
-class Interface2D : public Interface {
-	private:
-	sf::RenderWindow m_app;
-	sf::Font m_font;
-
-	public:
-	Interface2D(int argc, char *argv[]);
-	void splashScreen();
-	void mainMenu();
-	void credits(); //This function also destroys interface windows and other stuff
-
-	//All the places of the game
-	void localGame();
-	void networkGame();
-	void gameMain();
+	void load(std::string identifier);
+	
+	static std::map<std::string, UnitType> unitTypes;
+	static void loadUnitTypes();
 };
 
 #endif

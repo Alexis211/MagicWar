@@ -14,41 +14,34 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- */ 
+ */
 
 /*	MagicWar 0.1 alpha
  *	by Alexis211
  *  ----------------------------
- *  	Interface2D.h
- *  	Header file for Interface2D class
- *  	This class is the one managing 2D interface
+ *  	Amelioration.h
+ *  	Header file for amelioration class
  *  	*/
-#ifndef DEF_MW_IFACE2D_CLASS
-#define DEF_MW_IFACE2D_CLASS
+#ifndef DEF_MW_AMELIORATION
+#define DEF_MW_AMELIORATION
 
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-
-#include <engine/Exception.h>
-#include <engine/Interface.h>
 #include <engine/Parser.h>
+#include <engine/characteristics.h>
+#include <string>
+#include <vector>
+#include <map>
 
-class Interface2D : public Interface {
-	private:
-	sf::RenderWindow m_app;
-	sf::Font m_font;
+class UnitType;
 
-	public:
-	Interface2D(int argc, char *argv[]);
-	void splashScreen();
-	void mainMenu();
-	void credits(); //This function also destroys interface windows and other stuff
+struct Amelioration {
+	std::string m_name;
+	std::string m_description;
+	std::vector<UnitType*> m_canBuild;
+	std::vector<UnitType*> m_canProduce;
+	std::vector<Amelioration*> m_requires;
+	unit_c m_characteristics;
 
-	//All the places of the game
-	void localGame();
-	void networkGame();
-	void gameMain();
+	void load(Parser& parser, std::map<std::string, Amelioration> other_ameliorations);
 };
 
 #endif

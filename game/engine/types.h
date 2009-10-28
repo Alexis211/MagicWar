@@ -48,7 +48,7 @@ class Point2DInt {
 };
 
 enum PowerType {
-	PHYSIC, FIRE, ICE, STORM
+	PHYSIC = 0, FIRE = 1, ICE = 2, STORM =3
 };
 
 enum PlayerType {
@@ -69,10 +69,10 @@ enum NetworkStatus {
 };
 
 enum MoveLayer {
-	NO_MOVE_LAYER,		//Unit doesn't move
-	WATER,
-	GROUND,
-	AIR
+	NO_MOVE_LAYER = 0,		//Unit doesn't move
+	WATER = 1,
+	GROUND = 2,
+	AIR = 3
 };
 
 struct MapSquare {

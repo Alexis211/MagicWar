@@ -22,13 +22,38 @@
 
 #include "../../config.h"
 
-#include "Config.h"
+#include "Parser.h"
+
+#if defined (linux)
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <cstdlib>
+#elif defined (WIN32)
+#include <direct.h>
+#endif
 
 #include "Interface.h"
 #include "../iface2d/Interface2D.h"
 #include "../iface3d/Interface3D.h"
 
+#include "ressources/UnitType.h"
+
 using namespace std;
+
+string gameCfgFile() {
+	//TO BE ADAPTED ALSO FOR MAC, AND MODIFIED FOR WINDOWS
+#if defined (linux)
+	string ret(getenv("HOME"));
+	ret += "/.config";
+	mkdir(ret.c_str(), 777);
+	ret += "/magicwar";
+	mkdir(ret.c_str(), 777);
+	ret += "/main.conf";
+#elif defined (WIN32)
+	string ret("C:/WINDOWS/magicwar.conf");
+#endif
+	return ret;
+}
 
 int main(int argc, char *argv[]) {
 	//Set up gettext
@@ -36,11 +61,10 @@ int main(int argc, char *argv[]) {
 	bindtextdomain(PACKAGE, LOCALEDIR);
 	textdomain(PACKAGE);
 
-	Config* config = Config::get();
-	config->loadConfig();
+	Parser::gameCfg.loadFromFile(gameCfgFile());
 
 	//Look for some intresting command lind arguments
-	bool useiface3d = config->getValueBool("Use3DInterface", true);
+	bool useiface3d = Parser::gameCfg.getValueBool("Use3DInterface", true);
 	for (int i = 1; i < argc; i++) {
 		string arg(argv[i]);
 		if (arg == "--about") {
@@ -59,7 +83,7 @@ int main(int argc, char *argv[]) {
 			cout << _("	--help		prints this help screen") << endl;
 			cout << _("	--iface2d	use 2D interface for game (used for developpement)") << endl;
 			cout << _("	--iface3d	use 3D interface for game") << endl << endl;
-			cout << _("For more options, try editing configuration file : ") << config->configFile() << endl;
+			cout << _("For more options, try editing configuration file : ") << gameCfgFile() << endl;
 			return 0;
 		} else if (arg == "--iface2d") {
 			useiface3d = false;
@@ -74,7 +98,7 @@ int main(int argc, char *argv[]) {
 		useiface3d = false;
 	}
 
-	config->setValueBool("Use3DInterface", useiface3d);
+	Parser::gameCfg.setValueBool("Use3DInterface", useiface3d);
 
 	Interface* interface;
 
@@ -86,6 +110,7 @@ int main(int argc, char *argv[]) {
 
 	try {
 		interface->splashScreen();
+		UnitType::loadUnitTypes();
 		interface->mainMenu();
 		interface->credits();
 	} catch(const exception& except) {
@@ -94,8 +119,7 @@ int main(int argc, char *argv[]) {
 
 	delete interface;
 
-	config->saveConfig();
-	Config::kill();
+	Parser::gameCfg.saveToFile(gameCfgFile());
 
 	return 0;
 }
