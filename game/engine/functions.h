@@ -15,4 +15,6 @@ std::string Float2Str(float f);
 float Str2Float(std::string s);
 int Str2Int(std::string s);
 
+float deg2rad(float angle);
+
 #endif

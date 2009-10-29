@@ -52,9 +52,11 @@ struct maxlife_c {
 struct power_c {
 	int value;
 	float speed;	//attacks per second
+	float range;	//distance where it can attack (0 = hand to hand)
 	PowerType type;
 	void load(Parser& p) {
 		value = p.getValueInt("power", 0);
+		range = p.getValueInt("attackrange", 0);
 		speed = p.getValueFloat("attackspeed", 0);
 		type = (PowerType)p.getValueInt("attacktype", PHYSIC);
 	}
@@ -75,22 +77,34 @@ struct defense_c {
 struct mobility_c {
 	float speed;  //in square units per second
 	float radius; //in square units
+	float sight;
 	MoveLayer layer;
 	void load(Parser& p) {
 		speed = p.getValueFloat("movingspeed", 0);
 		radius = p.getValueFloat("radius", 0);
+		sight = p.getValueFloat("sight", 0);
 		layer = (MoveLayer)p.getValueInt("layer", NO_MOVE_LAYER);
+	}
+};
+
+struct space_c {
+	int provided;
+	int occupied;
+	void load(Parser& p) {
+		provided = p.getValueInt("spaceprovided", 0);
+		occupied = p.getValueInt("spaceoccupied", 0);
 	}
 };
 
 struct unit_c {
 	cost_c cost;
-	cost_c provides;	//in [gold|wood units] per second if unit is owned by a player, or in % of max harvester capability if unit is being harvested by a player's unit
+	cost_c provides;	//in [gold|wood units] per second if unit is owned by a player, or in maximum [gold|wood units] to be harvested if a player's unit harvests it (meaning the unit belongs to player 0, nature).
 	power_c power;
 	defense_c defense;
 	maxlife_c maxlife;
 	cost_c canFetch;	//in [gold|wood units] per 10 seconds
 	mobility_c mobility;
+	space_c space;
 	void load(Parser& p) {
 		cost.load(p, "cost");
 		provides.load(p, "provides");
@@ -99,6 +113,7 @@ struct unit_c {
 		maxlife.load(p);
 		canFetch.load(p, "canfetch");
 		mobility.load(p);
+		space.load(p);
 	}
 };	
 

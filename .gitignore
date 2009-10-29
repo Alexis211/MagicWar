@@ -1,0 +1,5 @@
+*.swp
+*.o
+game/magicwar
+server/magicwar-server
+data/locale/*/*/*

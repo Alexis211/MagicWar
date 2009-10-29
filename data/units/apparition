@@ -11,3 +11,5 @@ radius=0.3
 layer=2
 canfetchgold=10
 canfetchwood=10
+spaceoccupied=1
+canbuild=ritualcircle

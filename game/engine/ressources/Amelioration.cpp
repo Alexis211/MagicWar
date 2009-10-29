@@ -60,7 +60,7 @@ void Amelioration::load(Parser& p, map<string, Amelioration> other_ameliorations
 	}
 
 	{
-		string temp = p.getValueString("activeameliorations", ""), wat = "";
+		string temp = p.getValueString("requires", ""), wat = "";
 		for (int i = 0; i < temp.length(); i++) {
 			if (temp[i] == ' ') {
 				if (wat != "") m_requires.push_back(&other_ameliorations[wat]);

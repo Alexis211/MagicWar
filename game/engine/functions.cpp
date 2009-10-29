@@ -46,3 +46,7 @@ float Str2Float(std::string s) {
 int Str2Int(std::string s) {
 	return atoi(s.c_str());
 }
+
+float deg2rad(float angle) {
+	return angle * 3.1415 / 180;
+}
