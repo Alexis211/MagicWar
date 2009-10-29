@@ -14,34 +14,41 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- */ 
+ */
 
 /*	MagicWar 0.1 alpha
  *	by Alexis211
  *  ----------------------------
- *  	CLInterface.h
- *  	Header file for command line interface class
+ *  	Game.h
+ *  	Header file for game class
  *  	*/
-#ifndef DEF_MW_CLIFACE_CLASS
-#define DEF_MW_CLIFACE_CLASS
+#ifndef DEF_MW_GAME
+#define DEF_MW_GAME
 
-#include "../engine/Interface.h"
+#include "Player.h"
+#include "Unit.h"
+#include <vector>
 
-#include <engine/game/Game.h>
-
-class CLInterface : public Interface {
-	public:
-	CLInterface(int argc, char *argv[]);
-
-	void splashScreen();
-	void mainMenu();
-	void credits(); //This function also destroys interface windows and other stuff
+class Game {
+	friend class Unit;
 
 	private:
-	void localGame();
-	void networkGame();
+	cost_c m_initialRessources;
+	std::vector<Player> m_players;
+	std::vector<Unit> m_units;
 
-	void gameMain(Game& g);
+	void addUnit(UnitType* type, Player* player, Position pos);
+
+	public:
+	Game() : m_players(), m_initialRessources({gold: 100, wood: 100}) {}
+	~Game() {}
+
+	void setInitialRessources(cost_c res);
+	void addPlayer(Faction faction, std::string name, PlayerType type);	
+	void setupPlayers();
+
+	const std::vector<Player>& players() { return m_players; }
+	std::vector<Unit>& units() { return m_units; }
 };
 
 #endif

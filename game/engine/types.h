@@ -83,6 +83,10 @@ struct MapSquare {
 	bool walkable;
 };
 
+struct Position {
+	float x, y, angle;
+};
+
 struct Message {
 	int time;
 	std::string msg;

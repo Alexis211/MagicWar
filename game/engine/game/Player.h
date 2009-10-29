@@ -14,34 +14,36 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- */ 
+ */
 
 /*	MagicWar 0.1 alpha
  *	by Alexis211
  *  ----------------------------
- *  	CLInterface.h
- *  	Header file for command line interface class
+ *  	Player.h
+ *  	Header file for player class
  *  	*/
-#ifndef DEF_MW_CLIFACE_CLASS
-#define DEF_MW_CLIFACE_CLASS
+#ifndef DEF_MW_PLAYER
+#define DEF_MW_PLAYER
 
-#include "../engine/Interface.h"
+#include <string>
+#include <engine/characteristics.h>
 
-#include <engine/game/Game.h>
-
-class CLInterface : public Interface {
-	public:
-	CLInterface(int argc, char *argv[]);
-
-	void splashScreen();
-	void mainMenu();
-	void credits(); //This function also destroys interface windows and other stuff
+class Player {
+	friend class Game;
 
 	private:
-	void localGame();
-	void networkGame();
+	Player(int id, Faction faction, std::string name, cost_c res, PlayerType type);
 
-	void gameMain(Game& g);
+	int m_id;
+	Faction m_faction;
+	std::string m_name;
+	space_c m_space;
+	cost_c m_ressources;
+	PlayerType m_type;
+
+	public:
+	std::string name() const { return m_name; }
 };
 
 #endif
+

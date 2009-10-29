@@ -19,29 +19,19 @@
 /*	MagicWar 0.1 alpha
  *	by Alexis211
  *  ----------------------------
- *  	CLInterface.h
- *  	Header file for command line interface class
+ *  	CLInterface.cpp
+ *  	Code for command line interface, main game loop
  *  	*/
-#ifndef DEF_MW_CLIFACE_CLASS
-#define DEF_MW_CLIFACE_CLASS
 
-#include "../engine/Interface.h"
+#include "CLInterface.h"
+#include <iostream>
 
-#include <engine/game/Game.h>
+using namespace std;
 
-class CLInterface : public Interface {
-	public:
-	CLInterface(int argc, char *argv[]);
-
-	void splashScreen();
-	void mainMenu();
-	void credits(); //This function also destroys interface windows and other stuff
-
-	private:
-	void localGame();
-	void networkGame();
-
-	void gameMain(Game& g);
-};
-
-#endif
+void CLInterface::gameMain(Game& g) {
+	for (int i = 0; i < g.units().size(); i++) {
+		cout << i << ". " << g.units()[i].player().name() << "'s " << g.units()[i].type().m_name << " " <<
+			"(" << g.units()[i].pos().x << "," << g.units()[i].pos().y << ") " <<
+			g.units()[i].life() << "/" << g.units()[i].characts().maxlife.value << endl;
+	}
+}

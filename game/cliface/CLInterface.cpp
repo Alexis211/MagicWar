@@ -38,7 +38,62 @@ void CLInterface::splashScreen() {
 }
 
 void CLInterface::mainMenu() {
+	while (1) {
+		cout << _("MagicWar main menu :") << endl
+			<< _("0. Quit") << endl
+			<< _("1. Local game") << endl
+			<< _("2. Network game") << endl
+			<< _("Your choice : ");
+		int choice;
+		cin >> choice;
+		if (choice == 0) break;
+		if (choice == 1) localGame();
+		if (choice == 2) networkGame();
+	}
 }
 
 void CLInterface::credits() {
+	cout << _("KTHXBYE!") << endl
+		<< _("MagicWar was created by the people listed in the --about screen.") << endl;
+}
+
+/*******************
+ * 			GAME CONFIGURATION SCREENS
+ *			 					************************/
+
+void CLInterface::localGame() {
+	Game g;
+
+	int nbplayers;
+	cout << _("How many players do you want ? (0 = exit) ");
+	cin >> nbplayers;
+	if (nbplayers == 0) return;
+
+	cost_c initres;
+	cout << _("Initial gold for each player : ");
+	cin >> initres.gold;
+	cout << _("Initial wood for each player : ");
+	cin >> initres.wood;
+	g.setInitialRessources(initres);
+
+	for (int i = 0; i < nbplayers; i++) {
+		cout << _("*** Configuration for player ") << i << endl;
+		if (i == 0) cout << _("This player will be you!") << endl;
+		cout << _("Enter player name : ");
+		string name;
+		cin >> name;
+		cout << _("Enter player faction : ");
+		int f;
+		cin >> f;
+		if (f < 0 or f > 4) f = 0;
+		g.addPlayer((Faction)f, name, (i == 0 ? HUMAN : COMPUTER));
+	}
+
+	cout << _("Ok, starting game !") << endl;
+	g.setupPlayers();
+	gameMain(g);
+}
+
+void CLInterface::networkGame() {
+	cout << _("Not implemented yet.") << endl;
 }

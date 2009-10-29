@@ -22,12 +22,12 @@
 
 #include "Parser.h"
 
-#if defined (linux)
+#ifdef WIN32
+#include <direct.h>
+#else
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <cstdlib>
-#elif defined (WIN32)
-#include <direct.h>
 #endif
 
 #include "Interface.h"
@@ -41,15 +41,15 @@ using namespace std;
 
 string gameCfgFile() {
 	//TO BE ADAPTED ALSO FOR MAC, AND MODIFIED FOR WINDOWS
-#if defined (linux)
+#ifdef WIN32
+	string ret("C:/WINDOWS/magicwar.conf");
+#else
 	string ret(getenv("HOME"));
 	ret += "/.config";
 	mkdir(ret.c_str(), 0777);
 	ret += "/magicwar";
 	mkdir(ret.c_str(), 0777);
 	ret += "/main.conf";
-#elif defined (WIN32)
-	string ret("C:/WINDOWS/magicwar.conf");
 #endif
 	return ret;
 }
@@ -62,7 +62,7 @@ int main(int argc, char *argv[]) {
 
 	try {
 		Parser::gameCfg.loadFromFile(gameCfgFile());
-	} catch (Exception& e) {
+	} catch (const Exception& e) {
 		//Nothing bad happend, the file just didn't exist. We can use default values
 		cout << _("Configuration file does not exist, using default configuration values.") << endl;
 	}

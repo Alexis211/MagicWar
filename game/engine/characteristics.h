@@ -38,6 +38,9 @@ struct cost_c {
 		gold = p.getValueInt(prefix + "gold", 0);
 		wood = p.getValueInt(prefix + "wood", 0);
 	}	
+	void operator+= (const cost_c& other) {
+		gold += other.gold, wood += other.wood;
+	}
 };
 
 struct maxlife_c {
@@ -46,6 +49,10 @@ struct maxlife_c {
 	void load(Parser& p) {
 		value = p.getValueInt("maxlife", 0);
 		autoheals = p.getValueInt("autoheals", 0);
+	}
+	void operator+= (const maxlife_c& other) {
+		value += other.value;
+		autoheals += other.autoheals;
 	}
 };
 
@@ -60,6 +67,9 @@ struct power_c {
 		speed = p.getValueFloat("attackspeed", 0);
 		type = (PowerType)p.getValueInt("attacktype", PHYSIC);
 	}
+	void operator+= (const power_c& other) {
+		value += other.value, speed += other.speed, range += other.range;
+	}
 };
 
 struct defense_c {
@@ -71,6 +81,10 @@ struct defense_c {
 		fire = p.getValueInt("defensefire", 0);
 		ice = p.getValueInt("defenseice", 0);
 		storm = p.getValueInt("defensestorm", 0);
+	}
+	void operator+= (const defense_c& other) {
+		main += other.main;
+		physic += other.physic, fire += other.fire, ice += other.ice, storm += other.storm;
 	}
 };
 
@@ -85,6 +99,11 @@ struct mobility_c {
 		sight = p.getValueFloat("sight", 0);
 		layer = (MoveLayer)p.getValueInt("layer", NO_MOVE_LAYER);
 	}
+	void operator+= (const mobility_c& other) {
+		speed += other.speed;
+		radius += other.radius;
+		sight += other.sight;
+	}
 };
 
 struct space_c {
@@ -94,11 +113,15 @@ struct space_c {
 		provided = p.getValueInt("spaceprovided", 0);
 		occupied = p.getValueInt("spaceoccupied", 0);
 	}
+	void operator+= (const space_c& other) {
+		provided += other.provided;
+		occupied += other.occupied;
+	}
 };
 
 struct unit_c {
 	cost_c cost;
-	cost_c provides;	//in [gold|wood units] per second if unit is owned by a player, or in maximum [gold|wood units] to be harvested if a player's unit harvests it (meaning the unit belongs to player 0, nature).
+	cost_c provides;	//in [gold|wood units] per second if unit is owned by a player, or in maximum [gold|wood units] to be harvested/mined if a player's unit harvests/mines it (meaning the unit belongs to player 0, nature).
 	power_c power;
 	defense_c defense;
 	maxlife_c maxlife;
@@ -114,6 +137,16 @@ struct unit_c {
 		canFetch.load(p, "canfetch");
 		mobility.load(p);
 		space.load(p);
+	}
+	unit_c& operator+= (const unit_c& other) {
+		cost += other.cost;
+		provides += other.provides;
+		power += other.power;
+		defense += other.defense;
+		maxlife += other.maxlife;
+		canFetch += other.canFetch;
+		mobility += other.mobility;
+		space += other.space;
 	}
 };	
 

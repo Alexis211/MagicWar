@@ -14,34 +14,46 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- */ 
+ */
 
 /*	MagicWar 0.1 alpha
  *	by Alexis211
  *  ----------------------------
- *  	CLInterface.h
- *  	Header file for command line interface class
+ *  	Unit.h
+ *  	Header file for unit class
  *  	*/
-#ifndef DEF_MW_CLIFACE_CLASS
-#define DEF_MW_CLIFACE_CLASS
+#ifndef DEF_MW_UNIT
+#define DEF_MW_UNIT
 
-#include "../engine/Interface.h"
+#include <engine/ressources/UnitType.h>
+#include "Player.h"
 
-#include <engine/game/Game.h>
-
-class CLInterface : public Interface {
-	public:
-	CLInterface(int argc, char *argv[]);
-
-	void splashScreen();
-	void mainMenu();
-	void credits(); //This function also destroys interface windows and other stuff
+class Unit {
+	friend class Game;
 
 	private:
-	void localGame();
-	void networkGame();
+	UnitType* m_type;
 
-	void gameMain(Game& g);
+	unit_c m_characteristics;
+	std::vector<UnitType*> m_canBuild;
+	std::vector<UnitType*> m_canProduce;
+	std::vector<Amelioration*> m_possibleAmeliorations;
+
+	Player* m_player;
+	int m_life;
+	std::vector<Amelioration*> m_ameliorations;
+	Position m_pos;
+	
+
+	Unit(UnitType* type, Position pos, Player* player);
+	
+	public:
+	void recalculateCharacteristics();
+	const unit_c& characts() const { return m_characteristics; }
+	const UnitType& type() const { return *m_type; }
+	Player& player() const { return *m_player; }
+	int life() const { return m_life; }
+	Position pos() const { return m_pos; }
 };
 
 #endif

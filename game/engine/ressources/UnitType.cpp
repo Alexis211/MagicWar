@@ -56,7 +56,11 @@ void UnitType::load(string idfier) {
 	string datafile = DATAPATH;
 	datafile += "/units/" + idfier;
 	Parser p;
-	p.loadFromFile(datafile);
+	try {
+		p.loadFromFile(datafile);
+	} catch (const Exception& e) {
+		throw Exception(string(_("Cannot load data for unit ")) + idfier);
+	}
 
 	m_name = p.getValueString("name", "NONAMED UNIT");
 	m_description = p.getValueString("description", "NODESCRIPTED UNIT");
