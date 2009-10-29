@@ -6,4 +6,7 @@ game/iface2d/Interface2D.cpp
 
 game/iface3d/Interface3D.cpp
 
+game/cliface/CLInterface.cpp
+
 data/units/apparition
+data/units/ritualcircle

@@ -104,7 +104,7 @@ ConfEntry& Parser::findValue(string name) {
 		}
 	}
 	ConfEntry temp;
-	temp.name = name;
+	temp.name = m_section + "." + name;
 	temp.value = "#UNSET#";
 	m_entries.push_back(temp);
 	return m_entries.back();

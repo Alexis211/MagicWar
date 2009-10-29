@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-28 19:14+0100\n"
+"POT-Creation-Date: 2009-10-29 13:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,64 +20,73 @@ msgstr ""
 msgid "Hi, this is MagicWar server"
 msgstr ""
 
-#: game/engine/main.cpp:71
-msgid " *** MagicWar 0.1 alpha ***"
-msgstr ""
-
-#: game/engine/main.cpp:72
-msgid "MagicWar is free software, distributed under GNU GPL."
-msgstr ""
-
-#: game/engine/main.cpp:73
-msgid "MagicWar is written by :"
-msgstr ""
-
-#: game/engine/main.cpp:74
-msgid "  Ideas : Bhan666"
+#: game/engine/main.cpp:67
+msgid "Configuration file does not exist, using default configuration values."
 msgstr ""
 
 #: game/engine/main.cpp:75
-msgid "  Code : Alexis211"
+msgid " *** MagicWar 0.1 alpha ***"
 msgstr ""
 
 #: game/engine/main.cpp:76
-msgid "  Graphics : (nobody)"
+msgid "MagicWar is free software, distributed under GNU GPL."
 msgstr ""
 
 #: game/engine/main.cpp:77
-msgid "  Translation : (translators, insert your names here)"
+msgid "MagicWar is written by :"
+msgstr ""
+
+#: game/engine/main.cpp:78
+msgid "  Ideas : Bhan666"
+msgstr ""
+
+#: game/engine/main.cpp:79
+msgid "  Code : Alexis211"
 msgstr ""
 
 #: game/engine/main.cpp:80
-msgid "Usage : magicwar [OPTIONS]"
+msgid "  Graphics : (nobody)"
 msgstr ""
 
 #: game/engine/main.cpp:81
-msgid "Options :"
-msgstr ""
-
-#: game/engine/main.cpp:82
-msgid "\t--about\t\tprints various informations about program"
-msgstr ""
-
-#: game/engine/main.cpp:83
-msgid "\t--help\t\tprints this help screen"
+msgid "  Translation : (translators, insert your names here)"
 msgstr ""
 
 #: game/engine/main.cpp:84
-msgid "\t--iface2d\tuse 2D interface for game (used for developpement)"
+msgid "Usage : magicwar [OPTIONS]"
 msgstr ""
 
 #: game/engine/main.cpp:85
-msgid "\t--iface3d\tuse 3D interface for game"
+msgid "Options :"
 msgstr ""
 
 #: game/engine/main.cpp:86
+msgid "\t--about\t\tprints various informations about program"
+msgstr ""
+
+#: game/engine/main.cpp:87
+msgid "\t--help\t\tprints this help screen"
+msgstr ""
+
+#: game/engine/main.cpp:88
+msgid ""
+" --cliface\tuse command line interface for game (used for developpement)"
+msgstr ""
+
+#: game/engine/main.cpp:89
+msgid "\t--iface2d\tuse 2D interface for game (used for developpement)"
+msgstr ""
+
+#: game/engine/main.cpp:90
+msgid "\t--iface3d\tuse 3D interface for game"
+msgstr ""
+
+#: game/engine/main.cpp:91
 msgid "For more options, try editing configuration file : "
 msgstr ""
 
-#: game/engine/main.cpp:97
-msgid "3D interface disabled, reverting to 2D interface."
+#: game/engine/main.cpp:104
+msgid "3D interface disabled, reverting to CL interface."
 msgstr ""
 
 #: game/iface2d/Interface2D.cpp:59
@@ -110,10 +119,32 @@ msgstr ""
 msgid "Bye, and thanks for playing MagicWar."
 msgstr ""
 
+#: game/cliface/CLInterface.cpp:35
+msgid "////////////    WELCOME TO MAGICWAR !!!    ////////////"
+msgstr ""
+
+#: game/cliface/CLInterface.cpp:36
+msgid ""
+"This command line interface is a debugging and testing tool, don't use it "
+"seriously to play."
+msgstr ""
+
+#: game/cliface/CLInterface.cpp:37
+msgid ">> Game is loading data. <<"
+msgstr ""
+
 #: data/units/apparition:1
 msgid "Apparition"
 msgstr ""
 
 #: data/units/apparition:2
 msgid "Base unit for forecasters."
+msgstr ""
+
+#: data/units/ritualcircle:1
+msgid "Ritual Circle"
+msgstr ""
+
+#: data/units/ritualcircle:2
+msgid "Base meeting place for forecasters."
 msgstr ""

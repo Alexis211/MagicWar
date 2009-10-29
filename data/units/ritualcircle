@@ -1,5 +1,5 @@
 name=_("Ritual Circle")
-description=_("Base meting place for forecasters.")
+description=_("Base meeting place for forecasters.")
 costgold=150
 costwood=200
 maxlife=500

@@ -22,3 +22,8 @@ Source code files organisation :
 /po				[ translation files ]
 /server			[ network game server source code ]
 /utilities		[ various utilities ]
+
+Required libraries :
+- gettext, for translations
+- SFML, for graphics
+- devIL, for loading images (this will probably not be required in future versions)

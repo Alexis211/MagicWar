@@ -8,7 +8,7 @@ all: $(Objects)
 	make -C server
 
 updatepo:
-	xgettext -f po/POTFILES.in -k_ -kU_ -o po/en.pot
+	xgettext -f po/POTFILES.in -k_ -kU_ -o po/en.pot -C
 	for lang in $(languages); do \
 		msgmerge po/$$lang.po po/en.pot -o po/$$lang.po; \
 	done
@@ -18,6 +18,11 @@ updatemo:
 		mkdir -p data/locale/$$lang/LC_MESSAGES; \
 		msgfmt po/$$lang.po -o data/locale/$$lang/LC_MESSAGES/magicwar.mo; \
 	done
+
+commit: mrproper
+	git add .
+	git commit -a
+	git push origin
 
 rebuild: mrproper all
 

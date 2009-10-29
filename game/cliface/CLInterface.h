@@ -19,28 +19,21 @@
 /*	MagicWar 0.1 alpha
  *	by Alexis211
  *  ----------------------------
- *  	Interface.h
- *  	Header file for abstract class Interface
- *  	This is the class that manages interaction with the user.
+ *  	CLInterface.h
+ *  	Header file for command line interface class
  *  	*/
-#ifndef DEF_MW_CLASS_INTERFACE
-#define DEF_MW_CLASS_INTERFACE
+#ifndef DEF_MW_CLIFACE_CLASS
+#define DEF_MW_CLIFACE_CLASS
 
-#include "../../config.h"
+#include "../engine/Interface.h"
 
-#include <string>
-
-#include <engine/types.h>
-
-class Interface {
+class CLInterface : public Interface {
 	public:
-	
-	//Functions for different parts of the game
-	//These functions are called only once, in main.cpp::main().
-	//No constructor needed
-	virtual void splashScreen() = 0;	//This function also loads all data (graphics, etc.)
-	virtual void mainMenu() = 0;
-	virtual void credits() = 0; //This function also destroys interface windows and other stuff
+	CLInterface(int argc, char *argv[]);
+
+	void splashScreen();
+	void mainMenu();
+	void credits(); //This function also destroys interface windows and other stuff
 };
 
 #endif

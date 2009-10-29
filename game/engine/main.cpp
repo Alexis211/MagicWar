@@ -20,8 +20,6 @@
 #include <string>
 #include <iostream>
 
-#include "../../config.h"
-
 #include "Parser.h"
 
 #if defined (linux)
@@ -35,6 +33,7 @@
 #include "Interface.h"
 #include "../iface2d/Interface2D.h"
 #include "../iface3d/Interface3D.h"
+#include "../cliface/CLInterface.h"
 
 #include "ressources/UnitType.h"
 
@@ -45,9 +44,9 @@ string gameCfgFile() {
 #if defined (linux)
 	string ret(getenv("HOME"));
 	ret += "/.config";
-	mkdir(ret.c_str(), 777);
+	mkdir(ret.c_str(), 0777);
 	ret += "/magicwar";
-	mkdir(ret.c_str(), 777);
+	mkdir(ret.c_str(), 0777);
 	ret += "/main.conf";
 #elif defined (WIN32)
 	string ret("C:/WINDOWS/magicwar.conf");
@@ -61,10 +60,15 @@ int main(int argc, char *argv[]) {
 	bindtextdomain(PACKAGE, LOCALEDIR);
 	textdomain(PACKAGE);
 
-	Parser::gameCfg.loadFromFile(gameCfgFile());
+	try {
+		Parser::gameCfg.loadFromFile(gameCfgFile());
+	} catch (Exception& e) {
+		//Nothing bad happend, the file just didn't exist. We can use default values
+		cout << _("Configuration file does not exist, using default configuration values.") << endl;
+	}
 
 	//Look for some intresting command lind arguments
-	bool useiface3d = Parser::gameCfg.getValueBool("Use3DInterface", true);
+	string whichinterface = Parser::gameCfg.getValueString("Interface", "cli");
 	for (int i = 1; i < argc; i++) {
 		string arg(argv[i]);
 		if (arg == "--about") {
@@ -81,31 +85,37 @@ int main(int argc, char *argv[]) {
 			cout << _("Options :") << endl;
 			cout << _("	--about		prints various informations about program") << endl;
 			cout << _("	--help		prints this help screen") << endl;
+			cout << _(" --cliface	use command line interface for game (used for developpement)") << endl;
 			cout << _("	--iface2d	use 2D interface for game (used for developpement)") << endl;
 			cout << _("	--iface3d	use 3D interface for game") << endl << endl;
 			cout << _("For more options, try editing configuration file : ") << gameCfgFile() << endl;
 			return 0;
+		} else if (arg == "--cliface") {
+			whichinterface = "cli";
 		} else if (arg == "--iface2d") {
-			useiface3d = false;
+			whichinterface = "2d";
 		} else if (arg == "--iface3d") {
-			useiface3d = true;
+			whichinterface = "3d";
 		}
 	}
 
 	//Because we are in a developpment phase, disable iface3d
-	if (useiface3d) {
-		cerr << _("3D interface disabled, reverting to 2D interface.") << endl;
-		useiface3d = false;
+	if (whichinterface == "3d") {
+		cerr << _("3D interface disabled, reverting to CL interface.") << endl;
+		whichinterface = "cli";
 	}
 
-	Parser::gameCfg.setValueBool("Use3DInterface", useiface3d);
+	Parser::gameCfg.setValueString("Interface", whichinterface);
 
 	Interface* interface;
 
-	if (useiface3d) {
-		interface = new Interface3D(argc, argv);
-	} else {
+	if (whichinterface == "cli") {
+		interface = new CLInterface(argc, argv);
+	} else if (whichinterface == "2d") {
 		interface = new Interface2D(argc, argv);
+	} else {
+		Parser::gameCfg.setValueString("Interface", "cli");
+		interface = new CLInterface(argc, argv);
 	}
 
 	try {

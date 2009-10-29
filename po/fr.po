@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alexis211\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-28 19:14+0100\n"
+"POT-Creation-Date: 2009-10-29 13:52+0100\n"
 "PO-Revision-Date: 2009-05-08 18:36+0200\n"
 "Last-Translator:  <alexis211@gmail.com>\n"
 "Language-Team: French\n"
@@ -21,68 +21,78 @@ msgstr ""
 msgid "Hi, this is MagicWar server"
 msgstr "Salut, c'est le serveur MagicWar qui parle"
 
-#: game/engine/main.cpp:71
+#: game/engine/main.cpp:67
+msgid "Configuration file does not exist, using default configuration values."
+msgstr ""
+
+#: game/engine/main.cpp:75
 msgid " *** MagicWar 0.1 alpha ***"
 msgstr " *** MagicWar 0.1 alpha ***"
 
-#: game/engine/main.cpp:72
+#: game/engine/main.cpp:76
 msgid "MagicWar is free software, distributed under GNU GPL."
 msgstr "MagicWar est un logiciel libre, distribué sous license GNU GPL."
 
-#: game/engine/main.cpp:73
+#: game/engine/main.cpp:77
 msgid "MagicWar is written by :"
 msgstr "MagicWar a été écrit par :"
 
-#: game/engine/main.cpp:74
+#: game/engine/main.cpp:78
 msgid "  Ideas : Bhan666"
 msgstr "  Idées : Bhan666"
 
-#: game/engine/main.cpp:75
+#: game/engine/main.cpp:79
 msgid "  Code : Alexis211"
 msgstr "  Code : Alexis211"
 
-#: game/engine/main.cpp:76
+#: game/engine/main.cpp:80
 msgid "  Graphics : (nobody)"
 msgstr "  Graphismes : (personne)"
 
-#: game/engine/main.cpp:77
+#: game/engine/main.cpp:81
 msgid "  Translation : (translators, insert your names here)"
 msgstr "  Traduction : traduction française par Alexis211"
 
-#: game/engine/main.cpp:80
+#: game/engine/main.cpp:84
 msgid "Usage : magicwar [OPTIONS]"
 msgstr "Usage : magicwar [OPTIONS]"
 
-#: game/engine/main.cpp:81
+#: game/engine/main.cpp:85
 msgid "Options :"
 msgstr "Options :"
 
-#: game/engine/main.cpp:82
+#: game/engine/main.cpp:86
 msgid "\t--about\t\tprints various informations about program"
 msgstr "\t--about\t\taffiche diverses informations à propos du programme"
 
-#: game/engine/main.cpp:83
+#: game/engine/main.cpp:87
 msgid "\t--help\t\tprints this help screen"
 msgstr "\t--help\t\taffiche cet écran d'aide"
 
-#: game/engine/main.cpp:84
+#: game/engine/main.cpp:88
+msgid ""
+" --cliface\tuse command line interface for game (used for developpement)"
+msgstr ""
+"\t--cliface\tutiliser l'interface en ligne de commande (utilisé pour le développement)"
+
+#: game/engine/main.cpp:89
 msgid "\t--iface2d\tuse 2D interface for game (used for developpement)"
 msgstr ""
 "\t--iface2d\tutiliser l'interface 2D pour le jeu (utilisé pour le "
 "développement)"
 
-#: game/engine/main.cpp:85
+#: game/engine/main.cpp:90
 msgid "\t--iface3d\tuse 3D interface for game"
 msgstr "\t--iface3d\tutiliser l'interface 3D pour le jeu"
 
-#: game/engine/main.cpp:86
+#: game/engine/main.cpp:91
 msgid "For more options, try editing configuration file : "
 msgstr "Pour plus d'options, essayez d'éditer le fichier de configuration : "
 
-#: game/engine/main.cpp:97
-msgid "3D interface disabled, reverting to 2D interface."
+#: game/engine/main.cpp:104
+msgid "3D interface disabled, reverting to CL interface."
 msgstr ""
-"L'interface 3D est désactivée, utilisation de l'interface 2D à la place."
+"L'interface 3D est désactivée, utilisation de l'interface en ligne de commande à la place."
 
 #: game/iface2d/Interface2D.cpp:59
 msgid "Invalid video mode. Reverting to best supported."
@@ -100,6 +110,8 @@ msgstr "impossible de charger la police d'écriture (interface 2D)"
 #: game/iface2d/Interface2D.cpp:75
 msgid "Welcome to MagicWar. Game engine is currently loading ressources."
 msgstr ""
+"Bienvenu sur MagicWar. Le moteur est en train de charger les ressources du "
+"jeu."
 
 #: game/iface2d/Interface2D.cpp:110
 msgid ""
@@ -121,13 +133,35 @@ msgstr ""
 msgid "Bye, and thanks for playing MagicWar."
 msgstr "Ciao, et merci de jour à MagicWar."
 
+#: game/cliface/CLInterface.cpp:35
+msgid "////////////    WELCOME TO MAGICWAR !!!    ////////////"
+msgstr ""
+
+#: game/cliface/CLInterface.cpp:36
+msgid ""
+"This command line interface is a debugging and testing tool, don't use it "
+"seriously to play."
+msgstr ""
+
+#: game/cliface/CLInterface.cpp:37
+msgid ">> Game is loading data. <<"
+msgstr ""
+
 #: data/units/apparition:1
 msgid "Apparition"
-msgstr ""
+msgstr "Apparition"
 
 #: data/units/apparition:2
 msgid "Base unit for forecasters."
 msgstr "Unité de base pour les devins."
+
+#: data/units/ritualcircle:1
+msgid "Ritual Circle"
+msgstr "Cercle de rituel"
+
+#: data/units/ritualcircle:2
+msgid "Base meeting place for forecasters."
+msgstr "Lieu de rencontre de base des devins"
 
 #~ msgid "APPARITION!!!"
 #~ msgstr "Une apparition"
