@@ -28,6 +28,17 @@
 
 using namespace std;
 
+Game::Game()
+	: m_thread(*this), m_players(), m_units(), m_initialRessources({100, 100}) {
+	m_status = CONFIGURATION;
+	m_thread.Launch();
+}
+
+Game::~Game() {
+	m_status = FINISHED;
+	m_thread.Wait();
+}
+
 void Game::setInitialRessources(cost_c res) {
 	if (m_players.empty()) m_initialRessources = res;	//Only do that if no player is already registered
 }
@@ -50,6 +61,7 @@ void Game::setupPlayers() {
 			}
 		}
 	}
+	m_status = STARTED;
 }
 
 void Game::addUnit(UnitType* type, Player* player, Position pos) {

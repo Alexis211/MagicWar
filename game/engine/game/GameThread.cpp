@@ -19,41 +19,23 @@
 /*	MagicWar 0.1 alpha
  *	by Alexis211
  *  ----------------------------
- *  	Game.h
- *  	Header file for game class
+ *  	GameThread.cpp
+ *  	Source code file for game thread
+ *  	The game thread is the thread that handles what happens in the game : units attacking eachother, building, ...
  *  	*/
-#ifndef DEF_MW_GAME
-#define DEF_MW_GAME
 
-#include "Player.h"
-#include "Unit.h"
-#include <engine/types.h>
-#include <vector>
 #include "GameThread.h"
+#include "Game.h"
 
-class Game {
-	friend class Unit;
-	friend class GameThread;
+const float interval = 0.02;	//Minimum time between two loops
 
-	private:
-	cost_c m_initialRessources;
-	std::vector<Player> m_players;
-	std::vector<Unit> m_units;
-	GameThread m_thread;
-	GameStatus m_status;
-
-	void addUnit(UnitType* type, Player* player, Position pos);
-
-	public:
-	Game();
-	~Game();
-
-	void setInitialRessources(cost_c res);
-	void addPlayer(Faction *faction, std::string name, PlayerType type);	
-	void setupPlayers();
-
-	const std::vector<Player>& players() { return m_players; }
-	std::vector<Unit>& units() { return m_units; }
-};
-
-#endif
+void GameThread::Run() {
+	sf::Clock c;
+	while (g.m_status != FINISHED) {
+		c.Reset();
+		if (g.m_status == STARTED) {
+		}
+		float e = c.GetElapsedTime();
+		if (e < interval) sf::Sleep(interval - e);
+	}
+}

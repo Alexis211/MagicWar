@@ -57,11 +57,11 @@ enum PlayerType {
    	COMPUTER	//AI player on this computer
 };
 
-enum NetworkStatus {
-	NONETWORK,	//Game is not a network game
-    CONFIGURATION,  //Game is waiting for local user to configure the client
-   	WAITING,		//Game is waiting for other players to configure their clients
-	PLAYING			//Game started
+enum GameStatus {
+	CONFIGURATION,		//Waiting for user to enter game configuration
+	STARTED,
+	PAUSED,
+	FINISHED
 };
 
 enum MoveLayer {
