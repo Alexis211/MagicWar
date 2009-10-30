@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-30 19:30+0100\n"
+"POT-Creation-Date: 2009-10-30 22:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,7 +36,7 @@ msgstr ""
 msgid "Welcome to MagicWar. Game engine is currently loading ressources."
 msgstr ""
 
-#: game/iface2d/Interface2D.cpp:110
+#: game/iface2d/Interface2D.cpp:112
 msgid ""
 "Hai ! Welcome to MagicWar's main menu.\n"
 "\n"
@@ -46,7 +46,7 @@ msgid ""
 "Q or Escape : exit"
 msgstr ""
 
-#: game/iface2d/Interface2D.cpp:134
+#: game/iface2d/Interface2D.cpp:136
 msgid "Bye, and thanks for playing MagicWar."
 msgstr ""
 
@@ -132,117 +132,161 @@ msgstr ""
 msgid "Not implemented yet."
 msgstr ""
 
-#: game/cliface/CLInterface-main.cpp:44
+#: game/cliface/CLInterface-main.cpp:35
+msgid "PLAYING AS "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:36
+msgid "super user"
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:48
 msgid "* You have : "
 msgstr ""
 
-#: game/cliface/CLInterface-main.cpp:44
+#: game/cliface/CLInterface-main.cpp:48
 msgid " units of gold, "
 msgstr ""
 
-#: game/cliface/CLInterface-main.cpp:44
+#: game/cliface/CLInterface-main.cpp:48
 msgid " units of wood"
 msgstr ""
 
-#: game/cliface/CLInterface-main.cpp:46
-msgid "* Money (gold,wood) : "
-msgstr ""
-
-#: game/cliface/CLInterface-main.cpp:52
-msgid ":0 Refresh"
-msgstr ""
-
-#: game/cliface/CLInterface-main.cpp:53
-msgid ":1 Exit"
-msgstr ""
-
-#: game/cliface/CLInterface-main.cpp:54
-msgid ":2 Make a unit do nothing"
-msgstr ""
-
-#: game/cliface/CLInterface-main.cpp:55
-msgid ":3 Make a unit attack another unit"
+#: game/cliface/CLInterface-main.cpp:50
+msgid "* Ressources (gold,wood) : "
 msgstr ""
 
 #: game/cliface/CLInterface-main.cpp:56
-msgid ":4 Make a unit heal/repair/build another unit"
+msgid ":0 Refresh"
 msgstr ""
 
 #: game/cliface/CLInterface-main.cpp:57
-msgid ":5 Make a unit mine another unit"
+msgid ":1 Exit"
 msgstr ""
 
 #: game/cliface/CLInterface-main.cpp:58
-msgid ":6 Make a unit harvest another unit"
+msgid ":2 Make a unit do nothing"
 msgstr ""
 
 #: game/cliface/CLInterface-main.cpp:59
-msgid ":7 Make a unit ameliorate"
+msgid ":3 Make a unit attack another unit"
 msgstr ""
 
 #: game/cliface/CLInterface-main.cpp:60
-msgid ":8 Make a unit build something"
+msgid ":4 Make a unit heal/repair/build another unit"
 msgstr ""
 
 #: game/cliface/CLInterface-main.cpp:61
+msgid ":5 Make a unit mine another unit"
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:62
+msgid ":6 Make a unit harvest another unit"
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:63
+msgid ":7 Make a unit ameliorate"
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:64
+msgid ":8 Make a unit build something"
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:65
 msgid ":9 Make a unit produce something"
 msgstr ""
 
-#: game/cliface/CLInterface-main.cpp:67
+#: game/cliface/CLInterface-main.cpp:66
+msgid "Votre choix : "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:71
 msgid "Enter unit number : "
 msgstr ""
 
-#: game/cliface/CLInterface-main.cpp:73
+#: game/cliface/CLInterface-main.cpp:75
+msgid "does nothing"
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:79
 msgid "Enter attacker number : "
 msgstr ""
 
-#: game/cliface/CLInterface-main.cpp:77
+#: game/cliface/CLInterface-main.cpp:83
 msgid "Enter attacked unit number : "
 msgstr ""
 
-#: game/cliface/CLInterface-main.cpp:83
+#: game/cliface/CLInterface-main.cpp:87
+msgid "attacks "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:92
 msgid "Enter healer number : "
 msgstr ""
 
-#: game/cliface/CLInterface-main.cpp:87
+#: game/cliface/CLInterface-main.cpp:96
 msgid "Enter healed unit number : "
 msgstr ""
 
-#: game/cliface/CLInterface-main.cpp:93
+#: game/cliface/CLInterface-main.cpp:100
+msgid "heals "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:105
 msgid "Enter miner number : "
 msgstr ""
 
-#: game/cliface/CLInterface-main.cpp:97
+#: game/cliface/CLInterface-main.cpp:109
 msgid "Enter mined unit number : "
 msgstr ""
 
-#: game/cliface/CLInterface-main.cpp:103
+#: game/cliface/CLInterface-main.cpp:113
+msgid "mines gold on "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:118
 msgid "Enter harvester number : "
 msgstr ""
 
-#: game/cliface/CLInterface-main.cpp:107
+#: game/cliface/CLInterface-main.cpp:122
 msgid "Enter harvested unit number : "
 msgstr ""
 
-#: game/cliface/CLInterface-main.cpp:113
+#: game/cliface/CLInterface-main.cpp:126
+msgid "harvests wood on "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:131
 msgid "Enter ameliorated unit number : "
 msgstr ""
 
-#: game/cliface/CLInterface-main.cpp:116 game/cliface/CLInterface-main.cpp:132
-#: game/cliface/CLInterface-main.cpp:151
+#: game/cliface/CLInterface-main.cpp:134 game/cliface/CLInterface-main.cpp:151
+#: game/cliface/CLInterface-main.cpp:172
 msgid ":0 Cancel"
 msgstr ""
 
-#: game/cliface/CLInterface-main.cpp:129
-msgid "Enter builder unit number : "
-msgstr ""
-
-#: game/cliface/CLInterface-main.cpp:142 game/cliface/CLInterface-main.cpp:160
-msgid "Not enough money."
+#: game/cliface/CLInterface-main.cpp:142
+msgid "ameliorates with "
 msgstr ""
 
 #: game/cliface/CLInterface-main.cpp:148
+msgid "Enter builder unit number : "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:161 game/cliface/CLInterface-main.cpp:181
+msgid "Not enough money/space."
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:163
+msgid "builds "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:169
 msgid "Enter producer unit number : "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:184
+msgid "produces "
 msgstr ""
 
 #: game/engine/main.cpp:67
