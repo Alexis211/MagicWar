@@ -101,6 +101,8 @@ void Interface2D::mainMenu() {
 					case sf::Key::Q:
 						running = false;
 						break;
+					default:
+						break;
 				}
 			}
 		}

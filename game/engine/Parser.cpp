@@ -55,7 +55,7 @@ void Parser::loadFromFile(string filename) {
 			ConfEntry temp;
 			temp.name = m_section + ".";
 			bool isvalue = false;
-			for (int i = 0; i < line.length(); i++) {
+			for (uint i = 0; i < line.length(); i++) {
 				if (!isvalue) {
 					if (line[i] == '=') {
 						isvalue = true;

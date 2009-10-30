@@ -30,12 +30,12 @@ using namespace std;
 
 void CLInterface::gameMain(Game& g, Player* p) {
 	while (1) {
-		for (int i = 0; i < g.units().size(); i++) {
+		for (unsigned int i = 0; i < g.units().size(); i++) {
 			cout << i << ". " << g.units()[i].player()->name() << "'s " << g.units()[i].type().m_name << " " <<
 				"(" << g.units()[i].pos().x << "," << g.units()[i].pos().y << ") " <<
 				g.units()[i].life() << "/" << g.units()[i].characts().maxlife.value << " P:" << 
 				g.units()[i].characts().power.value;
-			for (int j = 0; j < g.units()[i].gotA().size(); j++) {
+			for (unsigned int j = 0; j < g.units()[i].gotA().size(); j++) {
 				cout << " " << g.units()[i].gotA()[j]->m_name;
 			}
 			cout << endl;
@@ -44,7 +44,7 @@ void CLInterface::gameMain(Game& g, Player* p) {
 		   	cout << _("* You have : ") << p->res().gold << _(" units of gold, ") << p->res().wood << _(" units of wood") << endl;
 		} else {
 			cout << _("* Money (gold,wood) : ");
-			for (int i = 0; i < g.players().size(); i++) {
+			for (unsigned int i = 0; i < g.players().size(); i++) {
 				cout << g.players()[i].name() << "(" << g.players()[i].res().gold << "," << g.players()[i].res().wood << ") ";
 			}
 			cout << endl;
@@ -60,7 +60,7 @@ void CLInterface::gameMain(Game& g, Player* p) {
 		cout << _(":8 Make a unit build something") << endl;
 		cout << _(":9 Make a unit produce something") << endl;
 		cout << endl;
-		int c, n;
+		unsigned int c, n;
 		cin >> c;
 		if (c == 1) break;
 		if (c == 2) {
@@ -73,7 +73,7 @@ void CLInterface::gameMain(Game& g, Player* p) {
 			cout << _("Enter attacker number : ");
 			cin >> n;
 			if (n >= 0 and n < g.units().size() and (g.units()[n].player() == p or p == 0)) {
-				int o;
+				unsigned int o;
 				cout << _("Enter attacked unit number : ");
 				cin >> o;
 				if (o >= 0 and o < g.units().size()) g.units()[n].attack(&g.units()[o]);
@@ -83,7 +83,7 @@ void CLInterface::gameMain(Game& g, Player* p) {
 			cout << _("Enter healer number : ");
 			cin >> n;
 			if (n >= 0 and n < g.units().size() and (g.units()[n].player() == p or p == 0)) {
-				int o;
+				unsigned int o;
 				cout << _("Enter healed unit number : ");
 				cin >> o;
 				if (o >= 0 and o < g.units().size()) g.units()[n].heal(&g.units()[o]);
@@ -93,7 +93,7 @@ void CLInterface::gameMain(Game& g, Player* p) {
 			cout << _("Enter miner number : ");
 			cin >> n;
 			if (n >= 0 and n < g.units().size() and (g.units()[n].player() == p or p == 0)) {
-				int o;
+				unsigned int o;
 				cout << _("Enter mined unit number : ");
 				cin >> o;
 				if (o >= 0 and o < g.units().size()) g.units()[n].mine(&g.units()[o]);
@@ -103,7 +103,7 @@ void CLInterface::gameMain(Game& g, Player* p) {
 			cout << _("Enter harvester number : ");
 			cin >> n;
 			if (n >= 0 and n < g.units().size() and (g.units()[n].player() == p or p == 0)) {
-				int o;
+				unsigned int o;
 				cout << _("Enter harvested unit number : ");
 				cin >> o;
 				if (o >= 0 and o < g.units().size()) g.units()[n].harvest(&g.units()[o]);
@@ -114,11 +114,11 @@ void CLInterface::gameMain(Game& g, Player* p) {
 			cin >> n;
 			if (n >= 0 and n < g.units().size() and (g.units()[n].player() == p or p == 0)) {
 				cout << _(":0 Cancel") << endl;
-				for (int i = 0; i < g.units()[n].possibleA().size(); i++) {
+				for (unsigned int i = 0; i < g.units()[n].possibleA().size(); i++) {
 					cout << ":" << (i + 1) << " " << g.units()[n].possibleA()[i]->m_name << " : " 
 						<< g.units()[n].possibleA()[i]->m_description << endl;
 				}
-				int o;
+				unsigned int o;
 				cin >> o;
 				if (o > 0 and o <= g.units()[n].possibleA().size()) {
 					g.units()[n].ameliorate(g.units()[n].possibleA()[o - 1]);
@@ -130,11 +130,11 @@ void CLInterface::gameMain(Game& g, Player* p) {
 			cin >> n;
 			if (n >= 0 and n < g.units().size() and (g.units()[n].player() == p or p == 0)) {
 				cout << _(":0 Cancel") << endl;
-				for (int i = 0; i < g.units()[n].canBuild().size(); i++) {
+				for (unsigned int i = 0; i < g.units()[n].canBuild().size(); i++) {
 					cout << ":" << (i + 1) << " " << g.units()[n].canBuild()[i]->m_name << " : " 
 						<< g.units()[n].canBuild()[i]->m_description << endl;
 				}
-				int o;
+				unsigned int o;
 				cin >> o;
 				if (o > 0 and o <= g.units()[n].canBuild().size()) {
 					if (!g.units()[n].build(g, g.units()[n].canBuild()[o - 1],
@@ -149,11 +149,11 @@ void CLInterface::gameMain(Game& g, Player* p) {
 			cin >> n;
 			if (n >= 0 and n < g.units().size() and (g.units()[n].player() == p or p == 0)) {
 				cout << _(":0 Cancel") << endl;
-				for (int i = 0; i < g.units()[n].canProduce().size(); i++) {
+				for (unsigned int i = 0; i < g.units()[n].canProduce().size(); i++) {
 					cout << ":" << (i + 1) << " " << g.units()[n].canProduce()[i]->m_name << " : " 
 						<< g.units()[n].canProduce()[i]->m_description << endl;
 				}
-				int o;
+				unsigned int o;
 				cin >> o;
 				if (o > 0 and o <= g.units()[n].canProduce().size()) {
 					if (!g.units()[n].produce(g, g.units()[n].canProduce()[o - 1])) {

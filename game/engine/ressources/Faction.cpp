@@ -51,7 +51,7 @@ void Faction::loadFactions() {
 		temp.m_description = p.getValueString("description", _("Faction that has no description"));
 		temp.m_startsWith.clear();
 		vector<string> units = SplitStr(p.getValueString("startswith", ""));
-		for (int j = 0; j < units.size(); j++) temp.m_startsWith.push_back(&UnitType::unitTypes[units[j]]);
+		for (uint j = 0; j < units.size(); j++) temp.m_startsWith.push_back(&UnitType::unitTypes[units[j]]);
 		factions.push_back(temp);
 	}
 }

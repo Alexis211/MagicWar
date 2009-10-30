@@ -35,7 +35,7 @@ void GameThread::Run() {
 	while (g.m_status != FINISHED) {
 		c.Reset();
 		if (g.m_status == STARTED) {
-			for (int i = 0; i < g.units().size(); i++) {
+			for (uint i = 0; i < g.units().size(); i++) {
 				g.units()[i].doAction(e);
 			}
 		}

@@ -30,6 +30,8 @@
 #include <engine/Exception.h>
 
 // GLOBAL TYPES
+typedef unsigned int uint;
+
 class Point2D {
 	public:
 	float x, y;

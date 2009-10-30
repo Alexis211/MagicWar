@@ -2,7 +2,10 @@
 
 CC = gcc
 CPPC = g++
-CFLAGS = -g -I . -std=c++0x
+CFLAGS = -g -I . -std=c++0x -Wall
+LD = gcc
+LDFLAGS = -lstdc++ -lGL -lGLU -lXxf86vm -lsfml-system -lsfml-window -lsfml-graphics
+
 OutFile = magicwar
 Objects = engine/main.o engine/Parser.o engine/functions.o iface2d/Interface2D.o iface3d/Interface3D.o \
 		  engine/ressources/UnitType.o engine/ressources/Amelioration.o engine/ressources/Faction.o \
@@ -10,7 +13,7 @@ Objects = engine/main.o engine/Parser.o engine/functions.o iface2d/Interface2D.o
           cliface/CLInterface.o cliface/CLInterface-main.o
 
 all: $(Objects)
-	$(CC) $^ -o $(OutFile) -lGL -lGLU -lXxf86vm -lsfml-system -lsfml-window -lsfml-graphics
+	$(LD) $^ -o $(OutFile) $(LDFLAGS)
 
 rebuild: mrproper all
 

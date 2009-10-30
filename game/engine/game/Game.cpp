@@ -30,7 +30,7 @@
 using namespace std;
 
 Game::Game()
-	: m_thread(*this), m_players(), m_units(), m_initialRessources({100, 100}) {
+	: m_initialRessources({100, 100}), m_players(), m_units(), m_thread(*this) {
 	m_status = CONFIGURATION;
 	m_players.push_back(Player(0, &Faction::factions[0], _("Nature"), {0, 0}, NETWORK)); 
 	m_thread.Launch();
@@ -54,10 +54,10 @@ void Game::setupPlayers() {
 	addUnit(&UnitType::unitTypes["tree1"], &m_players[0], {10, 10, 0});
 	addUnit(&UnitType::unitTypes["mine1"], &m_players[0], {10, 13, 0});
 	Position p = {2, 2, 0};
-	for (int i = 0; i < m_players.size(); i++) {
+	for (uint i = 0; i < m_players.size(); i++) {
 		if (m_players[i].m_type != NETWORK) {
 			vector<UnitType*>& sw = m_players[i].m_faction->m_startsWith;
-			for (int j = 0; j < sw.size(); j++) {
+			for (uint j = 0; j < sw.size(); j++) {
 				addUnit(sw[j], &m_players[i], p); 
 				m_units.back().m_life = m_units.back().characts().maxlife.value;
 				m_units.back().m_usable = true;

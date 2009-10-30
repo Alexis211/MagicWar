@@ -72,17 +72,17 @@ void UnitType::load(string idfier) {
 
 	{
 		vector<string> cb = SplitStr(p.getValueString("canbuild", ""));
-		for (int i = 0; i < cb.size(); i++) m_canBuild.push_back(&unitTypes[cb[i]]);
+		for (unsigned int i = 0; i < cb.size(); i++) m_canBuild.push_back(&unitTypes[cb[i]]);
 	}
 
 	{
 		vector<string> cp = SplitStr(p.getValueString("canproduce", ""));
-		for (int i = 0; i < cp.size(); i++) m_canProduce.push_back(&unitTypes[cp[i]]);
+		for (unsigned int i = 0; i < cp.size(); i++) m_canProduce.push_back(&unitTypes[cp[i]]);
 	}
 
 	{
 		vector<string> aa = SplitStr(p.getValueString("activeameliorations", ""));
-		for (int i = 0; i < aa.size(); i++) m_ameliorations.insert(make_pair(aa[i], Amelioration()));
+		for (unsigned int i = 0; i < aa.size(); i++) m_ameliorations.insert(make_pair(aa[i], Amelioration()));
 	}
 
 	map<string, Amelioration>::iterator it = m_ameliorations.begin();

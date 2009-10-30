@@ -31,7 +31,7 @@
 using namespace std;
 
 Unit::Unit(UnitType* type, Position pos, Player* player) 
-	: m_producing(), m_canBuild(), m_canProduce(), m_possibleAmeliorations(), m_ameliorations() {
+	:m_canBuild(), m_canProduce(), m_possibleAmeliorations(), m_ameliorations(), m_producing() {
 	m_player = player;
 	m_type = type;
 	m_pos = pos;
@@ -57,7 +57,7 @@ void Unit::recalculateCharacteristics() {
 		Amelioration& e = it->second;
 		bool possible = true;
 		//Check if we don't have it yet
-		for (int j = 0; j < m_ameliorations.size(); j++) {
+		for (uint j = 0; j < m_ameliorations.size(); j++) {
 			if (m_ameliorations[j] == &e) possible = false;
 		}
 		if (!possible) {
@@ -65,10 +65,10 @@ void Unit::recalculateCharacteristics() {
 			continue;
 		}
 		//Check for dependencies
-		for (int j = 0; j < e.m_requires.size(); j++) {
+		for (uint j = 0; j < e.m_requires.size(); j++) {
 			Amelioration* r = e.m_requires[j];
 			bool ok = false;
-			for (int k = 0; k < m_ameliorations.size(); k++) {
+			for (uint k = 0; k < m_ameliorations.size(); k++) {
 				if (m_ameliorations[k] == r) {
 					ok = true;
 					break;
@@ -85,12 +85,12 @@ void Unit::recalculateCharacteristics() {
 		it++;
 	}
 	//Take into account currently possesed ameliorations
-	for (int i = 0; i < m_ameliorations.size(); i++) {
+	for (uint i = 0; i < m_ameliorations.size(); i++) {
 		m_characteristics += m_ameliorations[i]->m_characteristics;
-		for (int j = 0; j < m_ameliorations[i]->m_canBuild.size(); j++) {
+		for (uint j = 0; j < m_ameliorations[i]->m_canBuild.size(); j++) {
 			m_canBuild.push_back(m_ameliorations[i]->m_canBuild[j]);
 		}
-		for (int j = 0; j < m_ameliorations[i]->m_canProduce.size(); j++) {
+		for (uint j = 0; j < m_ameliorations[i]->m_canProduce.size(); j++) {
 			m_canProduce.push_back(m_ameliorations[i]->m_canProduce[j]);
 		}
 	}
@@ -138,7 +138,7 @@ void Unit::heal(Unit* other) {
 }
 
 bool Unit::build(Game& g, UnitType* t, Position p) {
-	for (int i = 0; i < m_canBuild.size(); i++) {
+	for (uint i = 0; i < m_canBuild.size(); i++) {
 		if (m_canBuild[i] == t) {
 			if (!m_player->spend(t->m_characteristics.cost)) return false;
 			heal(g.addUnit(t, m_player, p));
@@ -149,16 +149,18 @@ bool Unit::build(Game& g, UnitType* t, Position p) {
 }
 
 bool Unit::produce(Game& g, UnitType* t) {
-	for (int i = 0; i < m_canProduce.size(); i++) {
+	for (uint i = 0; i < m_canProduce.size(); i++) {
 		if (m_canProduce[i] == t) {
 			if (!m_player->spend(t->m_characteristics.cost)) return false;
 			Point2D p(sf::Randomizer::Random(-100, 100), sf::Randomizer::Random(-100, 100));
 			p = p.vecNormalize().vecMul(m_characteristics.mobility.radius + t->m_characteristics.mobility.radius);
+			p = p.vecAdd(Point2D(m_pos.x, m_pos.y));
 			m_producing.push_back(g.addUnit(t, m_player, {p.x, p.y, 0}));
 			m_produceTimer.set(0);
 			return true;
 		}
 	}
+	return false;
 }
 
 void Unit::mine(Unit* other) {
@@ -183,7 +185,7 @@ void Unit::goTo(Point2D position) {
 
 void Unit::ameliorate(Amelioration* how) {
 	bool ok = false;
-	for (int i = 0; i < m_possibleAmeliorations.size(); i++) {
+	for (uint i = 0; i < m_possibleAmeliorations.size(); i++) {
 		if (m_possibleAmeliorations[i] == how) {
 			ok = true;
 			break;

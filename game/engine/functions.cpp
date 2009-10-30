@@ -56,7 +56,7 @@ float deg2rad(float angle) {
 vector<string> SplitStr(string s, char separator) {
 	vector<string> ret;
 	ret.push_back("");
-	for (int i = 0; i < s.length(); i++) {
+	for (uint i = 0; i < s.length(); i++) {
 		if (s[i] == separator) {
 			ret.push_back("");
 		} else {

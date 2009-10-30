@@ -39,7 +39,7 @@ class Exception : public std::exception {
 	ExceptionType m_type;
 
 	public:
-	Exception(const std::string message, ExceptionType type = ERROR) throw() : m_type(type), m_message(message) {
+	Exception(const std::string message, ExceptionType type = ERROR) throw() : m_message(message), m_type(type) {
 	}
 
 	virtual const char* what() const throw() {

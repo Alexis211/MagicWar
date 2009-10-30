@@ -150,6 +150,7 @@ struct unit_c {
 		mobility += other.mobility;
 		space += other.space;
 		buildSpeed += other.buildSpeed;
+		return *this;
 	}
 };	
 

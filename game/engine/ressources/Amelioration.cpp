@@ -37,16 +37,16 @@ void Amelioration::load(Parser& p, map<string, Amelioration> other_ameliorations
 
 	{
 		vector<string> cb = SplitStr(p.getValueString("canbuild", ""));
-		for (int i = 0; i < cb.size(); i++) m_canBuild.push_back(&UnitType::unitTypes[cb[i]]);
-			}
+		for (uint i = 0; i < cb.size(); i++) m_canBuild.push_back(&UnitType::unitTypes[cb[i]]);
+	}
 
 	{
 		vector<string> cp = SplitStr(p.getValueString("canproduce", ""));
-		for (int i = 0; i < cp.size(); i++) m_canProduce.push_back(&UnitType::unitTypes[cp[i]]);
+		for (uint i = 0; i < cp.size(); i++) m_canProduce.push_back(&UnitType::unitTypes[cp[i]]);
 	}
 
 	{
 		vector<string> r = SplitStr(p.getValueString("requires", ""));
-		for (int i = 0; i < r.size(); i++) m_requires.push_back(&other_ameliorations[r[i]]);
+		for (uint i = 0; i < r.size(); i++) m_requires.push_back(&other_ameliorations[r[i]]);
 	}
 }
