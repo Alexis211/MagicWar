@@ -23,6 +23,7 @@ rebuild: mrproper all
 clean:
 	rm -rf */*.bak
 	rm -rf */*.o
+	rm -rf */*/*.o
 
 mrproper: clean
 	rm -rf $(OutFile)
