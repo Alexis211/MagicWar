@@ -44,7 +44,7 @@ class Game {
 	~Game() {}
 
 	void setInitialRessources(cost_c res);
-	void addPlayer(Faction faction, std::string name, PlayerType type);	
+	void addPlayer(Faction *faction, std::string name, PlayerType type);	
 	void setupPlayers();
 
 	const std::vector<Player>& players() { return m_players; }

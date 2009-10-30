@@ -25,7 +25,7 @@
 
 #include "Player.h"
 
-Player::Player(int id, Faction faction, std::string name, cost_c res, PlayerType type) {
+Player::Player(int id, Faction* faction, std::string name, cost_c res, PlayerType type) {
 	m_id = id;
 	m_faction = faction;
 	m_name = name;

@@ -25,6 +25,7 @@
 
 #include "Amelioration.h"
 #include "UnitType.h"
+#include <engine/functions.h>
 
 using namespace std;
 
@@ -34,41 +35,17 @@ void Amelioration::load(Parser& p, map<string, Amelioration> other_ameliorations
 	m_characteristics.load(p);
 
 	{
-		string temp = p.getValueString("canbuild", ""), wat = "";
-		for (int i = 0; i < temp.length(); i++) {
-			if (temp[i] == ' ') { 
-				if (wat != "") m_canBuild.push_back(&UnitType::unitTypes[wat]);
-				wat = "";
-			} else {
-				wat += temp[i];
+		vector<string> cb = SplitStr(p.getValueString("canbuild", ""));
+		for (int i = 0; i < cb.size(); i++) m_canBuild.push_back(&UnitType::unitTypes[cb[i]]);
 			}
-		}
-		if (wat != "") m_canBuild.push_back(&UnitType::unitTypes[wat]);
+
+	{
+		vector<string> cp = SplitStr(p.getValueString("canproduce", ""));
+		for (int i = 0; i < cp.size(); i++) m_canProduce.push_back(&UnitType::unitTypes[cp[i]]);
 	}
 
 	{
-		string temp = p.getValueString("canproduce", ""), wat = "";
-		for (int i = 0; i < temp.length(); i++) {
-			if (temp[i] == ' ') { 
-				if (wat != "") m_canProduce.push_back(&UnitType::unitTypes[wat]);
-				wat = "";
-			} else {
-				wat += temp[i];
-			}
-		}
-		if (wat != "") m_canProduce.push_back(&UnitType::unitTypes[wat]);
-	}
-
-	{
-		string temp = p.getValueString("requires", ""), wat = "";
-		for (int i = 0; i < temp.length(); i++) {
-			if (temp[i] == ' ') {
-				if (wat != "") m_requires.push_back(&other_ameliorations[wat]);
-				wat = "";
-			} else {
-				wat += temp[i];
-			}
-		}
-		if (wat != "") m_requires.push_back(&other_ameliorations[wat]);
+		vector<string> r = SplitStr(p.getValueString("requires", ""));
+		for (int i = 0; i < r.size(); i++) m_requires.push_back(&other_ameliorations[r[i]]);
 	}
 }

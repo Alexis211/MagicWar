@@ -19,32 +19,24 @@
 /*	MagicWar 0.1 alpha
  *	by Alexis211
  *  ----------------------------
- *  	Player.h
- *  	Header file for player class
+ *  	Faction.h
+ *  	Header file for faction class
  *  	*/
-#ifndef DEF_MW_PLAYER
-#define DEF_MW_PLAYER
+#ifndef DEF_MW_FACTION
+#define DEF_MW_FACTION
 
+#include "UnitType.h"
+#include <vector>
 #include <string>
-#include <engine/characteristics.h>
-#include <engine/ressources/Faction.h>
 
-class Player {
-	friend class Game;
+struct Faction {
+	std::string m_name;		//Group name, example :	administrators
+	std::string m_singular;	//Unit name, example :	administrator
+	std::string m_description;
+	std::vector<UnitType*> m_startsWith;
 
-	private:
-	Player(int id, Faction* faction, std::string name, cost_c res, PlayerType type);
-
-	int m_id;
-	Faction* m_faction;
-	std::string m_name;
-	space_c m_space;
-	cost_c m_ressources;
-	PlayerType m_type;
-
-	public:
-	std::string name() const { return m_name; }
+	static std::vector<Faction> factions;
+	static void loadFactions();
 };
 
 #endif
-

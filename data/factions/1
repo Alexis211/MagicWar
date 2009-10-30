@@ -1,0 +1,5 @@
+name=_("Forecasters")
+singular=_("Forecaster")
+description=_("Insert here a description for the forecaster class.")
+# to be changed
+startswith=apparition ritualcircle

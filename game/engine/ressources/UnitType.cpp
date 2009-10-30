@@ -27,12 +27,15 @@
 #include <engine/Exception.h>
 #include <fstream>
 #include "UnitType.h"
+#include <iostream>
+#include <engine/functions.h>
 
 using namespace std;
 
 map<string, UnitType> UnitType::unitTypes;
 
 void UnitType::loadUnitTypes() {
+	cout << _("Loading unit types...") << endl;
 	string unitlist = DATAPATH;
 	unitlist += "/units/list";
 	ifstream file(unitlist.c_str(), ios::in);
@@ -67,42 +70,18 @@ void UnitType::load(string idfier) {
 	m_characteristics.load(p);
 
 	{
-		string temp = p.getValueString("canbuild", ""), wat = "";
-		for (int i = 0; i < temp.length(); i++) {
-			if (temp[i] == ' ') { 
-				if (wat != "") m_canBuild.push_back(&unitTypes[wat]);
-				wat = "";
-			} else {
-				wat += temp[i];
-			}
-		}
-		if (wat != "") m_canBuild.push_back(&unitTypes[wat]);
+		vector<string> cb = SplitStr(p.getValueString("canbuild", ""));
+		for (int i = 0; i < cb.size(); i++) m_canBuild.push_back(&unitTypes[cb[i]]);
 	}
 
 	{
-		string temp = p.getValueString("canproduce", ""), wat = "";
-		for (int i = 0; i < temp.length(); i++) {
-			if (temp[i] == ' ') { 
-				if (wat != "") m_canProduce.push_back(&unitTypes[wat]);
-				wat = "";
-			} else {
-				wat += temp[i];
-			}
-		}
-		if (wat != "") m_canProduce.push_back(&unitTypes[wat]);
+		vector<string> cp = SplitStr(p.getValueString("canproduce", ""));
+		for (int i = 0; i < cp.size(); i++) m_canProduce.push_back(&unitTypes[cp[i]]);
 	}
 
 	{
-		string temp = p.getValueString("activeameliorations", ""), wat = "";
-		for (int i = 0; i < temp.length(); i++) {
-			if (temp[i] == ' ') {
-				if (wat != "") m_ameliorations.insert(make_pair(wat, Amelioration()));
-				wat = "";
-			} else {
-				wat += temp[i];
-			}
-		}
-		if (wat != "") m_ameliorations.insert(make_pair(wat, Amelioration()));
+		vector<string> aa = SplitStr(p.getValueString("activeameliorations", ""));
+		for (int i = 0; i < aa.size(); i++) m_ameliorations.insert(make_pair(aa[i], Amelioration()));
 	}
 
 	map<string, Amelioration>::iterator it = m_ameliorations.begin();

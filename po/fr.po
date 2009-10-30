@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alexis211\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-29 13:52+0100\n"
+"POT-Creation-Date: 2009-10-30 12:37+0100\n"
 "PO-Revision-Date: 2009-05-08 18:36+0200\n"
 "Last-Translator:  <alexis211@gmail.com>\n"
 "Language-Team: French\n"
@@ -73,7 +73,8 @@ msgstr "\t--help\t\taffiche cet écran d'aide"
 msgid ""
 " --cliface\tuse command line interface for game (used for developpement)"
 msgstr ""
-"\t--cliface\tutiliser l'interface en ligne de commande (utilisé pour le développement)"
+"\t--cliface\tutiliser l'interface en ligne de commande (utilisé pour le "
+"développement)"
 
 #: game/engine/main.cpp:89
 msgid "\t--iface2d\tuse 2D interface for game (used for developpement)"
@@ -92,7 +93,8 @@ msgstr "Pour plus d'options, essayez d'éditer le fichier de configuration : "
 #: game/engine/main.cpp:104
 msgid "3D interface disabled, reverting to CL interface."
 msgstr ""
-"L'interface 3D est désactivée, utilisation de l'interface en ligne de commande à la place."
+"L'interface 3D est désactivée, utilisation de l'interface en ligne de "
+"commande à la place."
 
 #: game/iface2d/Interface2D.cpp:59
 msgid "Invalid video mode. Reverting to best supported."
@@ -147,6 +149,71 @@ msgstr ""
 msgid ">> Game is loading data. <<"
 msgstr ""
 
+#: game/cliface/CLInterface.cpp:42
+#, fuzzy
+msgid "MagicWar main menu :"
+msgstr "Menu principal de MagicWar :"
+
+#: game/cliface/CLInterface.cpp:43
+msgid "0. Quit"
+msgstr ""
+
+#: game/cliface/CLInterface.cpp:44
+msgid "1. Local game"
+msgstr ""
+
+#: game/cliface/CLInterface.cpp:45
+msgid "2. Network game"
+msgstr ""
+
+#: game/cliface/CLInterface.cpp:46
+msgid "Your choice : "
+msgstr ""
+
+#: game/cliface/CLInterface.cpp:56
+msgid "KTHXBYE!"
+msgstr ""
+
+#: game/cliface/CLInterface.cpp:57
+msgid "MagicWar was created by the people listed in the --about screen."
+msgstr ""
+
+#: game/cliface/CLInterface.cpp:68
+msgid "How many players do you want ? (0 = exit) "
+msgstr ""
+
+#: game/cliface/CLInterface.cpp:73
+msgid "Initial gold for each player : "
+msgstr ""
+
+#: game/cliface/CLInterface.cpp:75
+msgid "Initial wood for each player : "
+msgstr ""
+
+#: game/cliface/CLInterface.cpp:80
+msgid "*** Configuration for player "
+msgstr ""
+
+#: game/cliface/CLInterface.cpp:81
+msgid "This player will be you!"
+msgstr ""
+
+#: game/cliface/CLInterface.cpp:82
+msgid "Enter player name : "
+msgstr ""
+
+#: game/cliface/CLInterface.cpp:85
+msgid "Enter player faction : "
+msgstr ""
+
+#: game/cliface/CLInterface.cpp:92
+msgid "Ok, starting game !"
+msgstr ""
+
+#: game/cliface/CLInterface.cpp:98
+msgid "Not implemented yet."
+msgstr ""
+
 #: data/units/apparition:1
 msgid "Apparition"
 msgstr "Apparition"
@@ -162,6 +229,46 @@ msgstr "Cercle de rituel"
 #: data/units/ritualcircle:2
 msgid "Base meeting place for forecasters."
 msgstr "Lieu de rencontre de base des devins"
+
+#: data/factions/1:1
+msgid "Forecasters"
+msgstr ""
+
+#: data/factions/1:2
+msgid "Forecaster"
+msgstr ""
+
+#: data/factions/1:3
+msgid "Insert here a description for the forecaster class."
+msgstr ""
+
+#: data/factions/2:1
+msgid "Druids"
+msgstr ""
+
+#: data/factions/2:2
+msgid "Druid"
+msgstr ""
+
+#: data/factions/2:3 data/factions/3:3 data/factions/4:3
+msgid "Insert description here"
+msgstr ""
+
+#: data/factions/3:1
+msgid "Priests"
+msgstr ""
+
+#: data/factions/3:2
+msgid "Priest"
+msgstr ""
+
+#: data/factions/4:1
+msgid "Mysticals"
+msgstr ""
+
+#: data/factions/4:2
+msgid "Mystical"
+msgstr ""
 
 #~ msgid "APPARITION!!!"
 #~ msgstr "Une apparition"

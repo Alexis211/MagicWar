@@ -85,8 +85,8 @@ void CLInterface::localGame() {
 		cout << _("Enter player faction : ");
 		int f;
 		cin >> f;
-		if (f < 0 or f > 4) f = 0;
-		g.addPlayer((Faction)f, name, (i == 0 ? HUMAN : COMPUTER));
+		if (f < 0 or f >= Faction::factions.size()) f = 0;
+		g.addPlayer(&Faction::factions[f], name, (i == 0 ? HUMAN : COMPUTER));
 	}
 
 	cout << _("Ok, starting game !") << endl;

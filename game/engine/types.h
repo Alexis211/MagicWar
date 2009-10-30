@@ -57,10 +57,6 @@ enum PlayerType {
    	COMPUTER	//AI player on this computer
 };
 
-enum Faction {
-	NO_FACTION = 0, FORECASTERS = 1, DRUIDS = 2, PRIESTS = 3, MYSTICALS = 4
-};
-
 enum NetworkStatus {
 	NONETWORK,	//Game is not a network game
     CONFIGURATION,  //Game is waiting for local user to configure the client

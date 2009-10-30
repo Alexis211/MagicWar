@@ -1,0 +1,5 @@
+name=_("Priests")
+singular=_("Priest")
+description=_("Insert description here")
+# to be changed
+startswith=apparition ritualcircle

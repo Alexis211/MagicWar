@@ -27,26 +27,42 @@
 
 #include "functions.h"
 
-std::string Int2Str(int i) {
-	std::stringstream a;
+using namespace std;
+
+string Int2Str(int i) {
+	stringstream a;
 	a << i;
 	return a.str();
 }
 
-std::string Float2Str(float f) {
-	std::stringstream a;
+string Float2Str(float f) {
+	stringstream a;
 	a << f;
 	return a.str();
 }
 
-float Str2Float(std::string s) {
+float Str2Float(string s) {
 	return atof(s.c_str());
 }
 
-int Str2Int(std::string s) {
+int Str2Int(string s) {
 	return atoi(s.c_str());
 }
 
 float deg2rad(float angle) {
 	return angle * 3.1415 / 180;
+}
+
+vector<string> SplitStr(string s, char separator) {
+	vector<string> ret;
+	ret.push_back("");
+	for (int i = 0; i < s.length(); i++) {
+		if (s[i] == separator) {
+			ret.push_back("");
+		} else {
+			ret.back() += s[i];
+		}
+	}
+	while (!ret.empty() && ret.back() == "") ret.pop_back();
+	return ret;
 }

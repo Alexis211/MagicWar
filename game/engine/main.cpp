@@ -121,6 +121,7 @@ int main(int argc, char *argv[]) {
 	try {
 		interface->splashScreen();
 		UnitType::loadUnitTypes();
+		Faction::loadFactions();
 		interface->mainMenu();
 		interface->credits();
 	} catch(const exception& except) {

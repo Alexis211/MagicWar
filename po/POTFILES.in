@@ -10,3 +10,8 @@ game/cliface/CLInterface.cpp
 
 data/units/apparition
 data/units/ritualcircle
+
+data/factions/1
+data/factions/2
+data/factions/3
+data/factions/4

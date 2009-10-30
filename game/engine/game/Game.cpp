@@ -24,12 +24,16 @@
  *  	*/
 
 #include "Game.h"
+#include <iostream>
+
+using namespace std;
 
 void Game::setInitialRessources(cost_c res) {
 	if (m_players.empty()) m_initialRessources = res;	//Only do that if no player is already registered
 }
 
-void Game::addPlayer(Faction faction, std::string name, PlayerType type) {
+void Game::addPlayer(Faction *faction, std::string name, PlayerType type) {
+	if (faction == 0) faction = &Faction::factions[0];
 	m_players.push_back(Player(m_players.size(), faction, name, m_initialRessources, type));
 }
 
@@ -37,15 +41,13 @@ void Game::setupPlayers() {
 	Position p = {2, 2, 0};
 	for (int i = 0; i < m_players.size(); i++) {
 		if (m_players[i].m_type != NETWORK) {
-			addUnit(&UnitType::unitTypes["apparition"], &m_players[i], p); 
-			m_units.back().m_life = m_units.back().characts().maxlife.value;
-			p.x += 3;
-			if (p.x > 20) p.x = 2, p.y += 3;
-			addUnit(&UnitType::unitTypes["ritualcircle"], &m_players[i], p); 
-			m_units.back().m_life = m_units.back().characts().maxlife.value;
-			p.x += 3;
-			p.x += 3;
-			if (p.x > 10) p.x = 2, p.y += 3;
+			vector<UnitType*>& sw = m_players[i].m_faction->m_startsWith;
+			for (int j = 0; j < sw.size(); j++) {
+				addUnit(sw[j], &m_players[i], p); 
+				m_units.back().m_life = m_units.back().characts().maxlife.value;
+				p.x += 3;
+				if (p.x > 20) p.x = 2, p.y += 3;
+			}
 		}
 	}
 }
