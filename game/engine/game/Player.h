@@ -29,11 +29,13 @@
 #include <engine/characteristics.h>
 #include <engine/ressources/Faction.h>
 
+class Game;
+
 class Player {
 	friend class Game;
 
 	private:
-	Player(int id, Faction* faction, std::string name, cost_c res, PlayerType type);
+	Player(int id, Faction* faction, std::string name, cost_c res, PlayerType type, Game* game);
 
 	int m_id;
 	Faction* m_faction;
@@ -41,15 +43,22 @@ class Player {
 	space_c m_space;
 	cost_c m_ressources;
 	PlayerType m_type;
+	Game* m_g;
 
 	public:
 	std::string name() const { return m_name; }
 	int id() const { return m_id; }
 	cost_c res() const { return m_ressources; }
+	space_c space() const { return m_space; }
+	Game& g() const { return *m_g; }
 
 	void receive(cost_c res) { m_ressources += res; }
 	bool canSpend(cost_c res);
 	bool spend(cost_c res);
+
+	//Space for putting units into
+	bool canAllocateSpace(int qty);
+	void recalculateSpace();
 };
 
 #endif

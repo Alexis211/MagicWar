@@ -32,7 +32,7 @@ using namespace std;
 Game::Game()
 	: m_initialRessources({100, 100}), m_players(), m_units(), m_thread(*this) {
 	m_status = CONFIGURATION;
-	m_players.push_back(Player(0, &Faction::factions[0], _("Nature"), {0, 0}, NETWORK)); 
+	m_players.push_back(Player(0, &Faction::factions[0], _("Nature"), {0, 0}, NETWORK, this)); 
 	m_thread.Launch();
 }
 
@@ -47,7 +47,7 @@ void Game::setInitialRessources(cost_c res) {
 
 void Game::addPlayer(Faction *faction, std::string name, PlayerType type) {
 	if (faction == 0) faction = &Faction::factions[0];
-	m_players.push_back(Player(m_players.size(), faction, name, m_initialRessources, type));
+	m_players.push_back(Player(m_players.size(), faction, name, m_initialRessources, type, this));
 }
 
 void Game::setupPlayers() {
@@ -71,5 +71,6 @@ void Game::setupPlayers() {
 
 Unit* Game::addUnit(UnitType* type, Player* player, Position pos) {
 	m_units.push_back(Unit(type, pos, player));
+	player->recalculateSpace();
 	return &m_units.back();
 }

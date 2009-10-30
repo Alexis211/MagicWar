@@ -24,8 +24,12 @@
  *  	*/
 
 #include "Player.h"
+#include <engine/game/Game.h>
+#include <engine/game/Unit.h>
 
-Player::Player(int id, Faction* faction, std::string name, cost_c res, PlayerType type) {
+using namespace std;
+
+Player::Player(int id, Faction* faction, std::string name, cost_c res, PlayerType type, Game* game) : m_g(game) {
 	m_id = id;
 	m_faction = faction;
 	m_name = name;
@@ -43,4 +47,19 @@ bool Player::spend(cost_c res) {
 	if (!canSpend(res)) return false;
 	m_ressources.gold -= res.gold, m_ressources.wood -= res.wood;
 	return true;
+}
+
+bool Player::canAllocateSpace(int qty) {
+	return (m_space.occupied + qty <= m_space.provided);
+}
+
+void Player::recalculateSpace() {
+	m_space.occupied = 0, m_space.provided = 0;
+	vector<Unit> &u = m_g->units();	
+	for (uint i = 0; i < u.size(); i++) {
+		if (u[i].player() == this and !u[i].dead()) {
+			m_space.occupied += u[i].characts().space.occupied;
+			m_space.provided += u[i].characts().space.provided;
+		}
+	}
 }

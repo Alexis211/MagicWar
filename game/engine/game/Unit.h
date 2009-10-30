@@ -70,6 +70,9 @@ class Unit {
 	Player* player() const { return m_player; }
 	int life() const { return m_life; }
 	Position pos() const { return m_pos; }
+	bool dead() const {
+		return (!m_usable or m_life == 0);
+	}
 
 	bool doMove(Point2D pos, float precision, float t);	//Called by doAction when unit goes somewhere (true when arrived)
 	bool doMove(Unit* unit, bool forAttcking, float t);	//Called by doAction when unit has to go to another unit
@@ -78,8 +81,8 @@ class Unit {
 	void doNothing();	//Called to put unit in an idle state
 	void attack(Unit* other);
 	void heal(Unit* other);	//For buildings : repair with buildspeed. For moving units, heal using autoheal factor
-	bool build(Game& g, UnitType* t, Position p);	//False if not enough money
-	bool produce(Game& g, UnitType* t);
+	bool build(UnitType* t, Position p);	//False if not enough money
+	bool produce(UnitType* t);
 	void mine(Unit* other);
 	void harvest(Unit* other);
 	void goTo(Point2D position);	

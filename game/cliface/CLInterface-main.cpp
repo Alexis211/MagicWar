@@ -137,7 +137,7 @@ void CLInterface::gameMain(Game& g, Player* p) {
 				unsigned int o;
 				cin >> o;
 				if (o > 0 and o <= g.units()[n].canBuild().size()) {
-					if (!g.units()[n].build(g, g.units()[n].canBuild()[o - 1],
+					if (!g.units()[n].build(g.units()[n].canBuild()[o - 1],
 						   	{sf::Randomizer::Random(0.f, 40.f), sf::Randomizer::Random(0.f, 40.f), 0})) {
 						cout << _("Not enough money.") << endl;
 					}
@@ -156,7 +156,7 @@ void CLInterface::gameMain(Game& g, Player* p) {
 				unsigned int o;
 				cin >> o;
 				if (o > 0 and o <= g.units()[n].canProduce().size()) {
-					if (!g.units()[n].produce(g, g.units()[n].canProduce()[o - 1])) {
+					if (!g.units()[n].produce(g.units()[n].canProduce()[o - 1])) {
 						cout << _("Not enough money.") << endl;
 					}
 				}

@@ -137,25 +137,26 @@ void Unit::heal(Unit* other) {
 	}
 }
 
-bool Unit::build(Game& g, UnitType* t, Position p) {
+bool Unit::build(UnitType* t, Position p) {
 	for (uint i = 0; i < m_canBuild.size(); i++) {
 		if (m_canBuild[i] == t) {
 			if (!m_player->spend(t->m_characteristics.cost)) return false;
-			heal(g.addUnit(t, m_player, p));
+			heal(m_player->g().addUnit(t, m_player, p));
 			return true;
 		}
 	}
 	return false;
 }
 
-bool Unit::produce(Game& g, UnitType* t) {
+bool Unit::produce(UnitType* t) {
 	for (uint i = 0; i < m_canProduce.size(); i++) {
 		if (m_canProduce[i] == t) {
+			if (!m_player->canAllocateSpace(t->m_characteristics.space.occupied)) return false;
 			if (!m_player->spend(t->m_characteristics.cost)) return false;
 			Point2D p(sf::Randomizer::Random(-100, 100), sf::Randomizer::Random(-100, 100));
 			p = p.vecNormalize().vecMul(m_characteristics.mobility.radius + t->m_characteristics.mobility.radius);
 			p = p.vecAdd(Point2D(m_pos.x, m_pos.y));
-			m_producing.push_back(g.addUnit(t, m_player, {p.x, p.y, 0}));
+			m_producing.push_back(m_player->g().addUnit(t, m_player, {p.x, p.y, 0}));
 			m_produceTimer.set(0);
 			return true;
 		}
@@ -213,13 +214,17 @@ int Unit::receiveDamage(power_c power, Unit* from) {
 	if (v > m_life) v = m_life;
 	m_life -= v;
 	attack(from);
+	if (dead() && v != 0) m_player->recalculateSpace();
 	return v;
 }
 
 int Unit::beHealed(int howMany) {
 	if (m_life + howMany > m_characteristics.maxlife.value) howMany = m_characteristics.maxlife.value - m_life;
 	m_life += howMany;
-	if (m_life == m_characteristics.maxlife.value) m_usable = true;
+	if (m_life == m_characteristics.maxlife.value) {
+		m_usable = true;
+		m_player->recalculateSpace();
+	}
 	return howMany;
 }
 
@@ -259,7 +264,7 @@ bool Unit::doMove(Unit* unit, bool forAttacking, float t) {
 }
 
 void Unit::doAction(float time) {
-	if (m_life == 0 or !m_usable) doNothing();		//If we are dead or unusable, do nothing
+	if (dead()) doNothing();		//If we are dead or unusable, do nothing
 	//Calculate how many times action should have been done in the elapsed time
 	int times = m_action.timer.times(time);
 	//Do action
@@ -300,18 +305,16 @@ void Unit::doAction(float time) {
 		}
 	}
 
-	if (m_usable) {
+	if (!dead()) {
 		times = m_healTimer.times(time);
 		if (times > 0) {
 			m_life += times;
 			if (m_life > m_characteristics.maxlife.value) m_life = m_characteristics.maxlife.value;
 		}
-		if (m_life > 0) {
-			times = m_provideGTimer.times(time);
-			if (times > 0) m_player->receive({gold: times});
-			times = m_provideWTimer.times(time);
-			if (times > 0) m_player->receive({gold: 0, wood: times});
-		}
+		times = m_provideGTimer.times(time);
+		if (times > 0) m_player->receive({gold: times});
+		times = m_provideWTimer.times(time);
+		if (times > 0) m_player->receive({gold: 0, wood: times});
 	}
 
 	//Clean up
