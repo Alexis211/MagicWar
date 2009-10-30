@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-30 17:46+0100\n"
+"POT-Creation-Date: 2009-10-30 19:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,75 +18,6 @@ msgstr ""
 
 #: server/main.cpp:31
 msgid "Hi, this is MagicWar server"
-msgstr ""
-
-#: game/engine/main.cpp:67
-msgid "Configuration file does not exist, using default configuration values."
-msgstr ""
-
-#: game/engine/main.cpp:75
-msgid " *** MagicWar 0.1 alpha ***"
-msgstr ""
-
-#: game/engine/main.cpp:76
-msgid "MagicWar is free software, distributed under GNU GPL."
-msgstr ""
-
-#: game/engine/main.cpp:77
-msgid "MagicWar is written by :"
-msgstr ""
-
-#: game/engine/main.cpp:78
-msgid "  Ideas : Bhan666"
-msgstr ""
-
-#: game/engine/main.cpp:79
-msgid "  Code : Alexis211"
-msgstr ""
-
-#: game/engine/main.cpp:80
-msgid "  Graphics : (nobody)"
-msgstr ""
-
-#: game/engine/main.cpp:81
-msgid "  Translation : (translators, insert your names here)"
-msgstr ""
-
-#: game/engine/main.cpp:84
-msgid "Usage : magicwar [OPTIONS]"
-msgstr ""
-
-#: game/engine/main.cpp:85
-msgid "Options :"
-msgstr ""
-
-#: game/engine/main.cpp:86
-msgid "\t--about\t\tprints various informations about program"
-msgstr ""
-
-#: game/engine/main.cpp:87
-msgid "\t--help\t\tprints this help screen"
-msgstr ""
-
-#: game/engine/main.cpp:88
-msgid ""
-" --cliface\tuse command line interface for game (used for developpement)"
-msgstr ""
-
-#: game/engine/main.cpp:89
-msgid "\t--iface2d\tuse 2D interface for game (used for developpement)"
-msgstr ""
-
-#: game/engine/main.cpp:90
-msgid "\t--iface3d\tuse 3D interface for game"
-msgstr ""
-
-#: game/engine/main.cpp:91
-msgid "For more options, try editing configuration file : "
-msgstr ""
-
-#: game/engine/main.cpp:104
-msgid "3D interface disabled, reverting to CL interface."
 msgstr ""
 
 #: game/iface2d/Interface2D.cpp:59
@@ -201,6 +132,240 @@ msgstr ""
 msgid "Not implemented yet."
 msgstr ""
 
+#: game/cliface/CLInterface-main.cpp:44
+msgid "* You have : "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:44
+msgid " units of gold, "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:44
+msgid " units of wood"
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:46
+msgid "* Money (gold,wood) : "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:52
+msgid ":0 Refresh"
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:53
+msgid ":1 Exit"
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:54
+msgid ":2 Make a unit do nothing"
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:55
+msgid ":3 Make a unit attack another unit"
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:56
+msgid ":4 Make a unit heal/repair/build another unit"
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:57
+msgid ":5 Make a unit mine another unit"
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:58
+msgid ":6 Make a unit harvest another unit"
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:59
+msgid ":7 Make a unit ameliorate"
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:60
+msgid ":8 Make a unit build something"
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:61
+msgid ":9 Make a unit produce something"
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:67
+msgid "Enter unit number : "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:73
+msgid "Enter attacker number : "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:77
+msgid "Enter attacked unit number : "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:83
+msgid "Enter healer number : "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:87
+msgid "Enter healed unit number : "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:93
+msgid "Enter miner number : "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:97
+msgid "Enter mined unit number : "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:103
+msgid "Enter harvester number : "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:107
+msgid "Enter harvested unit number : "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:113
+msgid "Enter ameliorated unit number : "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:116 game/cliface/CLInterface-main.cpp:132
+#: game/cliface/CLInterface-main.cpp:151
+msgid ":0 Cancel"
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:129
+msgid "Enter builder unit number : "
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:142 game/cliface/CLInterface-main.cpp:160
+msgid "Not enough money."
+msgstr ""
+
+#: game/cliface/CLInterface-main.cpp:148
+msgid "Enter producer unit number : "
+msgstr ""
+
+#: game/engine/main.cpp:67
+msgid "Configuration file does not exist, using default configuration values."
+msgstr ""
+
+#: game/engine/main.cpp:75
+msgid " *** MagicWar 0.1 alpha ***"
+msgstr ""
+
+#: game/engine/main.cpp:76
+msgid "MagicWar is free software, distributed under GNU GPL."
+msgstr ""
+
+#: game/engine/main.cpp:77
+msgid "MagicWar is written by :"
+msgstr ""
+
+#: game/engine/main.cpp:78
+msgid "  Ideas : Bhan666"
+msgstr ""
+
+#: game/engine/main.cpp:79
+msgid "  Code : Alexis211"
+msgstr ""
+
+#: game/engine/main.cpp:80
+msgid "  Graphics : (nobody)"
+msgstr ""
+
+#: game/engine/main.cpp:81
+msgid "  Translation : (translators, insert your names here)"
+msgstr ""
+
+#: game/engine/main.cpp:84
+msgid "Usage : magicwar [OPTIONS]"
+msgstr ""
+
+#: game/engine/main.cpp:85
+msgid "Options :"
+msgstr ""
+
+#: game/engine/main.cpp:86
+msgid "\t--about\t\tprints various informations about program"
+msgstr ""
+
+#: game/engine/main.cpp:87
+msgid "\t--help\t\tprints this help screen"
+msgstr ""
+
+#: game/engine/main.cpp:88
+msgid ""
+" --cliface\tuse command line interface for game (used for developpement)"
+msgstr ""
+
+#: game/engine/main.cpp:89
+msgid "\t--iface2d\tuse 2D interface for game (used for developpement)"
+msgstr ""
+
+#: game/engine/main.cpp:90
+msgid "\t--iface3d\tuse 3D interface for game"
+msgstr ""
+
+#: game/engine/main.cpp:91
+msgid "For more options, try editing configuration file : "
+msgstr ""
+
+#: game/engine/main.cpp:104
+msgid "3D interface disabled, reverting to CL interface."
+msgstr ""
+
+#: game/engine/Exception.h:48
+msgid "NOTICE : "
+msgstr ""
+
+#: game/engine/Exception.h:50
+msgid "WARNING : "
+msgstr ""
+
+#: game/engine/Exception.h:52
+msgid "ERROR : "
+msgstr ""
+
+#: game/engine/Exception.h:54
+msgid "CRITICAL : "
+msgstr ""
+
+#: game/engine/game/Game.cpp:35 game/engine/ressources/Faction.cpp:39
+msgid "Nature"
+msgstr ""
+
+#: game/engine/ressources/UnitType.cpp:38
+msgid "Loading unit types..."
+msgstr ""
+
+#: game/engine/ressources/UnitType.cpp:49
+msgid "Cannot read unit list"
+msgstr ""
+
+#: game/engine/ressources/UnitType.cpp:65
+msgid "Cannot load data for unit "
+msgstr ""
+
+#: game/engine/ressources/Faction.cpp:38
+msgid "Loading factions..."
+msgstr ""
+
+#: game/engine/ressources/Faction.cpp:39
+msgid "These units belong to the nature."
+msgstr ""
+
+#: game/engine/ressources/Faction.cpp:49
+msgid "Faction with no name"
+msgstr ""
+
+#: game/engine/ressources/Faction.cpp:50
+msgid "Unit with a faction with no name"
+msgstr ""
+
+#: game/engine/ressources/Faction.cpp:51
+msgid "Faction that has no description"
+msgstr ""
+
 #: data/units/apparition:1
 msgid "Apparition"
 msgstr ""
@@ -215,6 +380,30 @@ msgstr ""
 
 #: data/units/ritualcircle:2
 msgid "Base meeting place for forecasters."
+msgstr ""
+
+#: data/units/ritualcircle:18
+msgid "Power enhancement"
+msgstr ""
+
+#: data/units/ritualcircle:19
+msgid "The ritual circle becomes... MORE POWERFUL!!!"
+msgstr ""
+
+#: data/units/mine1:1
+msgid "Small gold mine"
+msgstr ""
+
+#: data/units/mine1:2
+msgid "This place you will find gold at."
+msgstr ""
+
+#: data/units/tree1:1
+msgid "Oak tree"
+msgstr ""
+
+#: data/units/tree1:2
+msgid "This tree might provide you some wood"
 msgstr ""
 
 #: data/factions/1:1

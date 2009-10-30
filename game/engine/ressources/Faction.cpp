@@ -36,7 +36,7 @@ vector<Faction> Faction::factions;
 
 void Faction::loadFactions() {
 	cout << _("Loading factions...") << endl;
-	Faction temp = {_("Nature"), _(""), _("These units belong to the nature."), vector<UnitType*>()};
+	Faction temp = {_("Nature"), "", _("These units belong to the nature."), vector<UnitType*>()};
 	factions.push_back(temp);
 
 	Parser p;

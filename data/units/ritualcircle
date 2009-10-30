@@ -17,5 +17,5 @@ activeameliorations=a1
 @a1
 name=_("Power enhancement")
 description=_("The ritual circle becomes... MORE POWERFUL!!!")
-power=3
 time=2
+power=3
