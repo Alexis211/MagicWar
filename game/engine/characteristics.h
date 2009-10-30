@@ -128,6 +128,7 @@ struct unit_c {
 	cost_c canFetch;	//in [gold|wood units] per 10 seconds
 	mobility_c mobility;
 	space_c space;
+	int buildSpeed;	//In HP per second
 	void load(Parser& p) {
 		cost.load(p, "cost");
 		provides.load(p, "provides");
@@ -137,6 +138,7 @@ struct unit_c {
 		canFetch.load(p, "canfetch");
 		mobility.load(p);
 		space.load(p);
+		buildSpeed = p.getValueInt("buildspeed", 0);
 	}
 	unit_c& operator+= (const unit_c& other) {
 		cost += other.cost;
@@ -147,6 +149,7 @@ struct unit_c {
 		canFetch += other.canFetch;
 		mobility += other.mobility;
 		space += other.space;
+		buildSpeed += other.buildSpeed;
 	}
 };	
 

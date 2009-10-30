@@ -41,7 +41,7 @@ class CLInterface : public Interface {
 	void localGame();
 	void networkGame();
 
-	void gameMain(Game& g);
+	void gameMain(Game& g, Player* p);
 };
 
 #endif

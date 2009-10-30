@@ -36,6 +36,7 @@ class UnitType;
 struct Amelioration {
 	std::string m_name;
 	std::string m_description;
+	float m_time;	//Time required for amelioration
 	std::vector<UnitType*> m_canBuild;
 	std::vector<UnitType*> m_canProduce;
 	std::vector<Amelioration*> m_requires;

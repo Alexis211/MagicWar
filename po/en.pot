@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-30 12:37+0100\n"
+"POT-Creation-Date: 2009-10-30 17:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -189,11 +189,15 @@ msgstr ""
 msgid "Enter player faction : "
 msgstr ""
 
-#: game/cliface/CLInterface.cpp:92
+#: game/cliface/CLInterface.cpp:91
+msgid "Play in superuser mode (1 = yes, other = no) ? "
+msgstr ""
+
+#: game/cliface/CLInterface.cpp:95
 msgid "Ok, starting game !"
 msgstr ""
 
-#: game/cliface/CLInterface.cpp:98
+#: game/cliface/CLInterface.cpp:101
 msgid "Not implemented yet."
 msgstr ""
 

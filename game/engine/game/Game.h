@@ -42,7 +42,7 @@ class Game {
 	GameThread m_thread;
 	GameStatus m_status;
 
-	void addUnit(UnitType* type, Player* player, Position pos);
+	Unit* addUnit(UnitType* type, Player* player, Position pos);
 
 	public:
 	Game();
@@ -52,7 +52,7 @@ class Game {
 	void addPlayer(Faction *faction, std::string name, PlayerType type);	
 	void setupPlayers();
 
-	const std::vector<Player>& players() { return m_players; }
+	std::vector<Player>& players() { return m_players; }
 	std::vector<Unit>& units() { return m_units; }
 };
 

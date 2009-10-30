@@ -10,7 +10,7 @@ Objects = engine/main.o engine/Parser.o engine/functions.o iface2d/Interface2D.o
           cliface/CLInterface.o cliface/CLInterface-main.o
 
 all: $(Objects)
-	$(CC) $^ -o $(OutFile) -lGL -lIL -lGLU -lglut -lXxf86vm -lsfml-system -lsfml-window -lsfml-graphics
+	$(CC) $^ -o $(OutFile) -lGL -lGLU -lXxf86vm -lsfml-system -lsfml-window -lsfml-graphics
 
 rebuild: mrproper all
 

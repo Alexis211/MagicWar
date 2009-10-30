@@ -36,7 +36,8 @@ class GameThread : public sf::Thread {
 	virtual void Run();
 
 	public:
-	GameThread(Game& game) : g(game) {}
+	bool m_finished;
+	GameThread(Game& game) : g(game), m_finished(false) {}
 };
 
 #endif

@@ -31,11 +31,20 @@ const float interval = 0.02;	//Minimum time between two loops
 
 void GameThread::Run() {
 	sf::Clock c;
+	float e = interval;
 	while (g.m_status != FINISHED) {
 		c.Reset();
 		if (g.m_status == STARTED) {
+			for (int i = 0; i < g.units().size(); i++) {
+				g.units()[i].doAction(e);
+			}
 		}
-		float e = c.GetElapsedTime();
-		if (e < interval) sf::Sleep(interval - e);
+		e = c.GetElapsedTime();
+		if (e < interval) {
+			sf::Sleep(interval - e);
+			e = c.GetElapsedTime();
+		}
 	}
+
+	m_finished = true;
 }

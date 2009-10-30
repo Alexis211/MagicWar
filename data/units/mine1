@@ -1,0 +1,5 @@
+name=_("Small gold mine")
+description=_("This place you will find gold at.")
+radius=0.7
+layer=2
+providesgold=1000

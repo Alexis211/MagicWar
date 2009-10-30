@@ -35,6 +35,7 @@ struct UnitType {
 	std::vector<UnitType*> m_canBuild;
 	std::vector<UnitType*> m_canProduce;
 	unit_c m_characteristics;
+	int m_productionSpeed;	//HP per second
 	std::map<std::string, Amelioration> m_ameliorations;
 
 	void load(std::string identifier);

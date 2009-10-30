@@ -44,6 +44,12 @@ class Player {
 
 	public:
 	std::string name() const { return m_name; }
+	int id() const { return m_id; }
+	cost_c res() const { return m_ressources; }
+
+	void receive(cost_c res) { m_ressources += res; }
+	bool canSpend(cost_c res);
+	bool spend(cost_c res);
 };
 
 #endif

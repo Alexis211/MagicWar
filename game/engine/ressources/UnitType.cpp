@@ -56,6 +56,7 @@ void UnitType::loadUnitTypes() {
 }
 
 void UnitType::load(string idfier) {
+	cout << idfier << endl;
 	string datafile = DATAPATH;
 	datafile += "/units/" + idfier;
 	Parser p;
@@ -67,6 +68,7 @@ void UnitType::load(string idfier) {
 
 	m_name = p.getValueString("name", "NONAMED UNIT");
 	m_description = p.getValueString("description", "NODESCRIPTED UNIT");
+	m_productionSpeed = p.getValueInt("productionspeed", 0);
 	m_characteristics.load(p);
 
 	{
@@ -86,7 +88,9 @@ void UnitType::load(string idfier) {
 
 	map<string, Amelioration>::iterator it = m_ameliorations.begin();
 	while (it != m_ameliorations.end()) {
+		cout << idfier << "." << it->first << endl;
 		p.setSection(it->first);
 		it->second.load(p, m_ameliorations);
+		it++;
 	}
 }

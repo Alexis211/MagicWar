@@ -33,3 +33,14 @@ Player::Player(int id, Faction* faction, std::string name, cost_c res, PlayerTyp
 	m_ressources = res;
 	m_type = type;
 }
+
+bool Player::canSpend(cost_c res) {
+	if (m_ressources.gold > res.gold and m_ressources.wood > res.wood) return true;
+	return false;
+}
+
+bool Player::spend(cost_c res) {
+	if (!canSpend(res)) return false;
+	m_ressources.gold -= res.gold, m_ressources.wood -= res.wood;
+	return true;
+}

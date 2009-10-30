@@ -72,6 +72,7 @@ void Parser::loadFromFile(string filename) {
 	} else {
 		throw Exception(_("Cannot read from file ") + filename, ERROR);
 	}
+	setSection();
 }
 
 bool Parser::saveToFile(string filename) {

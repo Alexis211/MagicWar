@@ -26,7 +26,10 @@
 #define DEF_MW_TYPES_DEFINITIONS
 
 #include <string>
+#include <cmath>
+#include <engine/Exception.h>
 
+// GLOBAL TYPES
 class Point2D {
 	public:
 	float x, y;
@@ -34,6 +37,23 @@ class Point2D {
 	Point2D(float xx, float yy) : x(xx), y(yy) {}
 	bool operator==(const Point2D& other) const {
 		return x == other.x and y == other.y;
+	}
+
+	//Vector related methods
+	float vecLen() {
+		return sqrt(pow(x, 2) + pow(y, 2));
+	}
+	Point2D vecNormalize() {
+		return Point2D(x / vecLen(), y / vecLen());
+	}
+	Point2D vecOpp() {
+		return Point2D(-x, -y);
+	}
+	Point2D vecAdd(Point2D o) {
+		return Point2D(x + o.x, y + o.y);
+	}
+	Point2D vecMul(float f) {
+		return Point2D(x * f, y * f);
 	}
 };
 
@@ -51,12 +71,14 @@ enum PowerType {
 	PHYSIC = 0, FIRE = 1, ICE = 2, STORM =3
 };
 
+// PLAYER RELATED TYPES
 enum PlayerType {
 	HUMAN,	 	//Human player on this computer
 	NETWORK,	//Human/AI player on another computer in a network game
    	COMPUTER	//AI player on this computer
 };
 
+// GAME RELATED TYPES
 enum GameStatus {
 	CONFIGURATION,		//Waiting for user to enter game configuration
 	STARTED,
@@ -64,6 +86,42 @@ enum GameStatus {
 	FINISHED
 };
 
+struct Message {
+	int time;
+	std::string msg;
+};
+
+// UNIT RELATED TYPES
+enum UnitAction {
+	IDLE, ATTACK, HEAL, MINE, HARVEST, MOVE, AMELIORATE
+};
+
+struct ActionTimer {
+	float time, elapsed;
+	void set(float t) { time = t; elapsed = 0; }
+	int times(float t) {
+		int r = 0;
+		if (time != 0) {
+			elapsed += t;
+			r = elapsed / time;
+			elapsed -= r * time;
+			if (elapsed < 0) throw Exception("CORRECT ME PLZ, Types.h:ActionTimer", ERROR);
+		}
+		return r;
+	}
+};
+
+class Unit;
+class Amelioration;
+struct Action {
+	UnitAction what;
+	Unit* who;
+	Point2D where;
+	Amelioration* how;
+	ActionTimer timer;
+};
+
+// MOVING RELATED TYPES
 enum MoveLayer {
 	NO_MOVE_LAYER = 0,		//Unit doesn't move
 	WATER = 1,
@@ -81,11 +139,6 @@ struct MapSquare {
 
 struct Position {
 	float x, y, angle;
-};
-
-struct Message {
-	int time;
-	std::string msg;
 };
 
 #endif

@@ -88,10 +88,13 @@ void CLInterface::localGame() {
 		if (f < 0 or f >= Faction::factions.size()) f = 0;
 		g.addPlayer(&Faction::factions[f], name, (i == 0 ? HUMAN : COMPUTER));
 	}
+	cout << _("Play in superuser mode (1 = yes, other = no) ? ") << endl;
+	int su;
+	cin >> su;
 
 	cout << _("Ok, starting game !") << endl;
 	g.setupPlayers();
-	gameMain(g);
+	gameMain(g, (su == 1 ? 0 : &g.players()[1]));
 }
 
 void CLInterface::networkGame() {

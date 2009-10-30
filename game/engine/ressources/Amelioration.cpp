@@ -32,6 +32,7 @@ using namespace std;
 void Amelioration::load(Parser& p, map<string, Amelioration> other_ameliorations) {
 	m_name = p.getValueString("name", "NONAMED UNIT");
 	m_description = p.getValueString("description", "NODESCRIPTED UNIT");
+	m_time = p.getValueFloat("time", 0);
 	m_characteristics.load(p);
 
 	{
