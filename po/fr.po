@@ -275,7 +275,7 @@ msgstr "Entrez le numéro de l'unité améliorée : "
 #: game/cliface/CLInterface-main.cpp:134 game/cliface/CLInterface-main.cpp:151
 #: game/cliface/CLInterface-main.cpp:172
 msgid ":0 Cancel"
-msgstr ":0 Annuller"
+msgstr ":0 Annuler"
 
 #: game/cliface/CLInterface-main.cpp:142
 msgid "ameliorates with "

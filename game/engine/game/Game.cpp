@@ -39,6 +39,9 @@ Game::Game()
 Game::~Game() {
 	m_status = FINISHED;
 	while (!m_thread.m_finished) sf::Sleep(0.01);
+	for (uint i = 0; i < m_units.size(); i++) {
+		delete m_units[i];
+	}
 }
 
 void Game::setInitialRessources(cost_c res) {
@@ -54,23 +57,24 @@ void Game::setupPlayers() {
 	addUnit(&UnitType::unitTypes["tree1"], &m_players[0], {10, 10, 0});
 	addUnit(&UnitType::unitTypes["mine1"], &m_players[0], {10, 13, 0});
 	Position p = {2, 2, 0};
-	for (uint i = 0; i < m_players.size(); i++) {
+	for (uint i = 1; i < m_players.size(); i++) {
 		if (m_players[i].m_type != NETWORK) {
 			vector<UnitType*>& sw = m_players[i].m_faction->m_startsWith;
 			for (uint j = 0; j < sw.size(); j++) {
 				addUnit(sw[j], &m_players[i], p); 
-				m_units.back().m_life = m_units.back().characts().maxlife.value;
-				m_units.back().m_usable = true;
+				m_units.back()->m_life = m_units.back()->characts().maxlife.value;
+				m_units.back()->m_usable = true;
 				p.x += 3;
 				if (p.x > 20) p.x = 2, p.y += 3;
 			}
+			m_players[i].recalculateSpace();
 		}
 	}
 	m_status = STARTED;
 }
 
 Unit* Game::addUnit(UnitType* type, Player* player, Position pos) {
-	m_units.push_back(Unit(type, pos, player));
+	m_units.push_back(new Unit(type, pos, player));
 	player->recalculateSpace();
-	return &m_units.back();
+	return m_units.back();
 }

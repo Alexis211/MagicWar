@@ -95,7 +95,7 @@ struct Message {
 
 // UNIT RELATED TYPES
 enum UnitAction {
-	IDLE, ATTACK, HEAL, MINE, HARVEST, MOVE, AMELIORATE
+	IDLE, ATTACK, HEAL, MINE, HARVEST, MOVE
 };
 
 struct ActionTimer {

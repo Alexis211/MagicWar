@@ -32,6 +32,7 @@ using namespace std;
 
 Unit::Unit(UnitType* type, Position pos, Player* player) 
 	:m_canBuild(), m_canProduce(), m_possibleAmeliorations(), m_ameliorations(), m_producing() {
+	m_produceTimer.set(0);
 	m_player = player;
 	m_type = type;
 	m_pos = pos;
@@ -156,8 +157,8 @@ bool Unit::produce(UnitType* t) {
 			Point2D p(sf::Randomizer::Random(-100, 100), sf::Randomizer::Random(-100, 100));
 			p = p.vecNormalize().vecMul(m_characteristics.mobility.radius + t->m_characteristics.mobility.radius);
 			p = p.vecAdd(Point2D(m_pos.x, m_pos.y));
-			m_producing.push_back(m_player->g().addUnit(t, m_player, {p.x, p.y, 0}));
-			m_produceTimer.set(0);
+			Unit* u = m_player->g().addUnit(t, m_player, {p.x, p.y, 0});
+			m_producing.push_back(ProductionItem({PR_UNIT, {u: u}}));
 			return true;
 		}
 	}
@@ -184,7 +185,7 @@ void Unit::goTo(Point2D position) {
 	m_action.timer.set(0);
 }
 
-void Unit::ameliorate(Amelioration* how) {
+bool Unit::ameliorate(Amelioration* how) {
 	bool ok = false;
 	for (uint i = 0; i < m_possibleAmeliorations.size(); i++) {
 		if (m_possibleAmeliorations[i] == how) {
@@ -192,10 +193,12 @@ void Unit::ameliorate(Amelioration* how) {
 			break;
 		}
 	}
-	if (!ok) return;
-	m_action.what = AMELIORATE;
-	m_action.how = how;
-	m_action.timer.set(how->m_time);
+	if (!ok) return false;
+	if (!m_player->canAllocateSpace(how->m_characteristics.space.occupied)) return false;
+	if (!m_player->spend(how->m_characteristics.cost)) return false;
+	ProductionItem i = {PR_AMELIORATE, {a: how}};
+	m_producing.push_back(i);
+	return true;
 }
 
 /**************************
@@ -247,22 +250,6 @@ int Unit::getGold(int howMany) {
  *				(called by game thread regularly)
  *													********************/
 
-bool Unit::doMove(Point2D pos, float precision, float t) {	//TODO : pathfind
-	if (m_characteristics.mobility.speed == 0) return false;
-	m_pos.x = pos.x;
-	m_pos.y = pos.y;
-	return true;
-}
-
-bool Unit::doMove(Unit* unit, bool forAttacking, float t) {
-	Point2D vec(unit->m_pos.x - m_pos.x, unit->m_pos.y - m_pos.y);
-	vec = vec.vecNormalize().vecOpp();
-	Point2D location = Point2D(unit->m_pos.x, unit->m_pos.y);
-	location = location.vecAdd(vec.vecMul(unit->characts().mobility.radius + characts().mobility.radius));
-	if (forAttacking) location = location.vecAdd(vec.vecMul(characts().power.range));
-	return doMove(location, characts().power.range / 2, t);
-}
-
 void Unit::doAction(float time) {
 	if (dead()) doNothing();		//If we are dead or unusable, do nothing
 	//Calculate how many times action should have been done in the elapsed time
@@ -296,13 +283,6 @@ void Unit::doAction(float time) {
 		}
 	} else if (m_action.what == MOVE) {
 		if (doMove(m_action.where, m_characteristics.mobility.speed * time * 2, time)) doNothing();
-	} else if (m_action.what == AMELIORATE) {
-		if (times > 0) {
-			m_ameliorations.push_back(m_action.how);
-			recalculateCharacteristics();
-			m_life += m_action.how->m_characteristics.maxlife.value;
-			doNothing();
-		}
 	}
 
 	if (!dead()) {
@@ -312,30 +292,58 @@ void Unit::doAction(float time) {
 			if (m_life > m_characteristics.maxlife.value) m_life = m_characteristics.maxlife.value;
 		}
 		times = m_provideGTimer.times(time);
-		if (times > 0) m_player->receive({gold: times});
+		if (times > 0) m_player->receive({gold: times, wood: 0});
 		times = m_provideWTimer.times(time);
 		if (times > 0) m_player->receive({gold: 0, wood: times});
 	}
 
-	//Clean up
-	while (!m_producing.empty() && m_producing.front()->m_type->m_productionSpeed == 0) {
-		m_producing.pop_front();
-		m_produceTimer.set(0);
-	}
-
-	if (!m_producing.empty()) {
+	if (!m_producing.empty() && !dead()) {
 		if (m_produceTimer.time == 0) {
-			if (m_producing.front()->m_type->m_productionSpeed == 0) {
-				m_producing.pop_front();
-			} else {
-				m_produceTimer.set(1.f / (float)m_producing.front()->m_type->m_productionSpeed);
+			if (m_producing.front().type == PR_UNIT) {
+				m_produceTimer.set(1.f / (float)m_producing.front().u->m_type->m_productionSpeed);
+			} else if (m_producing.front().type == PR_AMELIORATE) {
+				m_produceTimer.set(m_producing.front().a->m_time);
 			}
 		} else {
 			times = m_produceTimer.times(time);
 			if (times != 0) {
-				int n = m_producing.front()->beHealed(times);
-				if (n != times) m_producing.pop_front();
+				if (m_producing.front().type == PR_UNIT) {
+					int n = m_producing.front().u->beHealed(times);
+					if (n != times) {
+						m_producing.pop_front();
+						m_produceTimer.set(0);
+					}
+				} else if (m_producing.front().type == PR_AMELIORATE) {
+					doAmeliorate(m_producing.front().a);
+					m_producing.pop_front();
+					m_produceTimer.set(0);
+				}
 			}
 		}
 	}
+}
+
+////**********************
+//				Action loop depends on these.
+//										************************
+void Unit::doAmeliorate(Amelioration* how) {
+	m_ameliorations.push_back(how);
+	recalculateCharacteristics();
+	m_life += how->m_characteristics.maxlife.value;
+}
+
+bool Unit::doMove(Point2D pos, float precision, float t) {	//TODO : pathfind
+	if (m_characteristics.mobility.speed == 0) return false;
+	m_pos.x = pos.x;
+	m_pos.y = pos.y;
+	return true;
+}
+
+bool Unit::doMove(Unit* unit, bool forAttacking, float t) {
+	Point2D vec(unit->m_pos.x - m_pos.x, unit->m_pos.y - m_pos.y);
+	vec = vec.vecNormalize().vecOpp();
+	Point2D location = Point2D(unit->m_pos.x, unit->m_pos.y);
+	location = location.vecAdd(vec.vecMul(unit->characts().mobility.radius + characts().mobility.radius));
+	if (forAttacking) location = location.vecAdd(vec.vecMul(characts().power.range));
+	return doMove(location, characts().power.range / 2, t);
 }

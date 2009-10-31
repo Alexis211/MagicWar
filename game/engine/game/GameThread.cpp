@@ -36,7 +36,7 @@ void GameThread::Run() {
 		c.Reset();
 		if (g.m_status == STARTED) {
 			for (uint i = 0; i < g.units().size(); i++) {
-				g.units()[i].doAction(e);
+				g.units()[i]->doAction(e);
 			}
 		}
 		e = c.GetElapsedTime();

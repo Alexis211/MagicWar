@@ -30,6 +30,18 @@
 #include <deque>
 class Game;
 
+#define PR_UNIT 1
+#define PR_AMELIORATE 2
+
+class Unit;
+struct ProductionItem {
+	char type;
+	union {
+		Unit* u;
+		Amelioration* a;
+	};
+};
+
 class Unit {
 	friend class Game;
 
@@ -49,7 +61,7 @@ class Unit {
 	cost_c m_ressources;
 	Action m_action;	
 	ActionTimer m_healTimer, m_provideWTimer, m_provideGTimer, m_produceTimer;
-	std::deque<Unit*> m_producing;
+	std::deque<ProductionItem> m_producing;
 
 	Unit(UnitType* type, Position pos, Player* player);
 
@@ -74,9 +86,10 @@ class Unit {
 		return (!m_usable or m_life == 0);
 	}
 
+	void doAction(float time);	//Called by the game thread.
+	void doAmeliorate(Amelioration* how);
 	bool doMove(Point2D pos, float precision, float t);	//Called by doAction when unit goes somewhere (true when arrived)
 	bool doMove(Unit* unit, bool forAttcking, float t);	//Called by doAction when unit has to go to another unit
-	void doAction(float time);	//Called by the game thread.
 	//Start doing something - this is what user/AI could ask the unit to do
 	void doNothing();	//Called to put unit in an idle state
 	void attack(Unit* other);
@@ -86,7 +99,7 @@ class Unit {
 	void mine(Unit* other);
 	void harvest(Unit* other);
 	void goTo(Point2D position);	
-	void ameliorate(Amelioration* how);
+	bool ameliorate(Amelioration* how);
 };
 
 #endif

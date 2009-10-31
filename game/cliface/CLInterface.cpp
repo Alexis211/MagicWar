@@ -85,7 +85,7 @@ void CLInterface::localGame() {
 		cout << _("Enter player faction : ");
 		uint f;
 		cin >> f;
-		if (f < 0 or f >= Faction::factions.size()) f = 0;
+		if (f < 0 or f >= Faction::factions.size()) f = 1;
 		g.addPlayer(&Faction::factions[f], name, (i == 0 ? HUMAN : COMPUTER));
 	}
 	cout << _("Play in superuser mode (1 = yes, other = no) ? ");

@@ -38,7 +38,7 @@ class Game {
 	private:
 	cost_c m_initialRessources;
 	std::vector<Player> m_players;
-	std::vector<Unit> m_units;
+	std::vector<Unit*> m_units;
 	GameThread m_thread;
 	GameStatus m_status;
 
@@ -53,7 +53,7 @@ class Game {
 	void setupPlayers();
 
 	std::vector<Player>& players() { return m_players; }
-	std::vector<Unit>& units() { return m_units; }
+	std::vector<Unit*>& units() { return m_units; }
 };
 
 #endif

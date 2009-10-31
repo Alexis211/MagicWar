@@ -26,6 +26,7 @@
 #include "Player.h"
 #include <engine/game/Game.h>
 #include <engine/game/Unit.h>
+#include <iostream>
 
 using namespace std;
 
@@ -55,11 +56,11 @@ bool Player::canAllocateSpace(int qty) {
 
 void Player::recalculateSpace() {
 	m_space.occupied = 0, m_space.provided = 0;
-	vector<Unit> &u = m_g->units();	
+	vector<Unit*> &u = m_g->units();	
 	for (uint i = 0; i < u.size(); i++) {
-		if (u[i].player() == this and !u[i].dead()) {
-			m_space.occupied += u[i].characts().space.occupied;
-			m_space.provided += u[i].characts().space.provided;
+		if (u[i]->player() == this and !u[i]->dead()) {
+			m_space.occupied += u[i]->characts().space.occupied;
+			m_space.provided += u[i]->characts().space.provided;
 		}
 	}
 }
