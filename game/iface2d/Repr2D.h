@@ -19,43 +19,21 @@
 /*	MagicWar 0.1 alpha
  *	by Alexis211
  *  ----------------------------
- *  	Game.h
- *  	Header file for game class
+ *  	Repr2D.h
+ *  	Header file for 2D representation for units
  *  	*/
-#ifndef DEF_MW_GAME
-#define DEF_MW_GAME
+#ifndef DEF_MW_2DREPR
+#define DEF_MW_2DREPR
 
-#include "Player.h"
-#include "Unit.h"
-#include <engine/types.h>
-#include <vector>
-#include "GameThread.h"
-#include <engine/Interface.h>
+#include <engine/game/UnitRepr.h>
 
-class Game {
-	friend class Unit;
-	friend class GameThread;
+class Repr2D : public UnitRepr {
+	friend class Interface2D;
 
 	private:
-	cost_c m_initialRessources;
-	std::vector<Player> m_players;
-	std::vector<Unit*> m_units;
-	GameThread m_thread;
-	GameStatus m_status;
-	Interface *m_iface;
-
-	Unit* addUnit(UnitType* type, Player* player, Position pos);
-
-	public:
-	Game(Interface* iface);
-	~Game();
-
-	void setInitialRessources(cost_c res);
-	void addPlayer(Faction *faction, std::string name, PlayerType type);	
-	void setupPlayers();
-
-	std::vector<Player>& players() { return m_players; }
-	std::vector<Unit*>& units() { return m_units; }
+	Repr2D(Unit* u, Interface* iface);
+	virtual ~Repr2D();
+	virtual void update(float time);
 };
 
 #endif

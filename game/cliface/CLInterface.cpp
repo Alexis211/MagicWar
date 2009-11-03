@@ -62,7 +62,7 @@ void CLInterface::credits() {
  *			 					************************/
 
 void CLInterface::localGame() {
-	Game g;
+	Game g(this);
 
 	int nbplayers;
 	cout << _("How many players do you want ? (0 = exit) ");

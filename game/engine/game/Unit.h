@@ -42,11 +42,15 @@ struct ProductionItem {
 	};
 };
 
+class UnitRepr;
+class Interface;
+
 class Unit {
 	friend class Game;
 
 	private:
 	UnitType* m_type;
+	UnitRepr* m_repr;
 
 	Calculator m_info;
 	std::vector<UnitType*> m_canBuild;
@@ -63,7 +67,7 @@ class Unit {
 	ActionTimer m_healTimer, m_provideWTimer, m_provideGTimer, m_produceTimer;
 	std::deque<ProductionItem> m_producing;
 
-	Unit(UnitType* type, Position pos, Player* player);
+	Unit(UnitType* type, Position pos, Player* player, Interface* iface);
 
 	//Receive damage, be healed, get gold/wood - this is what another unit can do to this unit
 	int receiveDamage(Calculator& info, Unit* from);	//Returns actual dammage, taking defense into account

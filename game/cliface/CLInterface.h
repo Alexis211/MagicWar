@@ -25,8 +25,8 @@
 #ifndef DEF_MW_CLIFACE_CLASS
 #define DEF_MW_CLIFACE_CLASS
 
-#include "../engine/Interface.h"
-
+#include <engine/Interface.h>
+#include <engine/game/UnitRepr.h>
 #include <engine/game/Game.h>
 
 class CLInterface : public Interface {
@@ -42,6 +42,8 @@ class CLInterface : public Interface {
 	void networkGame();
 
 	void gameMain(Game& g, Player* p);
+	
+	UnitRepr* reprUnit(Unit* u) { return 0; }
 };
 
 #endif

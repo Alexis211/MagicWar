@@ -3,6 +3,6 @@ name=_("Small gold mine")
 description=_("This place you will find gold at.")
 
 @formulas
-radius=0.7
+radius=1.4
 layer=2
 providesgold=1000

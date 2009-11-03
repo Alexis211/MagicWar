@@ -32,6 +32,9 @@
 
 #include <engine/types.h>
 
+class Unit;
+class UnitRepr;
+
 class Interface {
 	public:
 	
@@ -41,6 +44,8 @@ class Interface {
 	virtual void splashScreen() = 0;	//This function also loads all data (graphics, etc.)
 	virtual void mainMenu() = 0;
 	virtual void credits() = 0; //This function also destroys interface windows and other stuff
+
+	virtual UnitRepr* reprUnit(Unit* u) = 0;
 };
 
 #endif

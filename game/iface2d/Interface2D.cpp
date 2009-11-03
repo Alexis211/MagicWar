@@ -36,17 +36,6 @@
 
 using namespace std;
 
-sf::Color playerColor[9] =
-	{sf::Color(100, 50, 0),
-		sf::Color(0, 0, 255),
-		sf::Color(255, 0, 0),
-		sf::Color(0, 255, 0),
-		sf::Color(0, 255, 255),
-		sf::Color(255, 0, 255),
-		sf::Color(255, 255, 0),
-		sf::Color(255, 255, 255),
-		sf::Color(0, 0, 0)};
-
 Interface2D::Interface2D(int argc, char *argv[]) {
 	if (m_c.o()) m_c.toggle();
 	m_c.print(_("Welcome to the MagicWar game console ! Type 'help' for... help. duh."));
@@ -109,6 +98,7 @@ void Interface2D::mainMenu() {
 					default:
 						break;
 				}
+				PRPT;
 			} else if (event.Type == sf::Event::TextEntered) {
 				if (event.Text.Unicode < 0x80) {
 					if (m_c.o()) {
@@ -182,7 +172,7 @@ void Interface2D::credits() {
 //****************************************		GAME MENUS
 
 void Interface2D::localGame() {
-	Game g;
+	Game g(this);
 	PRPT;
 
 	bool isHuman = true;
@@ -219,7 +209,7 @@ void Interface2D::localGame() {
 				consoleHelp();
 			} else if (cmdline[0] == "initres") {
 				if (cmdline.size() != 3) {
-					m_c.print(_("Usage : initres <initial_gold> <initial_wood>"));
+					m_c.print(_("Usage: initres <initial_gold> <initial_wood>"));
 				} else {
 					g.setInitialRessources({gold: Str2Int(cmdline[1]), wood: Str2Int(cmdline[2])});
 					m_c.print(_("Ok."));
@@ -262,13 +252,6 @@ void Interface2D::localGame() {
 
 void Interface2D::networkGame() {
 
-}
-
-//************************************************************************************
-//*****************************************		GAME MAIN ROUTINE
-
-void Interface2D::gameMain(Game& g, Player* p) {
-	m_c.print(_("Not implemented yet."));
 }
 
 //************************************************************************************

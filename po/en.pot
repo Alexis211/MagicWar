@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-02 16:27+0100\n"
+"POT-Creation-Date: 2009-11-03 16:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,27 +20,27 @@ msgstr ""
 msgid "Hi, this is MagicWar server"
 msgstr ""
 
-#: game/iface2d/Interface2D.cpp:54
+#: game/iface2d/Interface2D.cpp:52
 msgid "Welcome to the MagicWar game console ! Type 'help' for... help. duh."
 msgstr ""
 
-#: game/iface2d/Interface2D.cpp:66
+#: game/iface2d/Interface2D.cpp:64
 msgid "Invalid video mode. Reverting to best supported."
 msgstr ""
 
-#: game/iface2d/Interface2D.cpp:72
+#: game/iface2d/Interface2D.cpp:70
 msgid "MagicWar 2D interface main window"
 msgstr ""
 
-#: game/iface2d/Interface2D.cpp:77
+#: game/iface2d/Interface2D.cpp:75
 msgid "cannot load font (2D interface)"
 msgstr ""
 
-#: game/iface2d/Interface2D.cpp:82
+#: game/iface2d/Interface2D.cpp:80
 msgid "Welcome to MagicWar. Game engine is currently loading ressources."
 msgstr ""
 
-#: game/iface2d/Interface2D.cpp:127
+#: game/iface2d/Interface2D.cpp:126
 msgid ""
 "Hai ! Welcome to MagicWar's main menu.\n"
 "\n"
@@ -50,55 +50,75 @@ msgid ""
 "Q or Escape : exit"
 msgstr ""
 
-#: game/iface2d/Interface2D.cpp:140
+#: game/iface2d/Interface2D.cpp:138
 msgid "- localgame"
 msgstr ""
 
-#: game/iface2d/Interface2D.cpp:141
+#: game/iface2d/Interface2D.cpp:139
 msgid "- netgame"
 msgstr ""
 
-#: game/iface2d/Interface2D.cpp:142 game/iface2d/Interface2D.cpp:222
+#: game/iface2d/Interface2D.cpp:140 game/iface2d/Interface2D.cpp:219
 msgid "- exit"
 msgstr ""
 
-#: game/iface2d/Interface2D.cpp:177
+#: game/iface2d/Interface2D.cpp:172
 msgid "Bye, and thanks for playing MagicWar."
 msgstr ""
 
-#: game/iface2d/Interface2D.cpp:218
+#: game/iface2d/Interface2D.cpp:215
 msgid "Help for the local game configuration screen console :"
 msgstr ""
 
-#: game/iface2d/Interface2D.cpp:219
+#: game/iface2d/Interface2D.cpp:216
 msgid "- initres <initial_gold> <initial_wood>"
 msgstr ""
 
-#: game/iface2d/Interface2D.cpp:220
+#: game/iface2d/Interface2D.cpp:217
 msgid "- addplayer <name> <faction_id>"
 msgstr ""
 
-#: game/iface2d/Interface2D.cpp:221
+#: game/iface2d/Interface2D.cpp:218
 msgid "- start [su]"
 msgstr ""
 
-#: game/iface2d/Interface2D.cpp:231
+#: game/iface2d/Interface2D.cpp:223
+msgid "Usage: initres <initial_gold> <initial_wood>"
+msgstr ""
+
+#: game/iface2d/Interface2D.cpp:226
+msgid "Ok."
+msgstr ""
+
+#: game/iface2d/Interface2D.cpp:230
+msgid "Usage: addplayer <name> <faction_id>"
+msgstr ""
+
+#: game/iface2d/Interface2D.cpp:236
+msgid "Human player added : "
+msgstr ""
+
+#: game/iface2d/Interface2D.cpp:238
+msgid "AI player added : "
+msgstr ""
+
+#: game/iface2d/Interface2D.cpp:253
 msgid "Please use the console to configure the game (show by pressing return)"
 msgstr ""
 
-#: game/iface2d/Interface2D.cpp:250 game/cliface/CLInterface.cpp:101
+#: game/iface2d/Interface2D.cpp:272 game/cliface/CLInterface.cpp:101
 msgid "Not implemented yet."
 msgstr ""
 
-#: game/iface2d/Interface2D.cpp:257
+#: game/iface2d/Interface2D.cpp:279
 msgid "Unknown command..."
 msgstr ""
 
-#: game/iface2d/Interface2D.cpp:261
+#: game/iface2d/Interface2D.cpp:283
 msgid "Global help for game console :"
 msgstr ""
 
-#: game/iface2d/Interface2D.cpp:262
+#: game/iface2d/Interface2D.cpp:284
 msgid "- nothing exists yet."
 msgstr ""
 
@@ -313,8 +333,9 @@ msgstr ""
 msgid ":0 Cancel"
 msgstr ""
 
-#: game/cliface/CLInterface-main.cpp:144
-msgid "Noit enough money/space."
+#: game/cliface/CLInterface-main.cpp:144 game/cliface/CLInterface-main.cpp:165
+#: game/cliface/CLInterface-main.cpp:185
+msgid "Not enough money/space."
 msgstr ""
 
 #: game/cliface/CLInterface-main.cpp:146
@@ -323,10 +344,6 @@ msgstr ""
 
 #: game/cliface/CLInterface-main.cpp:152
 msgid "Enter builder unit number : "
-msgstr ""
-
-#: game/cliface/CLInterface-main.cpp:165 game/cliface/CLInterface-main.cpp:185
-msgid "Not enough money/space."
 msgstr ""
 
 #: game/cliface/CLInterface-main.cpp:167
@@ -341,72 +358,72 @@ msgstr ""
 msgid "produces "
 msgstr ""
 
-#: game/engine/main.cpp:67
+#: game/engine/main.cpp:68
 msgid "Configuration file does not exist, using default configuration values."
 msgstr ""
 
-#: game/engine/main.cpp:75
+#: game/engine/main.cpp:76
 msgid " *** MagicWar 0.1 alpha ***"
 msgstr ""
 
-#: game/engine/main.cpp:76
+#: game/engine/main.cpp:77
 msgid "MagicWar is free software, distributed under GNU GPL."
 msgstr ""
 
-#: game/engine/main.cpp:77
+#: game/engine/main.cpp:78
 msgid "MagicWar is written by :"
 msgstr ""
 
-#: game/engine/main.cpp:78
+#: game/engine/main.cpp:79
 msgid "  Ideas : Bhan666"
 msgstr ""
 
-#: game/engine/main.cpp:79
+#: game/engine/main.cpp:80
 msgid "  Code : Alexis211"
 msgstr ""
 
-#: game/engine/main.cpp:80
+#: game/engine/main.cpp:81
 msgid "  Graphics : (nobody)"
 msgstr ""
 
-#: game/engine/main.cpp:81
+#: game/engine/main.cpp:82
 msgid "  Translation : (translators, insert your names here)"
 msgstr ""
 
-#: game/engine/main.cpp:84
+#: game/engine/main.cpp:85
 msgid "Usage : magicwar [OPTIONS]"
 msgstr ""
 
-#: game/engine/main.cpp:85
+#: game/engine/main.cpp:86
 msgid "Options :"
 msgstr ""
 
-#: game/engine/main.cpp:86
+#: game/engine/main.cpp:87
 msgid "\t--about\t\tprints various informations about program"
 msgstr ""
 
-#: game/engine/main.cpp:87
+#: game/engine/main.cpp:88
 msgid "\t--help\t\tprints this help screen"
 msgstr ""
 
-#: game/engine/main.cpp:88
+#: game/engine/main.cpp:89
 msgid ""
 " --cliface\tuse command line interface for game (used for developpement)"
 msgstr ""
 
-#: game/engine/main.cpp:89
+#: game/engine/main.cpp:90
 msgid "\t--iface2d\tuse 2D interface for game (used for developpement)"
 msgstr ""
 
-#: game/engine/main.cpp:90
+#: game/engine/main.cpp:91
 msgid "\t--iface3d\tuse 3D interface for game"
 msgstr ""
 
-#: game/engine/main.cpp:91
+#: game/engine/main.cpp:92
 msgid "For more options, try editing configuration file : "
 msgstr ""
 
-#: game/engine/main.cpp:104
+#: game/engine/main.cpp:105
 msgid "3D interface disabled, reverting to CL interface."
 msgstr ""
 
@@ -426,19 +443,35 @@ msgstr ""
 msgid "CRITICAL : "
 msgstr ""
 
+#: game/engine/Calculator.cpp:79
+msgid "Unknown variable in calculations : "
+msgstr ""
+
+#: game/engine/Calculator.cpp:81
+msgid "Infinite loop in calculations with "
+msgstr ""
+
 #: game/engine/game/Game.cpp:35 game/engine/ressources/Faction.cpp:39
 msgid "Nature"
 msgstr ""
 
-#: game/engine/ressources/UnitType.cpp:38
+#: game/engine/ressources/UnitType.cpp:40
+msgid "Reading default formulas for units..."
+msgstr ""
+
+#: game/engine/ressources/UnitType.cpp:52
+msgid "Cannot read default formulas file"
+msgstr ""
+
+#: game/engine/ressources/UnitType.cpp:55
 msgid "Loading unit types..."
 msgstr ""
 
-#: game/engine/ressources/UnitType.cpp:49
+#: game/engine/ressources/UnitType.cpp:66
 msgid "Cannot read unit list"
 msgstr ""
 
-#: game/engine/ressources/UnitType.cpp:65
+#: game/engine/ressources/UnitType.cpp:83
 msgid "Cannot load data for unit "
 msgstr ""
 
@@ -462,44 +495,68 @@ msgstr ""
 msgid "Faction that has no description"
 msgstr ""
 
-#: data/units/apparition:1
+#: data/units/apparition:2
 msgid "Apparition"
 msgstr ""
 
-#: data/units/apparition:2
+#: data/units/apparition:3
 msgid "Base unit for forecasters."
 msgstr ""
 
-#: data/units/ritualcircle:1
+#: data/units/ritualcircle:2
 msgid "Ritual Circle"
 msgstr ""
 
-#: data/units/ritualcircle:2
+#: data/units/ritualcircle:3
 msgid "Base meeting place for forecasters."
 msgstr ""
 
-#: data/units/ritualcircle:18
+#: data/units/ritualcircle:19
 msgid "Power enhancement"
 msgstr ""
 
-#: data/units/ritualcircle:19
+#: data/units/ritualcircle:20
 msgid "The ritual circle becomes... MORE POWERFUL!!!"
 msgstr ""
 
-#: data/units/mine1:1
+#: data/units/mine1:2
 msgid "Small gold mine"
 msgstr ""
 
-#: data/units/mine1:2
+#: data/units/mine1:3
 msgid "This place you will find gold at."
 msgstr ""
 
-#: data/units/tree1:1
+#: data/units/tree1:2
 msgid "Oak tree"
 msgstr ""
 
-#: data/units/tree1:2
+#: data/units/tree1:3
 msgid "This tree might provide you some wood"
+msgstr ""
+
+#: data/units/friar:2
+msgid "Friar"
+msgstr ""
+
+#: data/units/friar:3
+msgid "Base unit for priests"
+msgstr ""
+
+#: data/units/servitor:2
+msgid "Servitor"
+msgstr ""
+
+#: data/units/servitor:3
+msgid "Base unit for mysticals"
+msgstr ""
+
+#: data/units/woodspirit:2
+msgid "Spirit of the woods"
+msgstr ""
+
+#: data/units/woodspirit:3
+msgid "Base unit for druids"
 msgstr ""
 
 #: data/factions/1:1

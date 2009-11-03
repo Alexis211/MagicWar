@@ -1,6 +1,7 @@
 server/main.cpp
 
 game/iface2d/Interface2D.cpp
+game/iface2d/Console.cpp
 
 game/iface3d/Interface3D.cpp
 
@@ -9,6 +10,7 @@ game/cliface/CLInterface-main.cpp
 
 game/engine/main.cpp
 game/engine/Exception.h
+game/engine/Calculator.cpp
 game/engine/game/Game.cpp
 game/engine/game/Player.cpp
 game/engine/game/Unit.cpp
@@ -20,6 +22,9 @@ data/units/apparition
 data/units/ritualcircle
 data/units/mine1
 data/units/tree1
+data/units/friar
+data/units/servitor
+data/units/woodspirit
 
 data/factions/1
 data/factions/2

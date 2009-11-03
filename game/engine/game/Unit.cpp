@@ -26,11 +26,12 @@
 #include "Unit.h"
 #include <engine/Exception.h>
 #include <engine/game/Game.h>
+#include "UnitRepr.h"
 #include <iostream>
 
 using namespace std;
 
-Unit::Unit(UnitType* type, Position pos, Player* player) 
+Unit::Unit(UnitType* type, Position pos, Player* player, Interface* iface) 
 	:m_canBuild(), m_canProduce(), m_possibleAmeliorations(), m_ameliorations(), m_producing() {
 	m_produceTimer.set(0);
 	m_player = player;
@@ -39,6 +40,7 @@ Unit::Unit(UnitType* type, Position pos, Player* player)
 	recalculateCharacteristics();
 	m_life = 0, m_usable = false;
 	doNothing();
+	m_repr = iface->reprUnit(this);
 }
 
 void Unit::recalculateCharacteristics() {
@@ -334,6 +336,7 @@ void Unit::doAction(float time) {
 			}
 		}
 	}
+	if (m_repr != 0) m_repr->update(time);
 }
 
 ////**********************

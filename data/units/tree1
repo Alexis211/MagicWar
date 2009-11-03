@@ -3,6 +3,6 @@ name=_("Oak tree")
 description=_("This tree might provide you some wood")
 
 @formulas
-radius=0.5
+radius=1
 layer=2
 provideswood=1000

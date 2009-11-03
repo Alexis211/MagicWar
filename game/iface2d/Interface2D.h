@@ -34,24 +34,28 @@
 #include <engine/Interface.h>
 #include <engine/Parser.h>
 
-#include <deque>
+#include <vector>
 #include <string>
 
 #include "Console.h"
 
 #include <engine/game/Game.h>
+#include "Repr2D.h"
 
 class Interface2D : public Interface {
 	private:
 	sf::RenderWindow m_app;
 	sf::Font m_font;
 	Console m_c;
+	std::vector<Repr2D*> m_repr;
 
 	public:
 	Interface2D(int argc, char *argv[]);
 	void splashScreen();
 	void mainMenu();
 	void credits(); //This function also destroys interface windows and other stuff
+
+	UnitRepr* reprUnit(Unit* u);
 
 	void consoleExec(std::vector<std::string> &cmdline);
 	void consoleHelp();

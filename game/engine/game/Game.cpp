@@ -29,9 +29,10 @@
 
 using namespace std;
 
-Game::Game()
+Game::Game(Interface* iface)
 	: m_initialRessources({100, 100}), m_players(), m_units(), m_thread(*this) {
 	m_status = CONFIGURATION;
+	m_iface = iface;
 	m_players.push_back(Player(0, &Faction::factions[0], _("Nature"), {0, 0}, NETWORK, this)); 
 	m_thread.Launch();
 }
@@ -74,7 +75,7 @@ void Game::setupPlayers() {
 }
 
 Unit* Game::addUnit(UnitType* type, Player* player, Position pos) {
-	m_units.push_back(new Unit(type, pos, player));
+	m_units.push_back(new Unit(type, pos, player, m_iface));
 	player->recalculateSpace();
 	return m_units.back();
 }
