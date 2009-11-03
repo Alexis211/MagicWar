@@ -36,6 +36,7 @@ using namespace std;
 float Calculator::calculate(string formula) {	//TODO
 	vector<string> tokens = SplitStr(formula);
 	vector<float> stack;
+	stack.clear();
 	for (uint i = 0; i < tokens.size(); i++) {
 		string &t = tokens[i];
 		if (t == "+") {
@@ -50,10 +51,25 @@ float Calculator::calculate(string formula) {	//TODO
 		} else if (t == "/") {
 			POP2(a, b);
 			stack.push_back(b / a);
+		} else if (t == "+r") {
+			POP2(a, b);
+			b += sf::Randomizer::Random(0.f, a);
+			stack.push_back(b);
+		} else if (t == "Rr") {
+			POP2(a, b);
+			stack.push_back(sf::Randomizer::Random(a, b));
+			stack.push_back(b / a);
+		} else if (t == "+R") {
+			POP2(a, b);
+			b += sf::Randomizer::Random(0.f, (float)((int)a) + 0.999);
+			stack.push_back((int)b);
+		} else if (t == "RR") {
+			POP2(a, b);
+			stack.push_back((int)sf::Randomizer::Random((int)a, (float)((int)b) + 0.999));
 		} else if (t[0] == '%') {
 			stack.push_back(get(t.substr(1)));
 		} else {
-			stack.push_back(Str2Int(t));
+			stack.push_back(Str2Float(t));
 		}
 	}
 	return stack.back();
@@ -61,17 +77,17 @@ float Calculator::calculate(string formula) {	//TODO
 
 float Calculator::get(string name) {
 	if (m_f.find(name) == m_f.end()) throw Exception(string(_("Unknown variable in calculations : ")) + name, ERROR);
-	if (m_f[name].state == F_KNOWN) {
-		return m_f[name].value;
-	} else if (m_f[name].state == F_WIP) {
+	if (m_f[name].state == F_WIP) {
 		throw Exception(string(_("Infinite loop in calculations with ")) + name, ERROR);
 		return 0;
-	} else {
+	} else if (m_f[name].state == F_UNKNOWN or m_f[name].formula.substr(0, 2) == "@ ") {
+		string f = m_f[name].formula;
+		if (f.substr(0, 2) == "@ ") f = f.substr(2);
 		m_f[name].state = F_WIP;
-		m_f[name].value = calculate(m_f[name].formula);
+		m_f[name].value = calculate(f);
 		m_f[name].state = F_KNOWN;
-		return m_f[name].value;
 	}
+	return m_f[name].value;
 }
 
 void Calculator::set(string name, string formula) {

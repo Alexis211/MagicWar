@@ -24,6 +24,7 @@
  *  	*/
 
 #include <cstdlib>
+#include <iostream>
 
 #include "functions.h"
 
@@ -42,7 +43,10 @@ string Float2Str(float f) {
 }
 
 float Str2Float(string s) {
-	return atof(s.c_str());
+	float r;
+	istringstream a(s);
+	a >> std::dec >> r;
+	return r;
 }
 
 int Str2Int(string s) {

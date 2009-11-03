@@ -1,0 +1,19 @@
+@global
+name=_("Servitor")
+description=_("Base unit for mysticals")
+costgold=80
+costwood=0
+
+@formulas
+power=@ 8 10 RR
+disppower=9
+maxlife=80
+attackspeed=4 10 /
+movingspeed=2
+radius=1
+layer=2
+canfetchgold=1
+canfetchwood=1
+spaceoccupied=1
+buildspeed=12
+productionspeed=8

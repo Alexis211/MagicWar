@@ -1,0 +1,19 @@
+@global
+name=_("Friar")
+description=_("Base unit for priests")
+costgold=60
+costwood=0
+
+@formulas
+power=@ 1 3 RR
+disppower=2
+maxlife=50
+attackspeed=2 10 /
+movingspeed=2
+radius=1
+layer=2
+canfetchgold=1
+canfetchwood=1
+spaceoccupied=1
+buildspeed=12
+productionspeed=7

@@ -8,6 +8,8 @@ defensewater
 defensestorm
 defenseplant
 power
+disppower=%power
+powertype
 attackrange
 attackspeed
 attacktype

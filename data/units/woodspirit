@@ -1,0 +1,17 @@
+@global
+name=_("Spirit of the woods")
+description=_("Base unit for druids")
+costgold=60
+costwood=5
+
+@formulas
+power=0
+maxlife=50
+movingspeed=2
+radius=1
+layer=2
+canfetchgold=1
+canfetchwood=1
+spaceoccupied=1
+buildspeed=12
+productionspeed=7

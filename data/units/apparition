@@ -6,11 +6,12 @@ costwood=20
 canbuild=ritualcircle
 
 @formulas
-power=10
+power=@ 1 2 +R
+disppower=2
 maxlife=100
-attackspeed=1
-movingspeed=0.5
-radius=0.3
+attackspeed=2 10 /
+movingspeed=2
+radius=1
 layer=2
 canfetchgold=10
 canfetchwood=10

@@ -222,13 +222,11 @@ bool Unit::ameliorate(Amelioration* how) {
 
 int Unit::receiveDamage(Calculator& info, Unit* from) {
 	int v = info["power"];
-	v -= m_info["defense"];
-	if (info["powertype"] == PHYSIC) v -= m_info["defenseneutral"];
-	if (info["powertype"] == FIRE) v -= m_info["defensefire"];
-	if (info["powertype"] == WATER) v -= m_info["defensewater"];
-	if (info["powertype"] == STORM) v -= m_info["defensestorm"];
-	if (info["powertype"] == PLANT) v -= m_info["defenseplant"];
-	if (v < 0) v = 0;
+	if (info["powertype"] == PHYSIC) v *= (1 - (m_info["defenseneutral"] / 100));
+	if (info["powertype"] == FIRE) v *= (1 - (m_info["defensefire"] / 100));
+	if (info["powertype"] == WATER) v *= (1 - (m_info["defensewater"] / 100));
+	if (info["powertype"] == STORM) v *= (1 - (m_info["defensestorm"] / 100));
+	if (info["powertype"] == PLANT) v *= (1 - (m_info["defenseplant"] / 100));
 	if (v > m_life) v = m_life;
 	m_life -= v;
 	attack(from);

@@ -2,4 +2,4 @@ name=_("Mysticals")
 singular=_("Mystical")
 description=_("Insert description here")
 # to be changed
-startswith=apparition ritualcircle
+startswith=servitor ritualcircle
