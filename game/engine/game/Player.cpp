@@ -59,8 +59,8 @@ void Player::recalculateSpace() {
 	vector<Unit*> &u = m_g->units();	
 	for (uint i = 0; i < u.size(); i++) {
 		if (u[i]->player() == this and !u[i]->dead()) {
-			m_space.occupied += u[i]->characts().space.occupied;
-			m_space.provided += u[i]->characts().space.provided;
+			m_space.occupied += u[i]->info()["spaceoccupied"];
+			m_space.provided += u[i]->info()["spaceprovided"];
 		}
 	}
 }

@@ -21,6 +21,7 @@
 #include <iostream>
 
 #include "Parser.h"
+#include "Calculator.h"
 
 #ifdef WIN32
 #include <direct.h>

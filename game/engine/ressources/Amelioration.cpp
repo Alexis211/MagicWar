@@ -29,11 +29,13 @@
 
 using namespace std;
 
-void Amelioration::load(Parser& p, map<string, Amelioration> other_ameliorations) {
+void Amelioration::load(Parser& p, string name, map<string, Amelioration> other_ameliorations) {
+	//Load global infos
+	p.setSection(name + ".global");
 	m_name = p.getValueString("name", "NONAMED UNIT");
 	m_description = p.getValueString("description", "NODESCRIPTED UNIT");
 	m_time = p.getValueFloat("time", 0);
-	m_characteristics.load(p);
+	m_cost.load(p, "cost");
 
 	{
 		vector<string> cb = SplitStr(p.getValueString("canbuild", ""));
@@ -48,5 +50,17 @@ void Amelioration::load(Parser& p, map<string, Amelioration> other_ameliorations
 	{
 		vector<string> r = SplitStr(p.getValueString("requires", ""));
 		for (uint i = 0; i < r.size(); i++) m_requires.push_back(&other_ameliorations[r[i]]);
+	}
+
+	p.setSection(name + ".formulas");
+	{	//Load formulas
+		map<string, string>::iterator it = UnitType::defaultFormulas.begin();
+		while (it != UnitType::defaultFormulas.end()) {
+			string f = p.getValueString(it->first, "");
+			if (f != "") {
+				m_info.set(it->first, f);
+			}
+			it++;
+		}
 	}
 }

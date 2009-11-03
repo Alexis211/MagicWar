@@ -62,7 +62,7 @@ void Game::setupPlayers() {
 			vector<UnitType*>& sw = m_players[i].m_faction->m_startsWith;
 			for (uint j = 0; j < sw.size(); j++) {
 				addUnit(sw[j], &m_players[i], p); 
-				m_units.back()->m_life = m_units.back()->characts().maxlife.value;
+				m_units.back()->m_life = m_units.back()->info()["maxlife"];
 				m_units.back()->m_usable = true;
 				p.x += 3;
 				if (p.x > 20) p.x = 2, p.y += 3;

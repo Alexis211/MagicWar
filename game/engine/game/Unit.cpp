@@ -38,17 +38,23 @@ Unit::Unit(UnitType* type, Position pos, Player* player)
 	m_pos = pos;
 	recalculateCharacteristics();
 	m_life = 0, m_usable = false;
-	if (player->id() == 0) m_ressources = m_characteristics.provides;
 	doNothing();
 }
 
 void Unit::recalculateCharacteristics() {
+	int lifediff;
+	try {
+		lifediff = m_info["maxlife"] - m_life;
+	} catch (const Exception& e) {
+		lifediff = -1;
+	}
+
 	m_healTimer.set(0);
 	m_provideWTimer.set(0);
 	m_provideGTimer.set(0);
 
 	//Take basics characteristics from unit type
-	m_characteristics = m_type->m_characteristics;
+	m_type->m_info.copyTo(m_info);
 	m_canBuild = m_type->m_canBuild;
 	m_canProduce = m_type->m_canProduce;
 	//Compute possible ameliorations
@@ -87,7 +93,7 @@ void Unit::recalculateCharacteristics() {
 	}
 	//Take into account currently possesed ameliorations
 	for (uint i = 0; i < m_ameliorations.size(); i++) {
-		m_characteristics += m_ameliorations[i]->m_characteristics;
+		m_ameliorations[i]->m_info.combineTo(m_info);
 		for (uint j = 0; j < m_ameliorations[i]->m_canBuild.size(); j++) {
 			m_canBuild.push_back(m_ameliorations[i]->m_canBuild[j]);
 		}
@@ -95,13 +101,21 @@ void Unit::recalculateCharacteristics() {
 			m_canProduce.push_back(m_ameliorations[i]->m_canProduce[j]);
 		}
 	}
+	m_info.recalculate();
 
-	if (m_characteristics.maxlife.autoheals > 0)
-		m_healTimer.set(1.f / (float)m_characteristics.maxlife.autoheals);
-	if (m_player->id() != 0 && m_characteristics.provides.wood > 0)
-		m_provideWTimer.set(1.f / (float)m_characteristics.provides.wood);
-	if (m_player->id() != 0 && m_characteristics.provides.gold > 0)
-		m_provideGTimer.set(1.f / (float)m_characteristics.provides.gold);
+	m_life = m_info["maxlife"] - lifediff;
+	if (lifediff == -1) m_life = 0;
+
+	if (m_info["autoheals"] > 0)
+		m_healTimer.set(1.f / (float)m_info["autoheals"]);
+	m_providesRes.wood = m_info["provideswood"];
+	if (m_player->id() != 0 && m_info["provideswood"] > 0) {
+		m_provideWTimer.set(1.f / (float)m_providesRes.wood);
+	}
+	m_providesRes.gold = m_info["providesgold"];
+	if (m_player->id() != 0 && m_info["providesgold"] > 0) {
+		m_provideGTimer.set(1.f / (float)m_providesRes.gold);
+	}
 }
 
 
@@ -117,31 +131,31 @@ void Unit::doNothing() {
 
 void Unit::attack(Unit* other) {
 	if (other->m_player == m_player) return;
-	if (m_characteristics.power.speed == 0) return;
+	if (m_info["attackspeed"] == 0) return;
 	m_action.what = ATTACK;
 	m_action.who = other;
-	m_action.timer.set(1.f / (float)m_characteristics.power.speed);
+	m_action.timer.set(1.f / (float)m_info["attackspeed"]);
 }
 
 void Unit::heal(Unit* other) {
 	if (other->m_player != m_player) return;
-	if (other->characts().mobility.speed == 0) {
-		if (m_characteristics.buildSpeed == 0) return;
+	if (other->info()["movingspeed"] == 0) {
+		if (m_info["buildspeed"] == 0) return;
 		m_action.what = HEAL;
 		m_action.who = other;
-		m_action.timer.set(1.f / (float)m_characteristics.buildSpeed);
+		m_action.timer.set(1.f / m_info["buildspeed"]);
 	} else {
-		if (m_characteristics.maxlife.autoheals == 0) return;
+		if (m_info["autoheals"] == 0) return;
 		m_action.what = HEAL;
 		m_action.who = other;
-		m_action.timer.set(1.f / (float)m_characteristics.maxlife.autoheals);
+		m_action.timer.set(1.f / m_info["autoheals"]);
 	}
 }
 
 bool Unit::build(UnitType* t, Position p) {
 	for (uint i = 0; i < m_canBuild.size(); i++) {
 		if (m_canBuild[i] == t) {
-			if (!m_player->spend(t->m_characteristics.cost)) return false;
+			if (!m_player->spend(t->m_cost)) return false;
 			heal(m_player->g().addUnit(t, m_player, p));
 			return true;
 		}
@@ -152,10 +166,10 @@ bool Unit::build(UnitType* t, Position p) {
 bool Unit::produce(UnitType* t) {
 	for (uint i = 0; i < m_canProduce.size(); i++) {
 		if (m_canProduce[i] == t) {
-			if (!m_player->canAllocateSpace(t->m_characteristics.space.occupied)) return false;
-			if (!m_player->spend(t->m_characteristics.cost)) return false;
+			if (!m_player->canAllocateSpace(t->m_info["spaceoccupied"])) return false;
+			if (!m_player->spend(t->m_cost)) return false;
 			Point2D p(sf::Randomizer::Random(-100, 100), sf::Randomizer::Random(-100, 100));
-			p = p.vecNormalize().vecMul(m_characteristics.mobility.radius + t->m_characteristics.mobility.radius);
+			p = p.vecNormalize().vecMul(m_info["radius"] + t->m_info["radius"]);
 			p = p.vecAdd(Point2D(m_pos.x, m_pos.y));
 			Unit* u = m_player->g().addUnit(t, m_player, {p.x, p.y, 0});
 			m_producing.push_back(ProductionItem({PR_UNIT, {u: u}}));
@@ -169,14 +183,14 @@ void Unit::mine(Unit* other) {
 	if (other->m_player->id() != 0) return;	//We can only mine nature's possesions
 	m_action.what = MINE;
 	m_action.who = other;
-	m_action.timer.set(10 / m_characteristics.canFetch.gold);
+	m_action.timer.set(1.f / m_info["canfetchgold"]);
 }
 
 void Unit::harvest(Unit* other) {
 	if (other->m_player->id() != 0) return;	//We can only mine nature's possesions
 	m_action.what = HARVEST;
 	m_action.who = other;
-	m_action.timer.set(10 / m_characteristics.canFetch.wood);
+	m_action.timer.set(1.f / m_info["canfetchwood"]);
 }
 
 void Unit::goTo(Point2D position) {
@@ -194,8 +208,8 @@ bool Unit::ameliorate(Amelioration* how) {
 		}
 	}
 	if (!ok) return false;
-	if (!m_player->canAllocateSpace(how->m_characteristics.space.occupied)) return false;
-	if (!m_player->spend(how->m_characteristics.cost)) return false;
+	if (!m_player->canAllocateSpace(how->m_info["spaceoccupied"])) return false;
+	if (!m_player->spend(how->m_cost)) return false;
 	ProductionItem i = {PR_AMELIORATE, {a: how}};
 	m_producing.push_back(i);
 	return true;
@@ -206,13 +220,14 @@ bool Unit::ameliorate(Amelioration* how) {
  * 		(functions called by other units that have an action on this one)
  * 													********************/
 
-int Unit::receiveDamage(power_c power, Unit* from) {
-	int v = power.value;
-	v -= m_characteristics.defense.main;
-	if (power.type == PHYSIC) v -= m_characteristics.defense.physic;
-	if (power.type == FIRE) v -= m_characteristics.defense.fire;
-	if (power.type == ICE) v -= m_characteristics.defense.ice;
-	if (power.type == STORM) v -= m_characteristics.defense.storm;
+int Unit::receiveDamage(Calculator& info, Unit* from) {
+	int v = info["power"];
+	v -= m_info["defense"];
+	if (info["powertype"] == PHYSIC) v -= m_info["defenseneutral"];
+	if (info["powertype"] == FIRE) v -= m_info["defensefire"];
+	if (info["powertype"] == WATER) v -= m_info["defensewater"];
+	if (info["powertype"] == STORM) v -= m_info["defensestorm"];
+	if (info["powertype"] == PLANT) v -= m_info["defenseplant"];
 	if (v < 0) v = 0;
 	if (v > m_life) v = m_life;
 	m_life -= v;
@@ -222,9 +237,9 @@ int Unit::receiveDamage(power_c power, Unit* from) {
 }
 
 int Unit::beHealed(int howMany) {
-	if (m_life + howMany > m_characteristics.maxlife.value) howMany = m_characteristics.maxlife.value - m_life;
+	if (m_life + howMany > m_info["maxlife"]) howMany = m_info["maxlife"] - m_life;
 	m_life += howMany;
-	if (m_life == m_characteristics.maxlife.value) {
+	if (m_life == m_info["maxlife"]) {
 		m_usable = true;
 		m_player->recalculateSpace();
 	}
@@ -233,15 +248,15 @@ int Unit::beHealed(int howMany) {
 
 int Unit::getWood(int howMany) {
 	if (m_player->id() != 0) return 0;
-	if (howMany > m_ressources.wood) howMany = m_ressources.wood;
-	m_ressources.wood -= howMany;
+	if (howMany > m_providesRes.wood) howMany = m_providesRes.wood;
+	m_providesRes.wood -= howMany;
 	return howMany;
 }
 
 int Unit::getGold(int howMany) {
 	if (m_player->id() != 0) return 0;
-	if (howMany > m_ressources.gold) howMany = m_ressources.gold;
-	m_ressources.gold -= howMany;
+	if (howMany > m_providesRes.gold) howMany = m_providesRes.gold;
+	m_providesRes.gold -= howMany;
 	return howMany;
 }
 
@@ -258,10 +273,10 @@ void Unit::doAction(float time) {
 	if (m_action.what == ATTACK) {
 		for (int i = 0; i < times; i++) {
 			if (doMove(m_action.who, true, time)) {
-				if (m_action.who->receiveDamage(m_characteristics.power, this) == 0) {
+				if (m_action.who->receiveDamage(m_info, this) == 0) {
 					doNothing();
-					if (m_action.who->m_player->id() == 0 and m_action.who->m_ressources.wood > 0) harvest(m_action.who);
-					if (m_action.who->m_player->id() == 0 and m_action.who->m_ressources.gold > 0) mine(m_action.who);
+					if (m_action.who->m_player->id() == 0 and m_action.who->m_providesRes.wood > 0) harvest(m_action.who);
+					if (m_action.who->m_player->id() == 0 and m_action.who->m_providesRes.gold > 0) mine(m_action.who);
 				}
 			}
 		}
@@ -282,14 +297,14 @@ void Unit::doAction(float time) {
 			if (i < times) doNothing();
 		}
 	} else if (m_action.what == MOVE) {
-		if (doMove(m_action.where, m_characteristics.mobility.speed * time * 2, time)) doNothing();
+		if (doMove(m_action.where, m_info["movingspeed"] * time * 2, time)) doNothing();
 	}
 
 	if (!dead()) {
 		times = m_healTimer.times(time);
 		if (times > 0) {
 			m_life += times;
-			if (m_life > m_characteristics.maxlife.value) m_life = m_characteristics.maxlife.value;
+			if (m_life > m_info["maxlife"]) m_life = m_info["maxlife"];
 		}
 		times = m_provideGTimer.times(time);
 		if (times > 0) m_player->receive({gold: times, wood: 0});
@@ -329,11 +344,10 @@ void Unit::doAction(float time) {
 void Unit::doAmeliorate(Amelioration* how) {
 	m_ameliorations.push_back(how);
 	recalculateCharacteristics();
-	m_life += how->m_characteristics.maxlife.value;
 }
 
 bool Unit::doMove(Point2D pos, float precision, float t) {	//TODO : pathfind
-	if (m_characteristics.mobility.speed == 0) return false;
+	if (m_info["movingspeed"] == 0) return false;
 	m_pos.x = pos.x;
 	m_pos.y = pos.y;
 	return true;
@@ -343,7 +357,7 @@ bool Unit::doMove(Unit* unit, bool forAttacking, float t) {
 	Point2D vec(unit->m_pos.x - m_pos.x, unit->m_pos.y - m_pos.y);
 	vec = vec.vecNormalize().vecOpp();
 	Point2D location = Point2D(unit->m_pos.x, unit->m_pos.y);
-	location = location.vecAdd(vec.vecMul(unit->characts().mobility.radius + characts().mobility.radius));
-	if (forAttacking) location = location.vecAdd(vec.vecMul(characts().power.range));
-	return doMove(location, characts().power.range / 2, t);
+	location = location.vecAdd(vec.vecMul(unit->info()["radius"] + m_info["radius"]));
+	if (forAttacking) location = location.vecAdd(vec.vecMul(info()["attackrange"]));
+	return doMove(location, info()["attackrange"] / 2, t);
 }

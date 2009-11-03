@@ -11,7 +11,7 @@ Objects = engine/main.o engine/Parser.o engine/functions.o iface2d/Interface2D.o
 		  engine/ressources/UnitType.o engine/ressources/Amelioration.o engine/ressources/Faction.o \
 		  engine/game/Game.o engine/game/Player.o engine/game/Unit.o engine/game/GameThread.o \
           cliface/CLInterface.o cliface/CLInterface-main.o \
-		  iface2d/Console.o
+		  iface2d/Console.o engine/Calculator.o
 
 all: $(Objects)
 	$(LD) $^ -o $(OutFile) $(LDFLAGS)

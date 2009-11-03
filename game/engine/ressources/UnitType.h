@@ -28,18 +28,21 @@
 #include <map>
 #include <string>
 #include "Amelioration.h"
+#include <engine/Calculator.h>
 
 struct UnitType {
 	std::string m_name;
 	std::string m_description;
 	std::vector<UnitType*> m_canBuild;
 	std::vector<UnitType*> m_canProduce;
-	unit_c m_characteristics;
+	cost_c m_cost;
+	Calculator m_info;
 	int m_productionSpeed;	//HP per second
 	std::map<std::string, Amelioration> m_ameliorations;
 
 	void load(std::string identifier);
 	
+	static std::map<std::string, std::string> defaultFormulas;
 	static std::map<std::string, UnitType> unitTypes;
 	static void loadUnitTypes();
 };

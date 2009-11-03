@@ -48,7 +48,7 @@ class Unit {
 	private:
 	UnitType* m_type;
 
-	unit_c m_characteristics;
+	Calculator m_info;
 	std::vector<UnitType*> m_canBuild;
 	std::vector<UnitType*> m_canProduce;
 	std::vector<Amelioration*> m_possibleAmeliorations;
@@ -58,7 +58,7 @@ class Unit {
 	std::vector<Amelioration*> m_ameliorations;
 	Position m_pos;
 	bool m_usable;	//false when unit is being built/produced
-	cost_c m_ressources;
+	cost_c m_providesRes;
 	Action m_action;	
 	ActionTimer m_healTimer, m_provideWTimer, m_provideGTimer, m_produceTimer;
 	std::deque<ProductionItem> m_producing;
@@ -66,14 +66,14 @@ class Unit {
 	Unit(UnitType* type, Position pos, Player* player);
 
 	//Receive damage, be healed, get gold/wood - this is what another unit can do to this unit
-	int receiveDamage(power_c power, Unit* from);	//Returns actual dammage, taking defense into account
+	int receiveDamage(Calculator& info, Unit* from);	//Returns actual dammage, taking defense into account
 	int beHealed(int howMany);			//Called when another unit builds/repairs or produces this
 	int getWood(int howMany);			//Called when another unit harvests this
 	int getGold(int howMany);			//Called when another unit mines this
 	
 	public:
 	void recalculateCharacteristics();
-	const unit_c& characts() const { return m_characteristics; }
+	Calculator &info() { return m_info; }
 	const UnitType& type() const { return *m_type; }
 	const std::vector<Amelioration*> possibleA() const { return m_possibleAmeliorations; }
 	const std::vector<Amelioration*> gotA() const { return m_ameliorations; }

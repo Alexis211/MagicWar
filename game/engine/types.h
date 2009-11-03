@@ -70,7 +70,7 @@ class Point2DInt {
 };
 
 enum PowerType {
-	PHYSIC = 0, FIRE = 1, ICE = 2, STORM =3
+	PHYSIC = 0, FIRE = 1, WATER = 2, STORM = 3, PLANT = 4
 };
 
 // PLAYER RELATED TYPES
@@ -126,9 +126,9 @@ struct Action {
 // MOVING RELATED TYPES
 enum MoveLayer {
 	NO_MOVE_LAYER = 0,		//Unit doesn't move
-	WATER = 1,
-	GROUND = 2,
-	AIR = 3
+	ML_WATER = 1,
+	ML_GROUND = 2,
+	ML_AIR = 3
 };
 
 struct MapSquare {

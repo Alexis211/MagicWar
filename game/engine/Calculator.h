@@ -19,32 +19,43 @@
 /*	MagicWar 0.1 alpha
  *	by Alexis211
  *  ----------------------------
- *  	Amelioration.h
- *  	Header file for amelioration class
+ *  	Calculator.h
+ *  	Header file for Calculator class
+ *  	This class is used for making calculations (lol)
  *  	*/
-#ifndef DEF_MW_AMELIORATION
-#define DEF_MW_AMELIORATION
+#ifndef DEF_MW_CALCULATOR
+#define DEF_MW_CALCULATOR
 
-#include <engine/Parser.h>
-#include <engine/characteristics.h>
-#include <engine/Calculator.h>
 #include <string>
-#include <vector>
 #include <map>
+#include <../config.h>
+#include <engine/Exception.h>
 
-class UnitType;
+#define F_KNOWN 2
+#define F_WIP 1
+#define F_UNKNOWN 0
 
-struct Amelioration {
-	std::string m_name;
-	std::string m_description;
-	cost_c m_cost;
-	float m_time;	//Time required for amelioration
-	std::vector<UnitType*> m_canBuild;
-	std::vector<UnitType*> m_canProduce;
-	std::vector<Amelioration*> m_requires;
-	Calculator m_info;
+struct Formula {
+	std::string formula;
+	int state;
+	float value;
+};
 
-	void load(Parser& parser, std::string name, std::map<std::string, Amelioration> other_ameliorations);
+class Calculator {
+	private:
+	std::map<std::string, Formula> m_f;
+
+	float calculate(std::string formula);
+
+	public:
+	float get(std::string name);
+	void set(std::string name, std::string formula);
+	void recalculate();	//Recalculates all formulas
+
+	void combineTo(Calculator& other);
+	void copyTo(Calculator& other);
+
+	float operator[] (std::string name) { return get(name); }
 };
 
 #endif

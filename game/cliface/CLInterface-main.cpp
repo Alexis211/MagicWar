@@ -38,8 +38,7 @@ void CLInterface::gameMain(Game& g, Player* p) {
 			Unit& u = *g.units()[i];
 			cout << i << ". " << u.player()->name() << "'s " << u.type().m_name << " " <<
 				"(" << u.pos().x << "," << u.pos().y << ") " <<
-				u.life() << "/" << u.characts().maxlife.value << " P:" << 
-				u.characts().power.value;
+				u.life() << "/" << u.info()["maxlife"] << " P:" << u.info()["power"];
 			for (unsigned int j = 0; j < u.gotA().size(); j++) {
 				cout << " " << u.gotA()[j]->m_name;
 			}

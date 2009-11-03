@@ -1,0 +1,24 @@
+# when nothing is specified, default formula is "0".
+costgold
+costwood
+sight
+defenseneutral
+defensefire
+defensewater
+defensestorm
+defenseplant
+power
+attackrange
+attackspeed
+attacktype
+maxlife
+autoheals
+provideswood
+providesgold
+canfetchwood
+canfetchgold
+spaceoccupied
+spaceprovided
+radius=1
+layer=1
+movingspeed

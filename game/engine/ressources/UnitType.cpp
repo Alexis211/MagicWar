@@ -32,21 +32,39 @@
 
 using namespace std;
 
+map<string, string> UnitType::defaultFormulas;
 map<string, UnitType> UnitType::unitTypes;
 
 void UnitType::loadUnitTypes() {
-	cout << _("Loading unit types...") << endl;
-	string unitlist = DATAPATH;
-	unitlist += "/units/list";
-	ifstream file(unitlist.c_str(), ios::in);
-	if (file) {
-		string s;
-		while (getline(file, s)) {
-			unitTypes.insert(make_pair(s, UnitType()));
+	string filename = DATAPATH;
+	cout << _("Reading default formulas for units...") << endl;
+	{
+		ifstream file((filename + "/units/default.formulas").c_str(), ios::in); 
+		if (file) {
+			string s;
+			while (getline(file, s)) {
+				if (s == "" or s[0] == '#') continue;
+				vector<string> t = SplitStr(s, '=');
+				defaultFormulas.insert(make_pair(t[0], (t.size() > 1 ? t[1] : "0")));
+			}
+			file.close();
+		} else {
+			throw Exception(_("Cannot read default formulas file"), ERROR);
 		}
-		file.close();
-	} else {
-		throw Exception(_("Cannot read unit list"), ERROR);
+	}
+	cout << _("Loading unit types...") << endl;
+	{
+		ifstream file((filename + "/units/list").c_str(), ios::in);
+		if (file) {
+			string s;
+			while (getline(file, s)) {
+				if (s == "" or s[0] == '#') continue;
+				unitTypes.insert(make_pair(s, UnitType()));
+			}
+			file.close();
+		} else {
+			throw Exception(_("Cannot read unit list"), ERROR);
+		}
 	}
 	map<string, UnitType>::iterator it = unitTypes.begin();
 	while (it != unitTypes.end()) {
@@ -65,30 +83,47 @@ void UnitType::load(string idfier) {
 		throw Exception(string(_("Cannot load data for unit ")) + idfier);
 	}
 
+	//Load global stuff
+	p.setSection("global");
 	m_name = p.getValueString("name", "NONAMED UNIT");
 	m_description = p.getValueString("description", "NODESCRIPTED UNIT");
 	m_productionSpeed = p.getValueInt("productionspeed", 0);
-	m_characteristics.load(p);
+	m_cost.load(p, "cost");
 
-	{
+	{	//Load build possibilities
 		vector<string> cb = SplitStr(p.getValueString("canbuild", ""));
 		for (unsigned int i = 0; i < cb.size(); i++) m_canBuild.push_back(&unitTypes[cb[i]]);
 	}
 
-	{
+	{	//Load production possibilities
 		vector<string> cp = SplitStr(p.getValueString("canproduce", ""));
 		for (unsigned int i = 0; i < cp.size(); i++) m_canProduce.push_back(&unitTypes[cp[i]]);
 	}
 
-	{
+	{	//Fetch amelioration list
 		vector<string> aa = SplitStr(p.getValueString("activeameliorations", ""));
 		for (unsigned int i = 0; i < aa.size(); i++) m_ameliorations.insert(make_pair(aa[i], Amelioration()));
 	}
+	
+	p.setSection("formulas");
+	{	//Load formulas
+		map<string, string>::iterator it = defaultFormulas.begin();
+		while (it != defaultFormulas.end()) {
+			string f = p.getValueString(it->first, "");
+			if (f == "") {
+				m_info.set(it->first, it->second);
+			} else {
+				m_info.set(it->first, f);
+			}
+			it++;
+		}
+	}
 
-	map<string, Amelioration>::iterator it = m_ameliorations.begin();
-	while (it != m_ameliorations.end()) {
-		p.setSection(it->first);
-		it->second.load(p, m_ameliorations);
-		it++;
+	{	//Load ameliorations
+		map<string, Amelioration>::iterator it = m_ameliorations.begin();
+		while (it != m_ameliorations.end()) {
+			it->second.load(p, it->first, m_ameliorations);
+			it++;
+		}
 	}
 }
