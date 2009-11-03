@@ -42,12 +42,24 @@
 #include <engine/game/Game.h>
 #include "Repr2D.h"
 
+struct View {
+	float zoom;
+	float sx, sy;
+
+	Point2D Pix2Real(int x, int y) {
+		return Point2D((x / zoom) + sx, (y / zoom) + sy);
+	}
+	Point2DInt Real2Pix(float x, float y) {
+		return Point2DInt((x - sx) * zoom, (y - sy) * zoom);
+	}
+};
+
 class Interface2D : public Interface {
 	private:
 	sf::RenderWindow m_app;
 	sf::Font m_font;
 	Console m_c;
-	std::vector<Repr2D*> m_repr;
+	std::vector<Repr2D*> *m_repr;
 
 	public:
 	Interface2D(int argc, char *argv[]);
@@ -64,6 +76,10 @@ class Interface2D : public Interface {
 	void localGame();
 	void networkGame();
 	void gameMain(Game& g, Player* p);
+
+	Repr2D* findUnit(int x, int y);
+
+	View m_v;
 };
 
 #endif

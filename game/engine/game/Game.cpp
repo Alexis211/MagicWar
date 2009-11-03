@@ -65,8 +65,8 @@ void Game::setupPlayers() {
 				addUnit(sw[j], &m_players[i], p); 
 				m_units.back()->m_life = m_units.back()->info()["maxlife"];
 				m_units.back()->m_usable = true;
-				p.x += 3;
-				if (p.x > 20) p.x = 2, p.y += 3;
+				p.x += 8;
+				if (p.x > 40) p.x = 2, p.y += 8;
 			}
 			m_players[i].recalculateSpace();
 		}

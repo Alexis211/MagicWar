@@ -126,6 +126,18 @@ void Unit::recalculateCharacteristics() {
  * 				(functions that tell the unit to do something)
  * 													*********************/
 
+void Unit::target(Unit* other) {
+	if (!other->dead() && other->player() != m_player) {
+		attack(other);
+	} else if (other->m_providesRes.wood != 0) {
+		harvest(other);
+	} else if (other->m_providesRes.gold != 0) {
+		mine(other); 
+	} else {
+		heal(other);
+	}
+}
+
 void Unit::doNothing() {
 	m_action.what = IDLE;
 	m_action.timer.set(0);
@@ -133,7 +145,7 @@ void Unit::doNothing() {
 
 void Unit::attack(Unit* other) {
 	if (other->m_player == m_player) return;
-	if (m_info["attackspeed"] == 0) return;
+	if (m_info["attackspeed"] == 0.f) return;
 	m_action.what = ATTACK;
 	m_action.who = other;
 	m_action.timer.set(1.f / (float)m_info["attackspeed"]);
@@ -141,6 +153,7 @@ void Unit::attack(Unit* other) {
 
 void Unit::heal(Unit* other) {
 	if (other->m_player != m_player) return;
+	if (other->dead()) return;
 	if (other->info()["movingspeed"] == 0) {
 		if (m_info["buildspeed"] == 0) return;
 		m_action.what = HEAL;
@@ -271,8 +284,8 @@ void Unit::doAction(float time) {
 	int times = m_action.timer.times(time);
 	//Do action
 	if (m_action.what == ATTACK) {
-		for (int i = 0; i < times; i++) {
-			if (doMove(m_action.who, true, time)) {
+		if (doMove(m_action.who, true, time)) {
+			for (int i = 0; i < times; i++) {
 				if (m_action.who->receiveDamage(m_info, this) == 0) {
 					doNothing();
 					if (m_action.who->m_player->id() == 0 and m_action.who->m_providesRes.wood > 0) harvest(m_action.who);

@@ -36,26 +36,27 @@
 
 using namespace std;
 
-sf::Color playerColor[9] =
-	{sf::Color(100, 50, 0),
-		sf::Color(0, 0, 255),
-		sf::Color(255, 0, 0),
-		sf::Color(0, 255, 0),
-		sf::Color(0, 255, 255),
-		sf::Color(255, 0, 255),
-		sf::Color(255, 255, 0),
-		sf::Color(255, 255, 255),
-		sf::Color(0, 0, 0)};
-
 UnitRepr* Interface2D::reprUnit(Unit* u) {
-	m_repr.push_back(new Repr2D(u, this));
-	return m_repr.back();
+	m_repr->push_back(new Repr2D(u, this));
+	return m_repr->back();
+}
+
+Repr2D* Interface2D::findUnit(int x, int y) {
+	for (uint i = 0; i < m_repr->size(); i++) {
+		if (m_repr->at(i)->in(x, y)) return m_repr->at(i);
+	}
+	return 0;
 }
 
 //************************************************************************************
 //*****************************************		GAME MAIN ROUTINE
 
 void Interface2D::gameMain(Game& g, Player* p) {
+	const sf::Input& input = m_app.GetInput();
+
+	m_v.zoom = 20;
+	m_v.sx = 0;
+	m_v.sy = 0;
 	PRPT;
 	while (m_app.IsOpened()) {
 		m_app.Clear(sf::Color(0, 0, 0));
@@ -70,6 +71,32 @@ void Interface2D::gameMain(Game& g, Player* p) {
 						m_c.kp((char)event.Text.Unicode);
 					} else {
 						if (event.Text.Unicode == '\r') m_c.toggle();
+					}
+				}
+			} else if (event.Type == sf::Event::MouseButtonPressed) {
+				if (event.MouseButton.Button == sf::Mouse::Left) {
+					Repr2D* e = findUnit(input.GetMouseX(), input.GetMouseY());
+					if (e != 0) {
+						e->m_selected = (e->m_selected ? false : true);
+					} else {
+						for (uint i = 0; i < m_repr->size(); i++) m_repr->at(i)->m_selected = false;
+					}
+				} else if (event.MouseButton.Button == sf::Mouse::Right) {
+					Repr2D* e = findUnit(input.GetMouseX(), input.GetMouseY());
+					if (e != 0) {
+						for (uint i = 0; i < m_repr->size(); i++) {
+							Repr2D& r = *(m_repr->at(i));
+							if (r.m_selected && (r.u()->player() == p or p == 0)) {
+								r.m_u->target(e->u());
+							}
+						}
+					} else {
+						for (uint i = 0; i < m_repr->size(); i++) {
+							Repr2D& r = *(m_repr->at(i));
+							if (r.m_selected && (r.u()->player() == p or p == 0)) {
+								r.m_u->goTo(m_v.Pix2Real(input.GetMouseX(), input.GetMouseY()));
+							}
+						}
 					}
 				}
 			}
@@ -90,6 +117,9 @@ void Interface2D::gameMain(Game& g, Player* p) {
 			PRPT;
 		}
 
+		for (uint i = 0; i < m_repr->size(); i++) {
+			m_repr->at(i)->render(m_app, m_font);
+		}
 
 		if (m_c.o()) m_c.display(m_app, m_font);
 		m_app.Display();

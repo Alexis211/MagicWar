@@ -31,11 +31,12 @@
 class UnitRepr {
 	protected:
 	Unit* m_u;
-	Interface* m_i;
 
 	public:
 	virtual ~UnitRepr() {}
 	virtual void update(float time) = 0;
+
+	Unit* u() { return m_u; }
 };
 
 #endif

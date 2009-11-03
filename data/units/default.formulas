@@ -21,6 +21,8 @@ canfetchwood
 canfetchgold
 spaceoccupied
 spaceprovided
+buildspeed
+productionspeed
 radius=1
 layer=1
 movingspeed

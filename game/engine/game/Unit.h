@@ -95,6 +95,7 @@ class Unit {
 	bool doMove(Point2D pos, float precision, float t);	//Called by doAction when unit goes somewhere (true when arrived)
 	bool doMove(Unit* unit, bool forAttcking, float t);	//Called by doAction when unit has to go to another unit
 	//Start doing something - this is what user/AI could ask the unit to do
+	void target(Unit* other);	//Do whatever we can do to this unit
 	void doNothing();	//Called to put unit in an idle state
 	void attack(Unit* other);
 	void heal(Unit* other);	//For buildings : repair with buildspeed. For moving units, heal using autoheal factor

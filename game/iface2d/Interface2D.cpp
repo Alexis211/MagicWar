@@ -38,8 +38,8 @@ using namespace std;
 
 Interface2D::Interface2D(int argc, char *argv[]) {
 	if (m_c.o()) m_c.toggle();
+	m_repr = 0;
 	m_c.print(_("Welcome to the MagicWar game console ! Type 'help' for... help. duh."));
-	m_c.print("~#MW> ");
 }
 
 //********************************************************************************************
@@ -109,14 +109,6 @@ void Interface2D::mainMenu() {
 				}
 			}
 		}
-		
-		m_app.Clear(sf::Color(0, 0, 0));
-
-		sf::String text(U_("Hai ! Welcome to MagicWar's main menu.\n\nYour choices are :\nL : Local game\nN : Network game\nQ or Escape : exit"), m_font, 16);
-
-		text.SetColor(sf::Color(255,255,255));
-		text.Move((Parser::gameCfg.getValueInt("ScreenWidth") / 2) - (text.GetRect().GetWidth() / 2), 100);
-		m_app.Draw(text);
 
 		string s;
 		while ((s = m_c.readline()) != "") {
@@ -137,6 +129,20 @@ void Interface2D::mainMenu() {
 			}
 			PRPT;
 		}
+
+		if (m_repr != 0) {
+			for (uint i = 0; i < m_repr->size(); i++) delete m_repr->at(i);
+			delete m_repr;
+			m_repr = 0;
+		}
+		
+		m_app.Clear(sf::Color(0, 0, 0));
+
+		sf::String text(U_("Hai ! Welcome to MagicWar's main menu.\n\nYour choices are :\nL : Local game\nN : Network game\nQ or Escape : exit"), m_font, 16);
+
+		text.SetColor(sf::Color(255,255,255));
+		text.Move((Parser::gameCfg.getValueInt("ScreenWidth") / 2) - (text.GetRect().GetWidth() / 2), 100);
+		m_app.Draw(text);
 
 		if (m_c.o()) m_c.display(m_app, m_font);
 
@@ -174,6 +180,7 @@ void Interface2D::credits() {
 void Interface2D::localGame() {
 	Game g(this);
 	PRPT;
+	m_repr = new vector<Repr2D*>;
 
 	bool isHuman = true;
 

@@ -25,15 +25,27 @@
 #ifndef DEF_MW_2DREPR
 #define DEF_MW_2DREPR
 
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+
 #include <engine/game/UnitRepr.h>
+
+class Interface2D;
 
 class Repr2D : public UnitRepr {
 	friend class Interface2D;
+	bool m_selected;
+	Interface2D* m_i;
 
 	private:
-	Repr2D(Unit* u, Interface* iface);
+	Repr2D(Unit* u, Interface2D* iface);
 	virtual ~Repr2D();
 	virtual void update(float time);
+
+	bool in(int x, int y);
+	
+	void render(sf::RenderWindow &app, sf::Font &font);
 };
 
 #endif
