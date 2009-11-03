@@ -7,6 +7,6 @@
 #define INSTALLDIR "/opt/magicwar"
 #define PACKAGE "magicwar"
 #define LOCALEDIR "/opt/magicwar/data/locale"
-#define DATAPATH "/home/alexis211/Programmation/stratagil/magicwar/data"
+#define DATAPATH "/home/alexis211/programmation/stratagil/MagicWar/data"
 
 #endif

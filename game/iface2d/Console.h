@@ -14,52 +14,43 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- */ 
+ */
 
 /*	MagicWar 0.1 alpha
  *	by Alexis211
  *  ----------------------------
- *  	Interface2D.h
- *  	Header file for Interface2D class
- *  	This class is the one managing 2D interface
+ *  	Console.h
+ *  	Header file for the game text console
  *  	*/
-#ifndef DEF_MW_IFACE2D_CLASS
-#define DEF_MW_IFACE2D_CLASS
+#ifndef DEF_MW_CONSOLE
+#define DEF_MW_CONSOLE
 
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
-#include <engine/Exception.h>
-#include <engine/Interface.h>
-#include <engine/Parser.h>
+#include <engine/types.h>
 
 #include <deque>
+#include <queue>
 #include <string>
 
-#include "Console.h"
-
-#include <engine/game/Game.h>
-
-class Interface2D : public Interface {
+class Console {
 	private:
-	sf::RenderWindow m_app;
-	sf::Font m_font;
-	Console m_c;
+	std::string m_line;
+	std::queue<std::string> m_input;
+	std::deque<std::string> m_lines;
+	bool m_opened;
 
 	public:
-	Interface2D(int argc, char *argv[]);
-	void splashScreen();
-	void mainMenu();
-	void credits(); //This function also destroys interface windows and other stuff
+	bool o() { return m_opened; }
+	void toggle() { m_opened = (m_opened ? false : true); }
+	void display(sf::RenderWindow &app, sf::Font &font);
+	void print(std::string wat);
+	std::string readline();
 
-	void consoleExec(std::vector<std::string> &cmdline);
-	void consoleHelp();
-
-	//All the places of the game
-	void localGame();
-	void networkGame();
-	void gameMain(Game& g, Player* p);
+	void kp(char c);
+	void bksp();
 };
 
 #endif

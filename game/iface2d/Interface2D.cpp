@@ -32,6 +32,8 @@
 #include "../../config.h"
 #include <engine/functions.h>
 
+#define PRPT m_c.print("~#MW> ")
+
 using namespace std;
 
 sf::Color playerColor[9] =
@@ -46,6 +48,9 @@ sf::Color playerColor[9] =
 		sf::Color(0, 0, 0)};
 
 Interface2D::Interface2D(int argc, char *argv[]) {
+	if (m_c.o()) m_c.toggle();
+	m_c.print(_("Welcome to the MagicWar game console ! Type 'help' for... help. duh."));
+	m_c.print("~#MW> ");
 }
 
 //********************************************************************************************
@@ -90,7 +95,7 @@ void Interface2D::mainMenu() {
 			if ((event.Type == sf::Event::Closed) or (event.Type == sf::Event::KeyPressed and event.Key.Code == sf::Key::Escape)) {
 				running = false;
 			}
-			if (event.Type == sf::Event::KeyPressed) {
+			if (event.Type == sf::Event::KeyPressed && !m_c.o()) {
 				switch (event.Key.Code) {
 					case sf::Key::L:
 						localGame();
@@ -104,6 +109,14 @@ void Interface2D::mainMenu() {
 					default:
 						break;
 				}
+			} else if (event.Type == sf::Event::TextEntered) {
+				if (event.Text.Unicode < 0x80) {
+					if (m_c.o()) {
+						m_c.kp((char)event.Text.Unicode);
+					} else {
+						if (event.Text.Unicode == '\r') m_c.toggle();
+					}
+				}
 			}
 		}
 		
@@ -114,6 +127,28 @@ void Interface2D::mainMenu() {
 		text.SetColor(sf::Color(255,255,255));
 		text.Move((Parser::gameCfg.getValueInt("ScreenWidth") / 2) - (text.GetRect().GetWidth() / 2), 100);
 		m_app.Draw(text);
+
+		string s;
+		while ((s = m_c.readline()) != "") {
+			vector<string> cmdline = SplitStr(s);
+			if (cmdline[0] == "exit") {
+				return;
+			} else if (cmdline[0] == "help") {
+				m_c.print(_("- localgame"));
+				m_c.print(_("- netgame"));
+				m_c.print(_("- exit"));
+				consoleHelp();
+			} else if (cmdline[0] == "localgame") {
+				localGame();
+			} else if (cmdline[0] == "netgame") {
+				networkGame();
+			} else {
+				consoleExec(cmdline);
+			}
+			PRPT;
+		}
+
+		if (m_c.o()) m_c.display(m_app, m_font);
 
 		m_app.Display();
 	}
@@ -147,7 +182,82 @@ void Interface2D::credits() {
 //****************************************		GAME MENUS
 
 void Interface2D::localGame() {
+	Game g;
+	PRPT;
 
+	bool isHuman = true;
+
+	while (m_app.IsOpened()) {
+		m_app.Clear(sf::Color(0, 0, 0));
+
+		sf::Event event;
+		while (m_app.GetEvent(event)) {
+			if (event.Type == sf::Event::Closed or (event.Type == sf::Event::KeyPressed && event.Key.Code == sf::Key::Escape)) {
+				return;
+			} else if (event.Type == sf::Event::TextEntered) {
+				if (event.Text.Unicode < 0x80) {
+					if (m_c.o()) {
+						m_c.kp((char)event.Text.Unicode);
+					} else {
+						if (event.Text.Unicode == '\r') m_c.toggle();
+					}
+				}
+			}
+		}
+
+		string s;
+		while ((s = m_c.readline()) != "") {
+			vector<string> cmdline = SplitStr(s);
+			if (cmdline[0] == "exit") {
+				return;
+			} else if (cmdline[0] == "help") {
+				m_c.print(_("Help for the local game configuration screen console :"));
+				m_c.print(_("- initres <initial_gold> <initial_wood>"));	
+				m_c.print(_("- addplayer <name> <faction_id>"));
+				m_c.print(_("- start [su]"));
+				m_c.print(_("- exit"));
+				consoleHelp();
+			} else if (cmdline[0] == "initres") {
+				if (cmdline.size() != 3) {
+					m_c.print(_("Usage : initres <initial_gold> <initial_wood>"));
+				} else {
+					g.setInitialRessources({gold: Str2Int(cmdline[1]), wood: Str2Int(cmdline[2])});
+					m_c.print(_("Ok."));
+				}
+			} else if (cmdline[0] == "addplayer") {
+				if (cmdline.size() != 3) {
+					m_c.print(_("Usage: addplayer <name> <faction_id>"));
+				} else {
+					uint f = Str2Int(cmdline[2]);
+					if (f < 0 or f >= Faction::factions.size()) f = 1;
+					g.addPlayer(&Faction::factions[f], cmdline[1], (isHuman ? HUMAN : COMPUTER));
+					if (isHuman) {
+						m_c.print(string(_("Human player added : ")) + cmdline[1]);
+					} else {
+						m_c.print(string(_("AI player added : ")) + cmdline[1]);
+					}
+					isHuman = false;
+				}
+			} else if (cmdline[0] == "start") {
+				bool isSu = (cmdline.size() == 2 && cmdline[1] == "su");
+				g.setupPlayers();
+				gameMain(g, (isSu ? 0 : &g.players()[1]));
+				return;
+			} else {
+				consoleExec(cmdline);
+			}
+			PRPT;
+		}
+
+		sf::String text(U_("Please use the console to configure the game (show by pressing return)"), m_font, 16);
+		text.SetColor(sf::Color(255,255,255));
+		text.Move((Parser::gameCfg.getValueInt("ScreenWidth") / 2) - (text.GetRect().GetWidth() / 2), 300);
+		m_app.Draw(text);
+
+		if (m_c.o()) m_c.display(m_app, m_font);
+
+		m_app.Display();
+	}
 }
 
 void Interface2D::networkGame() {
@@ -157,7 +267,18 @@ void Interface2D::networkGame() {
 //************************************************************************************
 //*****************************************		GAME MAIN ROUTINE
 
-void Interface2D::gameMain() {
-
+void Interface2D::gameMain(Game& g, Player* p) {
+	m_c.print(_("Not implemented yet."));
 }
 
+//************************************************************************************
+//*****************************************		GAME CONSOLE FUNCTIONS
+
+void Interface2D::consoleExec(vector<string>& cmdline) {
+	m_c.print(_("Unknown command..."));
+}
+
+void Interface2D::consoleHelp() {
+	m_c.print(_("Global help for game console :"));
+	m_c.print(_("- nothing exists yet."));
+}

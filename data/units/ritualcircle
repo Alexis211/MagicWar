@@ -1,7 +1,12 @@
+@global
 name=_("Ritual Circle")
 description=_("Base meeting place for forecasters.")
 costgold=150
 costwood=200
+canproduce=apparition
+activeameliorations=a1
+
+@formulas
 maxlife=500
 power=14
 attackrange=2
@@ -11,11 +16,11 @@ defensephysic=3
 sight=6
 radius=2
 spaceprovided=10
-canproduce=apparition
-activeameliorations=a1
 
-@a1
+@a1.global
 name=_("Power enhancement")
 description=_("The ritual circle becomes... MORE POWERFUL!!!")
 time=2
-power=3
+
+@a1.formulas
+power=17

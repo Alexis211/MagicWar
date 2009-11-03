@@ -1,7 +1,11 @@
+@global
 name=_("Apparition")
 description=_("Base unit for forecasters.")
 costgold=10
 costwood=20
+canbuild=ritualcircle
+
+@formulas
 power=10
 maxlife=100
 attackspeed=1
@@ -12,6 +16,5 @@ layer=2
 canfetchgold=10
 canfetchwood=10
 spaceoccupied=1
-canbuild=ritualcircle
 buildspeed=12
 productionspeed=7

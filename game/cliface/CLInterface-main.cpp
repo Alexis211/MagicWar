@@ -141,7 +141,7 @@ void CLInterface::gameMain(Game& g, Player* p) {
 				cin >> o;
 				if (o > 0 and o <= g.units()[n]->possibleA().size()) {
 					if (!g.units()[n]->ameliorate(g.units()[n]->possibleA()[o - 1])) {
-						cout << _("Noit enough money/space.") << endl;
+						cout << _("Not enough money/space.") << endl;
 					} else {
 						cout << "==> " << UI(n) << _("ameliorates with ") << g.units()[n]->possibleA()[o - 1]->m_name << endl;
 					}
