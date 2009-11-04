@@ -32,8 +32,6 @@
 #include "../../config.h"
 #include <engine/functions.h>
 
-#define PRPT m_c.print("~#MW> ")
-
 using namespace std;
 
 Interface2D::Interface2D(int argc, char *argv[]) {
@@ -98,7 +96,6 @@ void Interface2D::mainMenu() {
 					default:
 						break;
 				}
-				PRPT;
 			} else if (event.Type == sf::Event::TextEntered) {
 				if (event.Text.Unicode < 0x80) {
 					if (m_c.o()) {
@@ -127,7 +124,6 @@ void Interface2D::mainMenu() {
 			} else {
 				consoleExec(cmdline);
 			}
-			PRPT;
 		}
 
 		if (m_repr != 0) {
@@ -179,7 +175,6 @@ void Interface2D::credits() {
 
 void Interface2D::localGame() {
 	Game g(this);
-	PRPT;
 	m_repr = new vector<Repr2D*>;
 
 	bool isHuman = true;
@@ -243,7 +238,6 @@ void Interface2D::localGame() {
 			} else {
 				consoleExec(cmdline);
 			}
-			PRPT;
 		}
 
 		sf::String text(U_("Please use the console to configure the game (show by pressing return)"), m_font, 16);

@@ -31,25 +31,25 @@ using namespace std;
 
 #define VSPACE 16
 
+#define PROMPT string("~#MW> ")
+
 void Console::display(sf::RenderWindow &app, sf::Font &font) {
 	sf::Shape r = sf::Shape::Rectangle(0, 0, app.GetWidth(), CONSOLE_HEIGHT, sf::Color(128,128,128,100));
 	app.Draw(r);
 	sf::String text("", font, 16);
 	text.SetColor(sf::Color(255,255,255));
 	for (uint i = 0; i < m_lines.size(); i++) {
-		if (i == m_lines.size() - 1) {
-			text.SetText((sf::Unicode::UTF8String)((const unsigned char*)(m_lines[i] + "_").c_str()));
-		} else {
-			text.SetText((sf::Unicode::UTF8String)((const unsigned char*)m_lines[i].c_str()));
-		}
+		text.SetText((sf::Unicode::UTF8String)((const unsigned char*)m_lines[i].c_str()));
 		app.Draw(text);
 		text.Move(0, VSPACE);
 	}
+	text.SetText(PROMPT + m_line + "_");
+	app.Draw(text);
 }
 
 void Console::print(string wat) {
 	m_lines.push_back(wat);
-	while (m_lines.size() > CONSOLE_HEIGHT / VSPACE) m_lines.pop_front();
+	while (m_lines.size() > (CONSOLE_HEIGHT / VSPACE) - 1) m_lines.pop_front();
 }
 
 string Console::readline() {
@@ -65,19 +65,18 @@ string Console::readline() {
 void Console::kp(char c) {
 	if (c == '\r') {
 		m_input.push(m_line);
+		print(PROMPT + m_line);
 		m_line = "";
 	} else if (c == 8) {
 		bksp();
 	} else if (c >= ' ') {
 		m_line += c;
-		m_lines.back() += c;
 	}
 }
 
 void Console::bksp() {
 	if (m_line != "") {
 		m_line = m_line.substr(0, m_line.length() - 1);
-		m_lines.back() = m_lines.back().substr(0, m_lines.back().length() - 1);
 	}
 }
 

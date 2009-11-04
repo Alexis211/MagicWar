@@ -46,9 +46,9 @@ void CLInterface::gameMain(Game& g, Player* p) {
 			cout << endl;
 		}
 		if (p != 0) {
-		   	cout << _("* You have : ") << p->res().gold << _(" units of gold, ") << p->res().wood << _(" units of wood") << endl;
+		   	cout << _("Ressources : ") << p->res().gold << _(" units of gold, ") << p->res().wood << _(" units of wood") << endl;
 		} else {
-			cout << _("* Ressources (gold,wood) : ");
+			cout << _("Ressources (gold,wood) : ");
 			for (unsigned int i = 0; i < g.players().size(); i++) {
 				cout << g.players()[i].name() << "(" << g.players()[i].res().gold << "," << g.players()[i].res().wood << ") ";
 			}

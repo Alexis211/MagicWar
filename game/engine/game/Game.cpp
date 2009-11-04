@@ -55,9 +55,9 @@ void Game::addPlayer(Faction *faction, std::string name, PlayerType type) {
 }
 
 void Game::setupPlayers() {
-	addUnit(&UnitType::unitTypes["tree1"], &m_players[0], {10, 10, 0});
-	addUnit(&UnitType::unitTypes["mine1"], &m_players[0], {10, 13, 0});
-	Position p = {2, 2, 0};
+	addUnit(&UnitType::unitTypes["tree1"], &m_players[0], {17, 13, 0});
+	addUnit(&UnitType::unitTypes["mine1"], &m_players[0], {14, 13, 0});
+	Position p = {4, 4, 0};
 	for (uint i = 1; i < m_players.size(); i++) {
 		if (m_players[i].m_type != NETWORK) {
 			vector<UnitType*>& sw = m_players[i].m_faction->m_startsWith;
@@ -66,7 +66,7 @@ void Game::setupPlayers() {
 				m_units.back()->m_life = m_units.back()->info()["maxlife"];
 				m_units.back()->m_usable = true;
 				p.x += 8;
-				if (p.x > 40) p.x = 2, p.y += 8;
+				if (p.x > 40) p.x = 4, p.y += 8;
 			}
 			m_players[i].recalculateSpace();
 		}

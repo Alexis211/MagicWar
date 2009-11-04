@@ -1,0 +1,31 @@
+This file describes the file format for the maps, present in data/maps and
+registered in data/maps/maps.list.
+
+The file is a simple list of values, separated by either spaces or carriage
+returns. These values are usually grouped on a line. Most of these values are
+numbers (float or int), but not always.
+
+The first two values are respectively the map's width and height.
+
+Then, for each map square frop left to right and from top to bottom has 5 values
+:
+1 Terrain height for this square
+2 Water level for this square, usually 0 except for rivers
+3 Terrain texture
+4 Terrain texture variant
+5 Is the square walkable ?
+  - Air units can go anywhere
+  - Water units can go on a square if water level > terrain level and square is
+    walkable
+  - Ground units can go on a square if terrain level > water leval and square is
+    walkabke
+
+The file next contains informations on the units that should be placed on the
+map : next value is the number of units to place, and the for each of them, 3
+values :
+1 Unit type (see data/units)
+2 X coordinate
+3 Y corrdinate
+
+Next the map contains information on the player's bases' locations : for all 8
+possible bases, two values : X and Y coordinates.

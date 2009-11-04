@@ -132,7 +132,7 @@ enum MoveLayer {
 };
 
 struct MapSquare {
-	float height;
+	float height, waterHeight;
 	float unitMaxRadius;		//Used for pathfinding
 	int texture;
 	int textureVariant;

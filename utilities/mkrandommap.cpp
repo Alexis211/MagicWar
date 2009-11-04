@@ -2,6 +2,8 @@
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
+#include <vector>
+#include <string>
 
 using namespace std;
 
@@ -19,6 +21,7 @@ int main() {
 	cin >> terrainvariant;
 	cout << "Smootness (recommended 3 to 5) : ";
 	cin >> smoothness;
+	cout << "Generating map..." << endl;
 
 	float *map = new float[(width + 1) * (height + 1)];
 
@@ -26,7 +29,7 @@ int main() {
 
 	for (unsigned int x = 0; x <= width; x++) {
 		for (unsigned int y = 0; y <= width; y++) {
-			map[x * width + y] = (float)rand() / (float)RAND_MAX * 50.f - 20.f;
+			map[x * width + y] = (float)rand() / (float)RAND_MAX * 50.f - 23.f;
 		}
 	}
 
@@ -53,11 +56,30 @@ int main() {
 		file << width << " " << height << endl;
 		for (unsigned int x = 0; x <= width; x++) {
 			for (unsigned int y = 0; y <= height; y++) {
-				file << map[x * width + y] << " " << terraintype << " "
+				file << map[x * width + y] << " " << 0 << " " << terraintype << " "
 					<< terrainvariant << " " << true << endl;
 			}
 		}
-		file << 0 << endl << 0 << endl;
+		cout << "How many random units to place : ";
+		int n;
+		cin >> n;
+		cout << "These units will be selected in : tree1(10) mine1(1)" << endl;
+		vector<string> types;
+		types.push_back("mine1");
+		for (int i = 0; i < 10; i++) types.push_back("tree1");
+		for (int i = 0; i < n; i++) {
+			file << types[(float)(rand() / (float)RAND_MAX * (float)types.size())] << " " <<
+				(float)(rand() / (float)RAND_MAX * width) << " " << (float)(rand() / (float)RAND_MAX * height) << endl;
+		}
+		//Bases positions
+		file << width / 4 << " " << height / 4 << endl;
+		file << width / 4 * 3 << " " << height / 4 * 3 << endl;
+		file << width / 4 << " " << height / 4 * 3 << endl;
+		file << width / 4 * 3 << " " << height / 4 << endl;
+		file << width / 2 << " " << height / 4 << endl;
+		file << width / 2 << " " << height / 4 * 3 << endl;
+		file << width / 4 << " " << height / 2 << endl;
+		file << width / 4 * 3 << " " << height / 2 << endl;
 
 		file.close();
 		cout << "Done, saved to newmap.map" << endl;

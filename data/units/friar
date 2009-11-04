@@ -3,6 +3,7 @@ name=_("Friar")
 description=_("Base unit for priests")
 costgold=60
 costwood=0
+productionspeed=7
 
 @formulas
 power=@ 1 3 RR
@@ -16,4 +17,3 @@ canfetchgold=1
 canfetchwood=1
 spaceoccupied=1
 buildspeed=12
-productionspeed=7

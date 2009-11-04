@@ -4,17 +4,17 @@ description=_("Base unit for forecasters.")
 costgold=10
 costwood=20
 canbuild=ritualcircle
+productionspeed=7
 
 @formulas
 power=@ 1 2 +R
 disppower=2
-maxlife=100
+maxlife=50
 attackspeed=2 10 /
 movingspeed=2
 radius=1
 layer=2
-canfetchgold=10
-canfetchwood=10
+canfetchgold=1
+canfetchwood=1
 spaceoccupied=1
 buildspeed=12
-productionspeed=7

@@ -3,6 +3,7 @@ name=_("Spirit of the woods")
 description=_("Base unit for druids")
 costgold=60
 costwood=5
+productionspeed=7
 
 @formulas
 power=0
@@ -14,4 +15,3 @@ canfetchgold=1
 canfetchwood=1
 spaceoccupied=1
 buildspeed=12
-productionspeed=7

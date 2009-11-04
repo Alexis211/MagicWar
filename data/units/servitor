@@ -3,6 +3,7 @@ name=_("Servitor")
 description=_("Base unit for mysticals")
 costgold=80
 costwood=0
+productionspeed=8
 
 @formulas
 power=@ 8 10 RR
@@ -16,4 +17,3 @@ canfetchgold=1
 canfetchwood=1
 spaceoccupied=1
 buildspeed=12
-productionspeed=8

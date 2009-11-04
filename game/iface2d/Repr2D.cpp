@@ -72,8 +72,9 @@ void Repr2D::render(sf::RenderWindow &app, sf::Font &font) {
 			   	pxpos.y - 3, pxpos.x + (LIFEBARWIDTH / 2), pxpos.y + 3, sf::Color(128, 128, 128));
 		app.Draw(r);
 		float f = (float)m_u->life() / m_u->info()["maxlife"];
-		r = sf::Shape::Rectangle(pxpos.x - (LIFEBARWIDTH / 2)
-				, pxpos.y - 3, pxpos.x - (LIFEBARWIDTH / 2) + (float)(LIFEBARWIDTH * f), pxpos.y + 3, sf::Color(255, 255, 255));
+		r = sf::Shape::Rectangle(pxpos.x - (LIFEBARWIDTH / 2),
+				pxpos.y - 3, pxpos.x - (LIFEBARWIDTH / 2) + (float)(LIFEBARWIDTH * f), 
+				pxpos.y + 3, sf::Color(255, 255, 255));
 		app.Draw(r);
 	}
 }
