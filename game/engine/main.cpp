@@ -37,6 +37,7 @@
 #include "../cliface/CLInterface.h"
 
 #include "ressources/UnitType.h"
+#include "game/Map.h"
 
 using namespace std;
 
@@ -123,6 +124,7 @@ int main(int argc, char *argv[]) {
 		interface->splashScreen();
 		UnitType::loadUnitTypes();
 		Faction::loadFactions();
+		Map::loadList();
 		interface->mainMenu();
 		interface->credits();
 	} catch(const exception& except) {

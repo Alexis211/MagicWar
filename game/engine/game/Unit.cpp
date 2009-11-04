@@ -244,7 +244,7 @@ int Unit::receiveDamage(Calculator& info, Unit* from) {
 	if (info["powertype"] == PLANT) v *= (1 - (m_info["defenseplant"] / 100));
 	if (v > m_life) v = m_life;
 	m_life -= v;
-	attack(from);
+	if (m_action.what != ATTACK) attack(from);
 	if (dead() && v != 0) m_player->recalculateSpace();
 	return v;
 }

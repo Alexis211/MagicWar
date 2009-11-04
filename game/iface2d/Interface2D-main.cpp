@@ -77,11 +77,13 @@ void Interface2D::gameMain(Game& g, Player* p) {
 					if (m_v.sy < 0) m_v.sy = 0;
 				} else if (event.Key.Code == sf::Key::Down) {
 					m_v.sy += 0.5;
+					if (m_v.sy > g.map().dim().y) m_v.sy = g.map().dim().y;
 				} else if (event.Key.Code == sf::Key::Left) {
 					m_v.sx -= 0.5;
 					if (m_v.sx < 0) m_v.sx = 0;
 				} else if (event.Key.Code == sf::Key::Right) {
 					m_v.sx += 0.5;
+					if (m_v.sx > g.map().dim().x) m_v.sx = g.map().dim().x;
 				}
 			} else if (event.Type == sf::Event::MouseButtonPressed) {
 				if (event.MouseButton.Button == sf::Mouse::Left) {

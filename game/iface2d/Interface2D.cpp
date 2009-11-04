@@ -206,6 +206,7 @@ void Interface2D::localGame() {
 				m_c.print(_("Help for the local game configuration screen console :"));
 				m_c.print(_("- initres <initial_gold> <initial_wood>"));	
 				m_c.print(_("- addplayer <name> <faction_id>"));
+				m_c.print(_("- loadmap [<name>]"));
 				m_c.print(_("- start [su]"));
 				m_c.print(_("- exit"));
 				consoleHelp();
@@ -230,11 +231,27 @@ void Interface2D::localGame() {
 					}
 					isHuman = false;
 				}
+			} else if (cmdline[0] == "loadmap") {
+				if (cmdline.size() == 2) {
+					if (g.map().load(cmdline[1], g)) {
+						m_c.print(_("Loaded."));
+					} else {
+						m_c.print(_("Error : map already loaded."));
+					}
+				} else {
+					m_c.print(_("Available maps :"));
+					for (uint i = 0; i < Map::mapList.size(); i++) {
+						m_c.print(Map::mapList[i]);
+					}
+				}	
 			} else if (cmdline[0] == "start") {
 				bool isSu = (cmdline.size() == 2 && cmdline[1] == "su");
-				g.setupPlayers();
-				gameMain(g, (isSu ? 0 : &g.players()[1]));
-				return;
+				if (g.setupPlayers()) {
+					gameMain(g, (isSu ? 0 : &g.players()[1]));
+					return;
+				} else {
+					m_c.print(_("Error : no map loaded."));
+				}
 			} else {
 				consoleExec(cmdline);
 			}

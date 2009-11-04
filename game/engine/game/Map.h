@@ -19,48 +19,35 @@
 /*	MagicWar 0.1 alpha
  *	by Alexis211
  *  ----------------------------
- *  	Game.h
- *  	Header file for game class
+ *  	Map.h
+ *  	Header file for the map handling class
  *  	*/
-#ifndef DEF_MW_GAME
-#define DEF_MW_GAME
+#ifndef DEF_MW_MAP
+#define DEF_MW_MAP
 
-#include "Player.h"
-#include "Unit.h"
 #include <engine/types.h>
 #include <vector>
-#include "GameThread.h"
-#include <engine/Interface.h>
-#include "Map.h"
+#include <string>
 
-class Game {
-	friend class Unit;
-	friend class GameThread;
-	friend class Map;
+class Game;
 
+class Map {
 	private:
-	cost_c m_initialRessources;
-	std::vector<Player> m_players;
-	std::vector<Unit*> m_units;
-	GameThread m_thread;
-	GameStatus m_status;
-	Interface *m_iface;
-	Map m_map;
-
-	Unit* addUnit(UnitType* type, Player* player, Position pos, bool usable = false);
+	MapSquare* m_map;
+	Point2D m_basesPositions[MAX_PLAYERS];
+	uint m_width, m_height;
 
 	public:
-	Game(Interface* iface);
-	~Game();
+	Map();
+	bool load(std::string mapname, Game& g);
+	bool loaded() { return m_map != 0; }
+	Point2D basePos(int id);
 
-	void setInitialRessources(cost_c res);
-	void addPlayer(Faction *faction, std::string name, PlayerType type);	
-	bool setupPlayers();
+	MapSquare &at(uint x, uint y);
+	Point2DInt dim() const { return Point2DInt(m_width, m_height); }
 
-	std::vector<Player>& players() { return m_players; }
-	std::vector<Unit*>& units() { return m_units; }
-
-	Map& map() { return m_map; }
+	static std::vector<std::string> mapList;
+	static void loadList();
 };
 
 #endif

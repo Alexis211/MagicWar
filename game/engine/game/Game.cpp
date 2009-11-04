@@ -54,17 +54,14 @@ void Game::addPlayer(Faction *faction, std::string name, PlayerType type) {
 	m_players.push_back(Player(m_players.size(), faction, name, m_initialRessources, type, this));
 }
 
-void Game::setupPlayers() {
-	addUnit(&UnitType::unitTypes["tree1"], &m_players[0], {17, 13, 0});
-	addUnit(&UnitType::unitTypes["mine1"], &m_players[0], {14, 13, 0});
+bool Game::setupPlayers() {
+	if (!m_map.loaded()) return false;
 	Position p = {4, 4, 0};
 	for (uint i = 1; i < m_players.size(); i++) {
 		if (m_players[i].m_type != NETWORK) {
 			vector<UnitType*>& sw = m_players[i].m_faction->m_startsWith;
 			for (uint j = 0; j < sw.size(); j++) {
-				addUnit(sw[j], &m_players[i], p); 
-				m_units.back()->m_life = m_units.back()->info()["maxlife"];
-				m_units.back()->m_usable = true;
+				addUnit(sw[j], &m_players[i], p, true); 
 				p.x += 8;
 				if (p.x > 40) p.x = 4, p.y += 8;
 			}
@@ -72,10 +69,16 @@ void Game::setupPlayers() {
 		}
 	}
 	m_status = STARTED;
+	return true;
 }
 
-Unit* Game::addUnit(UnitType* type, Player* player, Position pos) {
+Unit* Game::addUnit(UnitType* type, Player* player, Position pos, bool usable) {
+	if (player == 0) player = &m_players[0];
 	m_units.push_back(new Unit(type, pos, player, m_iface));
+	if (usable) {
+		m_units.back()->m_life = m_units.back()->info()["maxlife"];
+		m_units.back()->m_usable = true;
+	}
 	player->recalculateSpace();
 	return m_units.back();
 }

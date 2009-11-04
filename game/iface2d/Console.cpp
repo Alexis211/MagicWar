@@ -56,7 +56,6 @@ string Console::readline() {
 	if (!m_input.empty()) {
 		std::string r = m_input.front();
 		m_input.pop();
-		if (r == "") toggle();
 		return r;
 	}
 	return "";
@@ -64,9 +63,13 @@ string Console::readline() {
 
 void Console::kp(char c) {
 	if (c == '\r') {
-		m_input.push(m_line);
-		print(PROMPT + m_line);
-		m_line = "";
+		if (m_line != "") {
+			m_input.push(m_line);
+			print(PROMPT + m_line);
+			m_line = "";
+		} else {
+			m_opened = false;
+		}
 	} else if (c == 8) {
 		bksp();
 	} else if (c >= ' ') {

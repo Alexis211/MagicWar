@@ -63,10 +63,11 @@ int main() {
 		cout << "How many random units to place : ";
 		int n;
 		cin >> n;
+		file << n << endl;
 		cout << "These units will be selected in : tree1(10) mine1(1)" << endl;
 		vector<string> types;
-		types.push_back("mine1");
-		for (int i = 0; i < 10; i++) types.push_back("tree1");
+		types.push_back("tree1"); types.push_back("mine1");
+		for (int i = 0; i < 9; i++) types.push_back("tree1");
 		for (int i = 0; i < n; i++) {
 			file << types[(float)(rand() / (float)RAND_MAX * (float)types.size())] << " " <<
 				(float)(rand() / (float)RAND_MAX * width) << " " << (float)(rand() / (float)RAND_MAX * height) << endl;

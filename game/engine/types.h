@@ -28,8 +28,11 @@
 #include <string>
 #include <cmath>
 #include <engine/Exception.h>
+#include <../config.h>
 
 // GLOBAL TYPES
+#define MAX_PLAYERS 8
+
 typedef unsigned int uint;
 
 class Point2D {
@@ -141,6 +144,8 @@ struct MapSquare {
 
 struct Position {
 	float x, y, angle;
+	Position() {}
+	Position(float xx, float yy, float aa) : x(xx), y(yy), angle(aa) {}
 };
 
 #endif
